@@ -184,18 +184,6 @@ public class DIYarrayList<T> implements List<T> {
         }
     }
 
-    @Override
-    public int hashCode() {
-        System.out.println("super.hashCode() = " + super.hashCode());
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        System.out.println("super.equals((obj)) = " + super.equals((obj)));
-        return super.equals(obj);
-    }
-
     private class IterList implements ListIterator<T> {
         private int cursor;
 
