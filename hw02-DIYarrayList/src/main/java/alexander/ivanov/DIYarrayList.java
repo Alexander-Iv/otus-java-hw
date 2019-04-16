@@ -8,14 +8,12 @@ public class DIYarrayList<T> implements List<T> {
 
     private T[] array;
     private int size;
-    private int capacity;
 
     public DIYarrayList() {
         this(DEFAULT_CAPACITY);
     }
 
     public DIYarrayList(int capacity) {
-        this.capacity = capacity;
         array = (T[]) new Object[capacity];
     }
 
@@ -141,7 +139,7 @@ public class DIYarrayList<T> implements List<T> {
     @Override
     public String toString() {
         return "{" +
-                "capacity=" + capacity +
+                "capacity=" + array.length +
                 ", size=" + size +
                 ", [" + printArrayContent() + "]" +
                 "}";
@@ -174,12 +172,12 @@ public class DIYarrayList<T> implements List<T> {
     }
 
     private void increaseCapacity() {
-        if (capacity < size+1) {
-            capacity += DEFAULT_CAPACITY;
-            T[] tmp = (T[])new Object[capacity];
-            for (int i = 0; i < array.length; i++) {
+        if (array.length < size+1) {
+            T[] tmp = (T[])new Object[array.length + DEFAULT_CAPACITY];
+            /*for (int i = 0; i < array.length; i++) {
                 tmp[i] = array[i];
-            }
+            }*/
+            System.arraycopy(array, 0, tmp, 0, array.length);
             array = tmp;
         }
     }
