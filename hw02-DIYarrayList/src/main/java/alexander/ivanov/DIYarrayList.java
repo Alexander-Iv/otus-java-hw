@@ -174,9 +174,6 @@ public class DIYarrayList<T> implements List<T> {
     private void increaseCapacity() {
         if (array.length < size+1) {
             T[] tmp = (T[])new Object[array.length + DEFAULT_CAPACITY];
-            /*for (int i = 0; i < array.length; i++) {
-                tmp[i] = array[i];
-            }*/
             System.arraycopy(array, 0, tmp, 0, array.length);
             array = tmp;
         }
@@ -229,7 +226,6 @@ public class DIYarrayList<T> implements List<T> {
 
         @Override
         public void set(T t) {
-            /*System.out.println("DIYarrayList.this = " + DIYarrayList.this + " newVal = " + t);*/
             DIYarrayList.this.set(cursor-1, t);
         }
 
