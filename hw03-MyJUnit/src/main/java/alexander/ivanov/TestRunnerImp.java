@@ -13,11 +13,13 @@ public class TestRunnerImp implements TestRunnerI {
     public void run(Class<?> clazz) {
         Object main = newInstance(clazz);
 
-        invoke(clazz, main, clazz.getDeclaredMethods(), BeforeAll.class);
-        invoke(clazz, main, clazz.getDeclaredMethods(), BeforeEach.class);
-        invoke(clazz, main, clazz.getDeclaredMethods(), Test.class);
-        invoke(clazz, main, clazz.getDeclaredMethods(), AfterEach.class);
-        invoke(clazz, main, clazz.getDeclaredMethods(), AfterAll.class);
+        System.out.println("~~~~~ " + clazz.getSimpleName() + " ~~~~~");
+        invoke(main, clazz.getDeclaredMethods(), BeforeAll.class);
+        invoke(main, clazz.getDeclaredMethods(), BeforeEach.class);
+        invoke(main, clazz.getDeclaredMethods(), Test.class);
+        invoke(main, clazz.getDeclaredMethods(), AfterEach.class);
+        invoke(main, clazz.getDeclaredMethods(), AfterAll.class);
+        System.out.println();
     }
 
     private Object newInstance(Class<?> clazz) {
@@ -35,7 +37,7 @@ public class TestRunnerImp implements TestRunnerI {
         return null;
     }
 
-    private void invoke(Class<?> clazz, Object object, Method[] methods, Class<? extends Annotation> annotation) {
+    private void invoke(Object object, Method[] methods, Class<? extends Annotation> annotation) {
         for (Method method : methods) {
             try {
                 for (Annotation a: method.getDeclaredAnnotationsByType(annotation)) {

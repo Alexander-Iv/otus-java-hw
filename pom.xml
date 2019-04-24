@@ -10,6 +10,7 @@
     <modules>
         <module>hw01-maven</module>
         <module>hw02-DIYarrayList</module>
+        <module>hw03-MyJUnit</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -28,9 +29,10 @@
         <!--versions-->
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <com.google.guava.version>27.1-jre</com.google.guava.version>
         <maven.assembly.plugin.version>3.1.1</maven.assembly.plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <com.google.guava.version>27.1-jre</com.google.guava.version>
+        <org.projectlombok.lombok.version>1.18.6</org.projectlombok.lombok.version>
     </properties>
 
     <dependencyManagement>
@@ -46,6 +48,13 @@
                 <artifactId>junit-jupiter</artifactId>
                 <version>RELEASE</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${org.projectlombok.lombok.version}</version>
+                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
