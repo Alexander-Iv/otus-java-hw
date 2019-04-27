@@ -1,4 +1,4 @@
-package alexander.ivanov;
+package alexander.ivanov.clazz;
 
 import alexander.ivanov.annotations.AfterAll;
 import alexander.ivanov.annotations.BeforeAll;

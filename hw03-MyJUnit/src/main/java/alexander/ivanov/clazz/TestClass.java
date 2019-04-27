@@ -1,4 +1,4 @@
-package alexander.ivanov;
+package alexander.ivanov.clazz;
 
 import alexander.ivanov.annotations.*;
 
@@ -15,7 +15,6 @@ public class TestClass {
     }
 
     TestClass() {
-        System.out.println("TestClass()");
     }
 
     @BeforeEach
@@ -38,8 +37,8 @@ public class TestClass {
     }
 
     @Test
-    void testWitchException() {
-        throw new RuntimeException();
+    void testWithException() {
+        throw new RuntimeException("Ошибка при выполнении тестовго метода testWithException()");
     }
 
     @Test
