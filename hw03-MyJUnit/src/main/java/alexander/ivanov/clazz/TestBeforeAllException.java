@@ -5,8 +5,13 @@ import alexander.ivanov.annotations.BeforeAll;
 import alexander.ivanov.annotations.Test;
 
 public class TestBeforeAllException {
+
     @BeforeAll
-    public void beforeAll() {
+    public void beforeAllWithoutStatic() {
+    }
+
+    @BeforeAll
+    public static void beforeAll2() {
         throw new RuntimeException();
     }
 
@@ -16,7 +21,11 @@ public class TestBeforeAllException {
     }
 
     @AfterAll
-    public void afterAll() {
+    public static void afterAll() {
 
+    }
+
+    @AfterAll
+    public void afterAllWithoutStatic() {
     }
 }

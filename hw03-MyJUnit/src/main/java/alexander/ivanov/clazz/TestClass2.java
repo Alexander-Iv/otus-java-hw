@@ -6,7 +6,7 @@ import alexander.ivanov.annotations.Test;
 
 public class TestClass2 {
     @BeforeAll
-    public static void i() {
+    public void i() {
     }
 
     public void vvv() {
@@ -19,7 +19,7 @@ public class TestClass2 {
     }
 
     @AfterAll
-    public void nov() {
+    public static void nov() {
 
     }
 }
