@@ -10,10 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class TestRunner extends LifeCycle {
+public class TestRunner {
     private static Logger log = Logger.getGlobal();
     private static Class<?> clazz;
-    private Object test;
 
     static {
         System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$s] %5$s %n");
@@ -23,43 +22,30 @@ public class TestRunner extends LifeCycle {
         this.clazz = clazz;
     }
 
-    @Override
-    protected void beforeAll() {
+    private void beforeAll() {
         invoke(clazz, getMethods(clazz, BeforeAll.class));
     }
 
-    @Override
-    protected void beforeEach() {
-        invoke(test, getMethods(test, BeforeEach.class));
-    }
-
-    @Override
-    protected void test() {
+    private void test() {
+        Object test = null;
         for (Method m : getMethods(clazz, Test.class)) {
             try {
                 test = newInstance(clazz);
-                beforeEach();
+                invoke(test, getMethods(test, BeforeEach.class));
                 invoke(test, m);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                afterEach();
+                invoke(test, getMethods(test, AfterEach.class));
             }
         }
     }
 
-    @Override
-    protected void afterEach() {
-        invoke(test, getMethods(test, AfterEach.class));
-    }
-
-    @Override
-    protected void afterAll() {
+    private void afterAll() {
         invoke(clazz, getMethods(clazz, AfterAll.class));
     }
 
-    @Override
-    protected void run() {
+    private void run() {
         try {
             beforeAll();
             test();
