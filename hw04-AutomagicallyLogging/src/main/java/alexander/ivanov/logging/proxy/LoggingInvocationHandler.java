@@ -1,5 +1,6 @@
 package alexander.ivanov.logging.proxy;
 
+import alexander.ivanov.logging.proxy.util.Comparators;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,14 +23,14 @@ public class LoggingInvocationHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         for (Method annotatedMethod: methods) {
-            if (annotatedMethod.getName().equals(method.getName())) {
+            if (Comparators.equals(annotatedMethod, method)) {
                 StringBuilder params = new StringBuilder();
                 params.append("(");
                 if (args != null) {
                     int i = 0;
                     for (Object o : args) {
                         params.append(o);
-                        if (i != args.length-1) {
+                        if (i < args.length-1) {
                             params.append(", ");
                         }
                         i++;

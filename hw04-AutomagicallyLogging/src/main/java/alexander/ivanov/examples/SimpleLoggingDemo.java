@@ -15,8 +15,17 @@ public class SimpleLoggingDemo {
                 SimpleLogging.class,
                 Log.class);
         logging.calculation(6);
-        logging.add(1,1);
+        logging.add(1F,1F);
         logging.pow(2,2);
+        logging.add(1,1);
+
+        /*logger.info("*****");
+        logger.info("*****");
+        SimpleLoggingImpl logging2 = (SimpleLoggingImpl) LoggingProxy.newInstance(
+                new SimpleLoggingImpl(),
+                SimpleLogging.class,
+                Log.class);
+        logging2.foo(2,2);*/
         logger.info("SimpleLoggingDemo.main ~~~ end");
     }
 }

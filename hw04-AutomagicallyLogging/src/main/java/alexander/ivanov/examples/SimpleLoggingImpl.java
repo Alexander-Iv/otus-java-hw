@@ -17,7 +17,18 @@ public class SimpleLoggingImpl implements SimpleLogging {
 
     @Log
     @Override
+    public void add(float a, float b) {
+
+    }
+
+    @Log
+    @Override
     public int pow(int a, int b) {
         return a*b;
+    }
+
+    @Log
+    public void foo(int a, int b) {
+
     }
 }
