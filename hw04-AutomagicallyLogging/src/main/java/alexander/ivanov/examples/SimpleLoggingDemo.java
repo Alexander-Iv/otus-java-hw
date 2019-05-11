@@ -15,6 +15,8 @@ public class SimpleLoggingDemo {
                 SimpleLogging.class,
                 Log.class);
         logging.calculation(6);
+        logging.add(1,1);
+        logging.pow(2,2);
         logger.info("SimpleLoggingDemo.main ~~~ end");
     }
 }

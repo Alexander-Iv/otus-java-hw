@@ -1,6 +1,5 @@
 package alexander.ivanov.logging.proxy;
 
-import alexander.ivanov.examples.SimpleLogging;
 import alexander.ivanov.logging.Logging;
 import alexander.ivanov.logging.proxy.util.SourceAnalyzerForProxyInvoke;
 import org.slf4j.Logger;
@@ -27,7 +26,7 @@ public class LoggingProxy {
         logger.info("analyzer = " + analyzer);
         logger.info("*****");
 
-        InvocationHandler handler = new LoggingInvocationHandler(analyzer.getSource(), analyzer.getMethod());
+        InvocationHandler handler = new LoggingInvocationHandler(analyzer.getSource(), analyzer.getMethods());
 
         logger.info("handler = " + handler);
         logger.info("*****");

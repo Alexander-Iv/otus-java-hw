@@ -8,4 +8,16 @@ public class SimpleLoggingImpl implements SimpleLogging {
     public void calculation(int param) {
 
     }
+
+    @Log
+    @Override
+    public void add(int a, int b) {
+
+    }
+
+    @Log
+    @Override
+    public int pow(int a, int b) {
+        return a*b;
+    }
 }

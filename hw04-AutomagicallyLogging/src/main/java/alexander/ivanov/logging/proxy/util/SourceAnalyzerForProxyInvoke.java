@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SourceAnalyzerForProxyInvoke<T> {
     private static final Logger logger = LoggerFactory.getLogger(SourceAnalyzerForProxyInvoke.class);
@@ -12,7 +14,7 @@ public class SourceAnalyzerForProxyInvoke<T> {
     private Class<? extends Annotation> annotation;
 
     private T source;
-    private Method method;
+    private List<Method> methods = new ArrayList<>();
 
     public SourceAnalyzerForProxyInvoke(Object source, Class<? extends Annotation> annotation) {
         this.source = (T)source;
@@ -23,32 +25,31 @@ public class SourceAnalyzerForProxyInvoke<T> {
         return source;
     }
 
-    public Method getMethod() {
-        return method;
+    public List<Method> getMethods() {
+        return methods;
     }
 
     public void analyze() {
         logger.info("SourceAnalyzerForProxyInvoke.analyze");
         logger.info("source = " + source);
 
+        logger.info("annotated methods");
         for (Method annotatedMethod: ReflectionHelper.getMethods(source, annotation)) {
             logger.info("annotatedMethod = " + annotatedMethod);
-            method = annotatedMethod;
+            methods.add(annotatedMethod);
         }
 
-        if (method == null) {
-            throw new RuntimeException("Annotated method not found");
+        if (methods.isEmpty()) {
+            throw new RuntimeException("Annotated methods not found");
         }
-
-        logger.info("method.getParameterCount() = " + method.getParameterCount());
     }
 
     @Override
     public String toString() {
         return "SourceAnalyzerForProxyInvoke{" +
-                "\n annotation=" + annotation +
-                ",\n source=" + source +
-                ",\n method=" + method +
-                "\n}";
+                "annotation=" + annotation +
+                ", source=" + source +
+                ", methods=" + methods +
+                '}';
     }
 }
