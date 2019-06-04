@@ -1,5 +1,6 @@
 package alexander.ivanov;
 
 public interface Money {
-    Enum value(Number amount) throws UnsupportedOperationException;
+    Nominal value(Number amount);
+    Nominal getNominal() throws UnsupportedOperationException;
 }

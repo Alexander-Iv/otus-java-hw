@@ -1,8 +1,8 @@
 package alexander.ivanov;
 
 public interface ATM {
-    boolean put(Number amount);
-    boolean get(Number amount);
-    Number total();
-    //Money cell();
+    boolean putCash(Number amount);
+    boolean getCash(Number amount);
+    void printBalance();
+    //Cell cell();
 }

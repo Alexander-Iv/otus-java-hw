@@ -5,43 +5,27 @@ import org.slf4j.LoggerFactory;
 
 public class Ruble implements Money {
     private static final Logger logger = LoggerFactory.getLogger(Ruble.class);
+    private RubleNominal nominal;
 
-    private NOMINAL nominal;
-
-    public enum NOMINAL {
-        R100(100),
-        R200(200),
-        R500(500),
-        R1000(1000),
-        R2000(2000),
-        R5000(5000);
-
-        private Integer amount;
-
-        NOMINAL(Integer amount) {
-            this.amount = amount;
-        }
-
-        public Integer getAmount() {
-            return amount;
-        }
+    public Ruble(Number amount) {
+        this.nominal = value(amount);
     }
 
     @Override
-    public NOMINAL value(Number amount) throws UnsupportedOperationException {
-        for (NOMINAL nominal : NOMINAL.values()) {
-            if (nominal.getAmount().equals(amount)) {
+    public RubleNominal value(Number amount) {
+        for (RubleNominal nominal : RubleNominal.values()) {
+            if (nominal.getAmount().equals(amount.intValue())) {
                 this.nominal = nominal;
                 break;
             }
         }
+        return this.nominal;
+    }
 
-        //logger.info("nominal = " + nominal);
-
+    public RubleNominal getNominal() throws UnsupportedOperationException {
         if (nominal == null) {
             throw new UnsupportedOperationException("Amount not supported");
         }
-
         return nominal;
     }
 }

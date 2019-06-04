@@ -4,23 +4,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class RubleBalance implements Balance {
-    //private static final Logger logger = LoggerFactory.getLogger(RubleBalance.class);
+    private static final Logger logger = LoggerFactory.getLogger(RubleBalance.class);
 
-    private Integer amount;
-    private Ruble.NOMINAL nominal;
-    private Money money = new Ruble();
+    private Integer balance = 0;
 
     @Override
-    public void setAmount(Number amount) {
-        //logger.info("nominal = " + nominal);
-        nominal = (Ruble.NOMINAL)money.value(amount);
-        //logger.info("nominal = " + nominal);
+    public void addition(Money amount) {
+        balance += amount.getNominal().getAmount().intValue();
     }
 
     @Override
-    public Integer getAmount() {
-        //logger.info("RubleBalance.getAmount");
-        //logger.info("nominal = " + nominal.getAmount());
-        return nominal.getAmount();
+    public void spend(Money amount) throws UnsupportedOperationException {
+        if (balance >= amount.getNominal().getAmount().intValue()) {
+            balance -= amount.getNominal().getAmount().intValue();
+        } else {
+            throw new UnsupportedOperationException("Not enough money");
+        }
+    }
+
+    @Override
+    public Integer getBalance() {
+        return balance;
+    }
+
+    @Override
+    public String toString() {
+        return "RubleBalance{" +
+                "balance=" + balance +
+                '}';
     }
 }
