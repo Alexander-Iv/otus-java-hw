@@ -40,7 +40,7 @@ public class RubleCell implements Cell {
             //total += (rubleNominal.getAmount() * integer);
             total += total(rubleNominal).intValue();
         });
-        logger.debug("total = {}", total);
+        //logger.debug("total = {}", total);
         return total;
     }
 

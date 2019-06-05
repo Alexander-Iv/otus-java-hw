@@ -24,6 +24,7 @@ public class RubleATMDemo {
         */
         atm.printBalance();
         atm.getCash(100);
+        atm.getCash(100);
         //atm.getCash(15000); //не доступно
         atm.printBalance();
     }
