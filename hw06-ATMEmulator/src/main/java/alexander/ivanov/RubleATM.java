@@ -32,9 +32,6 @@ public class RubleATM implements ATM {
 
     @Override
     public boolean getCash(Number amount) {
-        /*if (total == null || total < amount.intValue()) {
-            return false;
-        }*/
         moneyBuf = new ArrayList<>();
 
         if(!checkCells(amount)) {
@@ -42,7 +39,6 @@ public class RubleATM implements ATM {
             return false;
         }
 
-        //Money money = new Ruble(amount);
         moneyBuf.forEach(money -> {
             cells.get(money);
             balance.spend(money);
@@ -53,7 +49,6 @@ public class RubleATM implements ATM {
     }
 
     public boolean checkCells(Number amount) {
-        //logger.info("RubleATM.checkCells");
         if (cells.total().intValue() < amount.intValue()) {
             logger.info("checkCells() = " + false);
             return false;
