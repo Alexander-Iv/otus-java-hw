@@ -13,6 +13,7 @@ public class RubleATMDemo {
 
         atm.putCash(50); //указанный номинал не поддерживается банкоматом
         atm.putCash(100);
+        atm.putCash(100);
         atm.putCash(500);
         atm.putCash(500);
         /*
@@ -23,9 +24,10 @@ public class RubleATMDemo {
         atm.putCash(5000);
         */
         atm.printBalance();
-        atm.getCash(100);
-        atm.getCash(100);
-        //atm.getCash(15000); //не доступно
+        //atm.getCash(100);
+        //atm.getCash(100);
+        atm.getCash(1200);
+        atm.getCash(100); //не доступно - Not enough money, т.к. уже списали 1200
         atm.printBalance();
     }
 }

@@ -3,17 +3,17 @@ package alexander.ivanov;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class RubleATM implements ATM {
     private static final Logger logger = LoggerFactory.getLogger(RubleATM.class);
 
     private Balance balance = new RubleBalance();
     private Cell cells = new RubleCell();
+    private Integer tmpAmount = 0;
+    List<Money> moneyBuf;
 
     @Override
     public boolean putCash(Number amount) {
@@ -35,40 +35,58 @@ public class RubleATM implements ATM {
         /*if (total == null || total < amount.intValue()) {
             return false;
         }*/
+        moneyBuf = new ArrayList<>();
 
-        checkCells(amount);
+        if(!checkCells(amount)) {
+            logger.info("Not enough money");
+            return false;
+        }
 
-        Money money = new Ruble(amount);
-        cells.get(money);
-        balance.spend(money);
-        logger.debug("cells.total() = {}", cells.total());
+        //Money money = new Ruble(amount);
+        moneyBuf.forEach(money -> {
+            cells.get(money);
+            balance.spend(money);
+        });
+        logger.debug("RESULT cells.total() = {}", cells.total());
 
         return false;
     }
 
     public boolean checkCells(Number amount) {
+        //logger.info("RubleATM.checkCells");
+        if (cells.total().intValue() < amount.intValue()) {
+            logger.info("checkCells() = " + false);
+            return false;
+        }
+        logger.info("need to give amount = " + amount);
+
         Map<RubleNominal, Integer> buf = cells.getCells();
         logger.debug("cells.getCells().values() = {}", buf.keySet());
-        Integer tmpAmount = amount.intValue();
 
-        logger.debug("buf.keySet().stream() = {}",
-                buf.keySet()
-                        .stream()
-                        .filter(rubleNominal -> buf.getOrDefault(rubleNominal, 0) > 0 )
-                        .filter(rubleNominal -> buf.getOrDefault(rubleNominal, 0) * rubleNominal.getAmount() <= amount.intValue() )
-                        //.map(rubleNominal -> amount.intValue() % rubleNominal.getAmount())
-                        .map(rubleNominal -> rubleNominal.getAmount() + " " + buf.getOrDefault(rubleNominal, 0))
-                        .collect(Collectors.toList())
-        );
-        
-        Arrays.stream(RubleNominal.values())
-                .peek(integer -> logger.debug("before integer = {}", integer))
-                .map(rubleNominal -> amount.intValue() % rubleNominal.getAmount())
-                //.filter(rubleNominal -> amount.intValue() % rubleNominal.getAmount() == 0)
-                .peek(integer -> logger.debug("after integer = {}", integer))
-                .count();
+        tmpAmount = amount.intValue();
+        buf.forEach((rubleNominal, integer) -> {
+            int count;
+            while((count = buf.getOrDefault(rubleNominal, 0)) > 0) {
+                logger.info("1 Amount = " + rubleNominal.getAmount());
+                logger.info("2 {} / {} = {}", tmpAmount, rubleNominal.getAmount(), tmpAmount / rubleNominal.getAmount());
+                if (tmpAmount / rubleNominal.getAmount() > 0) {
+                    tmpAmount -= rubleNominal.getAmount();
+                    logger.info("3 tmpAmount = " + tmpAmount);
+                    if (tmpAmount >= 0) {
+                        logger.info("4 add = " + rubleNominal.getAmount());
+                        moneyBuf.add(new Ruble(rubleNominal.getAmount()));
+                    }
+                }
+                buf.put(rubleNominal, --count);
+            }
 
-        return true;
+        });
+
+        int calcSum = moneyBuf.stream()
+                .map(money -> money.getNominal().getAmount().intValue()).mapToInt(value -> value).sum();
+        logger.info("calcSum = " + calcSum);
+
+        return amount.equals(calcSum);
     }
 
     @Override
