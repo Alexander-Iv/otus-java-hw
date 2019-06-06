@@ -12,6 +12,7 @@
         <module>hw02-DIYarrayList</module>
         <module>hw03-MyJUnit</module>
         <module>hw04-AutomagicallyLogging</module>
+        <module>hw05-GarbageCollectorsComparing</module>
         <module>hw06-ATMEmulator</module>
     </modules>
 

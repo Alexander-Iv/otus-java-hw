@@ -2,6 +2,7 @@
 **.iml
 **/target
 *.txt
+*.pdf
 
 # Compiled class file
 *.class

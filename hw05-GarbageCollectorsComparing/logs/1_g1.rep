@@ -1,0 +1,531 @@
+"D:\Program Files\Java\jdk-11.0.2\bin\java.exe" -Xms4g -Xmx4g -verbose:gc -Xlog:gc*=debug:file=logs/gc-%p-%t.txt:time,pid,tid,tags,level,uptime:filecount=1,filesize=10m "-javaagent:D:\Program Files\itellj idea\ideaIU-2019.1.1\lib\idea_rt.jar=63928:D:\Program Files\itellj idea\ideaIU-2019.1.1\bin" -Dfile.encoding=UTF-8 -classpath D:\IdeaProjects\otus-java-hw\hw05-GarbageCollectorsComparing\target\classes;D:\IdeaProjects\.m2\repository\com\google\guava\guava\27.1-jre\guava-27.1-jre.jar;D:\IdeaProjects\.m2\repository\com\google\guava\failureaccess\1.0.1\failureaccess-1.0.1.jar;D:\IdeaProjects\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;D:\IdeaProjects\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;D:\IdeaProjects\.m2\repository\org\checkerframework\checker-qual\2.5.2\checker-qual-2.5.2.jar;D:\IdeaProjects\.m2\repository\com\google\errorprone\error_prone_annotations\2.2.0\error_prone_annotations-2.2.0.jar;D:\IdeaProjects\.m2\repository\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;D:\IdeaProjects\.m2\repository\org\codehaus\mojo\animal-sniffer-annotations\1.17\animal-sniffer-annotations-1.17.jar;D:\IdeaProjects\.m2\repository\ch\qos\logback\logback-classic\1.2.3\logback-classic-1.2.3.jar;D:\IdeaProjects\.m2\repository\ch\qos\logback\logback-core\1.2.3\logback-core-1.2.3.jar;D:\IdeaProjects\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar alexander.ivanov.Main
+[0.061s][info][gc] Using G1
+GC name:G1 Young Generation
+GC name:G1 Old Generation
+19:11:02.477 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 0, totalDuration 0 ms, duration = 0 ms
+19:11:02.440 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 0, totalDuration 0 ms, duration = 0 ms
+19:11:02.478 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 0, totalDuration 0 ms, duration = 0 ms
+[3.462s][info][gc] GC(0) Pause Young (Normal) (G1 Evacuation Pause) 416M->354M(4096M) 548.616ms
+19:11:05.360 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 1 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[6.025s][info][gc] GC(1) Pause Young (Normal) (G1 Evacuation Pause) 750M->703M(4096M) 486.032ms
+19:11:07.844 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 2 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[8.817s][info][gc] GC(2) Pause Young (Normal) (G1 Evacuation Pause) 1085M->1033M(4096M) 430.135ms
+19:11:10.654 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 3 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[11.538s][info][gc] GC(3) Pause Young (Normal) (G1 Evacuation Pause) 1345M->1297M(4096M) 424.139ms
+19:11:13.370 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 4 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[14.736s][info][gc] GC(4) Pause Young (Normal) (G1 Evacuation Pause) 1721M->1674M(4096M) 489.612ms
+19:11:16.556 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 5 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[17.850s][info][gc] GC(5) Pause Young (Normal) (G1 Evacuation Pause) 1988M->1941M(4096M) 401.208ms
+19:11:19.662 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 6 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[17.935s][info][gc] GC(6) Pause Young (Concurrent Start) (G1 Humongous Allocation) 1944M->1947M(4096M) 70.321ms
+[17.935s][info][gc] GC(7) Concurrent Cycle
+19:11:19.814 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 7 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[19.220s][info][gc] GC(7) Pause Remark 2079M->1041M(4096M) 2.768ms
+[20.131s][info][gc] GC(7) Pause Cleanup 1134M->1134M(4096M) 0.389ms
+[20.138s][info][gc] GC(7) Concurrent Cycle 2203.087ms
+[21.866s][info][gc] GC(8) Pause Young (Prepare Mixed) (G1 Evacuation Pause) 1429M->1373M(4096M) 407.821ms
+19:11:23.702 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 8 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[25.411s][info][gc] GC(9) Pause Young (Mixed) (G1 Evacuation Pause) 1687M->1562M(4096M) 417.624ms
+19:11:27.239 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 9 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[28.958s][info][gc] GC(10) Pause Young (Mixed) (G1 Evacuation Pause) 1874M->1764M(4096M) 441.852ms
+19:11:30.789 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 10 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[32.883s][info][gc] GC(11) Pause Young (Mixed) (G1 Evacuation Pause) 2078M->1986M(4096M) 455.086ms
+19:11:34.712 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 11 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[32.963s][info][gc] GC(12) Pause Young (Concurrent Start) (G1 Humongous Allocation) 1987M->1992M(4096M) 68.222ms
+[32.963s][info][gc] GC(13) Concurrent Cycle
+19:11:34.784 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 12 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[35.143s][info][gc] GC(13) Pause Remark 2391M->1721M(4096M) 2.096ms
+[36.846s][info][gc] GC(13) Pause Cleanup 1869M->1869M(4096M) 0.442ms
+[36.852s][info][gc] GC(13) Concurrent Cycle 3889.435ms
+[37.967s][info][gc] GC(14) Pause Young (Prepare Mixed) (G1 Evacuation Pause) 1924M->1867M(4096M) 369.376ms
+19:11:39.796 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 13 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[41.963s][info][gc] GC(15) Pause Young (Mixed) (G1 Evacuation Pause) 2179M->2043M(4096M) 438.692ms
+19:11:43.783 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 14 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[46.465s][info][gc] GC(16) Pause Young (Mixed) (G1 Evacuation Pause) 2357M->2237M(4096M) 509.864ms
+19:11:48.299 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 15 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[51.401s][info][gc] GC(17) Pause Young (Mixed) (G1 Evacuation Pause) 2551M->2436M(4096M) 554.972ms
+19:11:53.235 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 16 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[56.444s][info][gc] GC(18) Pause Young (Mixed) (G1 Evacuation Pause) 2750M->2660M(4096M) 585.482ms
+19:11:58.274 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 17 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[56.532s][info][gc] GC(19) Pause Young (Concurrent Start) (G1 Humongous Allocation) 2661M->2665M(4096M) 76.151ms
+[56.532s][info][gc] GC(20) Concurrent Cycle
+19:11:58.379 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 18 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[60.050s][info][gc] GC(20) Pause Remark 3243M->2381M(4096M) 2.440ms
+19:12:02.489 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 18, totalDuration 7172 ms, duration = 7172 ms
+19:12:02.489 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 0, totalDuration 0 ms, duration = 0 ms
+19:12:02.489 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 0, totalDuration 0 ms, duration = 0 ms
+[62.460s][info][gc] GC(21) Pause Young (Normal) (G1 Evacuation Pause) 2527M->2472M(4096M) 405.665ms
+19:12:04.295 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 19 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[62.953s][info][gc] GC(20) Pause Cleanup 2493M->2493M(4096M) 0.489ms
+[62.956s][info][gc] GC(20) Concurrent Cycle 6424.568ms
+[67.582s][info][gc] GC(22) Pause Young (Prepare Mixed) (G1 Evacuation Pause) 2786M->2739M(4096M) 402.302ms
+19:12:09.418 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 20 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[72.901s][info][gc] GC(23) Pause Young (Mixed) (G1 Evacuation Pause) 3053M->2897M(4096M) 481.533ms
+19:12:14.735 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 21 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[78.485s][info][gc] GC(24) Pause Young (Mixed) (G1 Evacuation Pause) 3211M->3078M(4096M) 562.425ms
+19:12:20.317 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 22 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[84.286s][info][gc] GC(25) Pause Young (Mixed) (G1 Evacuation Pause) 3392M->3266M(4096M) 586.857ms
+19:12:26.123 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 23 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[90.409s][info][gc] GC(26) Pause Young (Mixed) (G1 Evacuation Pause) 3576M->3461M(4096M) 738.353ms
+[90.492s][info][gc] GC(27) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3462M->3467M(4096M) 69.442ms
+[90.493s][info][gc] GC(28) Concurrent Cycle
+19:12:32.571 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 24 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:12:32.571 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 25 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[95.137s][info][gc] GC(28) Pause Remark 3716M->2638M(4096M) 2.533ms
+[97.247s][info][gc] GC(29) Pause Young (Normal) (G1 Evacuation Pause) 2745M->2689M(4096M) 351.842ms
+19:12:39.081 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 26 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[98.538s][info][gc] GC(28) Pause Cleanup 2749M->2749M(4096M) 0.551ms
+[98.542s][info][gc] GC(28) Concurrent Cycle 8048.887ms
+[99.871s][info][gc] GC(30) Pause Young (Prepare Mixed) (G1 Humongous Allocation) 2823M->2804M(4096M) 226.151ms
+[101.429s][info][gc] GC(31) Pause Full (G1 Humongous Allocation) 2804M->1865M(4096M) 1558.051ms
+19:12:43.294 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 27 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:12:43.295 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 28 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+[102.075s][info][gc] GC(32) Pause Young (Concurrent Start) (G1 Humongous Allocation) 2430M->2430M(4096M) 10.159ms
+[102.075s][info][gc] GC(33) Concurrent Cycle
+19:12:43.903 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 29 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[107.312s][info][gc] GC(33) Pause Remark 2720M->2346M(4096M) 2.251ms
+[108.807s][info][gc] GC(34) Pause Young (Normal) (G1 Evacuation Pause) 2404M->2350M(4096M) 394.496ms
+19:12:50.646 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 30 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[110.094s][info][gc] GC(33) Pause Cleanup 2422M->2422M(4096M) 0.398ms
+[110.097s][info][gc] GC(33) Concurrent Cycle 8022.043ms
+[110.396s][info][gc] GC(35) Pause Young (Concurrent Start) (G1 Humongous Allocation) 2428M->2417M(4096M) 200.886ms
+[110.396s][info][gc] GC(36) Concurrent Cycle
+19:12:52.237 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 31 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[115.850s][info][gc] GC(36) Pause Remark 2707M->2523M(4096M) 1.982ms
+[116.644s][info][gc] GC(37) Pause Young (Normal) (G1 Evacuation Pause) 2547M->2488M(4096M) 344.243ms
+19:12:58.483 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 32 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[119.119s][info][gc] GC(36) Pause Cleanup 2612M->2612M(4096M) 0.458ms
+[119.122s][info][gc] GC(36) Concurrent Cycle 8725.630ms
+[119.368s][info][gc] GC(38) Pause Young (Concurrent Start) (G1 Humongous Allocation) 2618M->2600M(4096M) 177.298ms
+[119.368s][info][gc] GC(39) Concurrent Cycle
+19:13:01.214 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 33 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:13:02.489 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 1, totalDuration 1558 ms, duration = 1558 ms
+19:13:02.489 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 32, totalDuration 12120 ms, duration = 4948 ms
+19:13:02.489 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 0, totalDuration 0 ms, duration = 0 ms
+[125.493s][info][gc] GC(39) Pause Remark 2909M->2717M(4096M) 2.948ms
+[125.989s][info][gc] GC(40) Pause Young (Normal) (G1 Evacuation Pause) 2722M->2662M(4096M) 397.493ms
+19:13:07.827 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 34 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[128.637s][info][gc] GC(39) Pause Cleanup 2788M->2788M(4096M) 0.597ms
+[128.641s][info][gc] GC(39) Concurrent Cycle 9272.540ms
+[128.947s][info][gc] GC(41) Pause Young (Concurrent Start) (G1 Humongous Allocation) 2794M->2776M(4096M) 277.313ms
+[128.947s][info][gc] GC(42) Concurrent Cycle
+19:13:10.799 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 35 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[135.390s][info][gc] GC(42) Pause Remark 3085M->2893M(4096M) 2.313ms
+[135.812s][info][gc] GC(43) Pause Young (Normal) (G1 Evacuation Pause) 2898M->2840M(4096M) 322.190ms
+19:13:17.642 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 36 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[138.931s][info][gc] GC(42) Pause Cleanup 2983M->2983M(4096M) 0.552ms
+[138.934s][info][gc] GC(42) Concurrent Cycle 9987.141ms
+[142.946s][info][gc] GC(44) Pause Young (Prepare Mixed) (G1 Evacuation Pause) 3154M->3108M(4096M) 370.517ms
+19:13:24.776 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 37 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[150.411s][info][gc] GC(45) Pause Young (Mixed) (G1 Evacuation Pause) 3422M->3331M(4096M) 565.596ms
+19:13:32.243 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 38 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[157.937s][info][gc] GC(46) Pause Young (Mixed) (G1 Evacuation Pause) 3645M->3595M(4096M) 463.423ms
+19:13:39.769 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 39 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[158.016s][info][gc] GC(47) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3598M->3601M(4096M) 71.215ms
+[158.016s][info][gc] GC(48) Concurrent Cycle
+19:13:39.848 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 40 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[165.375s][info][gc] GC(48) Pause Remark 3910M->3366M(4096M) 2.675ms
+[166.704s][info][gc] GC(49) Pause Young (Normal) (G1 Evacuation Pause) 3406M->3352M(4096M) 348.822ms
+19:13:48.543 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 41 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[170.279s][info][gc] GC(48) Pause Cleanup 3496M->3496M(4096M) 0.803ms
+[170.286s][info][gc] GC(48) Concurrent Cycle 12269.871ms
+[174.896s][info][gc] GC(50) Pause Young (Prepare Mixed) (G1 Evacuation Pause) 3666M->3619M(4096M) 524.288ms
+19:13:56.724 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 42 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:14:02.494 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 1, totalDuration 1558 ms, duration = 0 ms
+19:14:02.494 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 41, totalDuration 15461 ms, duration = 3341 ms
+19:14:02.494 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 0, totalDuration 0 ms, duration = 0 ms
+[183.279s][info][gc] GC(51) To-space exhausted
+[183.280s][info][gc] GC(51) Pause Young (Mixed) (G1 Evacuation Pause) 3933M->3833M(4096M) 552.484ms
+19:14:05.119 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 43 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[183.942s][info][gc] GC(52) Pause Young (Mixed) (G1 Humongous Allocation) 3868M->3803M(4096M) 165.764ms
+[186.262s][info][gc] GC(53) Pause Full (G1 Humongous Allocation) 3803M->2791M(4096M) 2320.291ms
+19:14:08.108 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 44 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:14:08.108 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 45 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+[187.118s][info][gc] GC(54) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3634M->3634M(4096M) 20.746ms
+[187.118s][info][gc] GC(55) Concurrent Cycle
+19:14:08.972 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 46 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[195.170s][info][gc] GC(55) Pause Remark 3961M->3401M(4096M) 2.247ms
+[196.061s][info][gc] GC(56) Pause Young (Normal) (G1 Evacuation Pause) 3422M->3367M(4096M) 352.129ms
+19:14:17.890 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 47 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[199.650s][info][gc] GC(55) Pause Cleanup 3513M->3513M(4096M) 0.515ms
+[199.655s][info][gc] GC(55) Concurrent Cycle 12536.340ms
+[200.004s][info][gc] GC(57) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3519M->3496M(4096M) 298.284ms
+[200.004s][info][gc] GC(58) Concurrent Cycle
+19:14:21.857 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 48 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[208.199s][info][gc] GC(59) Pause Young (Normal) (G1 Evacuation Pause) 3810M->3763M(4096M) 382.010ms
+19:14:30.029 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 49 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[209.060s][info][gc] GC(58) Pause Remark 3795M->3579M(4096M) 2.293ms
+[213.351s][info][gc] GC(58) Pause Cleanup 3745M->3745M(4096M) 0.600ms
+[213.355s][info][gc] GC(58) Concurrent Cycle 13350.200ms
+[213.727s][info][gc] GC(60) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3752M->3722M(4096M) 272.673ms
+[213.727s][info][gc] GC(61) Concurrent Cycle
+19:14:35.579 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 50 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[222.615s][info][gc] GC(62) To-space exhausted
+[222.615s][info][gc] GC(62) Pause Young (Normal) (G1 Evacuation Pause) 4036M->4023M(4096M) 523.028ms
+19:14:44.479 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 51 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[223.056s][info][gc] GC(61) Pause Remark 4038M->3814M(4096M) 2.507ms
+[227.499s][info][gc] GC(61) Pause Cleanup 3980M->3980M(4096M) 0.590ms
+[227.503s][info][gc] GC(61) Concurrent Cycle 13775.874ms
+[231.095s][info][gc] GC(63) To-space exhausted
+[231.096s][info][gc] GC(63) Pause Young (Prepare Mixed) (G1 Evacuation Pause) 4091M->4091M(4096M) 617.196ms
+[234.472s][info][gc] GC(64) Pause Full (G1 Evacuation Pause) 4091M->3398M(4096M) 3375.705ms
+19:14:56.301 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 52 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:14:56.301 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 53 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+[234.482s][info][gc] GC(65) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3405M->3404M(4096M) 7.607ms
+[234.483s][info][gc] GC(66) Concurrent Cycle
+19:14:56.311 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 54 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:15:02.498 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 3, totalDuration 7254 ms, duration = 5696 ms
+19:15:02.498 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 51, totalDuration 18653 ms, duration = 3192 ms
+19:15:02.498 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 0, totalDuration 0 ms, duration = 0 ms
+[243.511s][info][gc] GC(66) Pause Remark 3751M->3751M(4096M) 2.192ms
+[244.107s][info][gc] GC(67) Pause Young (Normal) (G1 Evacuation Pause) 3754M->3698M(4096M) 496.900ms
+19:15:05.939 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 55 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[249.452s][info][gc] GC(66) Pause Cleanup 3898M->3898M(4096M) 0.535ms
+[249.455s][info][gc] GC(66) Concurrent Cycle 14972.312ms
+[249.767s][info][gc] GC(68) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3905M->3875M(4096M) 255.363ms
+[249.767s][info][gc] GC(69) Concurrent Cycle
+19:15:11.607 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 56 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[256.075s][info][gc] GC(70) To-space exhausted
+[256.076s][info][gc] GC(70) Pause Young (Normal) (G1 Evacuation Pause) 4091M->4092M(4096M) 441.752ms
+[258.735s][info][gc] GC(71) Pause Full (G1 Evacuation Pause) 4092M->3562M(4096M) 2658.479ms
+[258.735s][info][gc] GC(69) Concurrent Cycle 8968.387ms
+19:15:20.570 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 57 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:15:20.570 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 58 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+[258.857s][info][gc] GC(72) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3570M->3568M(4096M) 7.763ms
+[258.857s][info][gc] GC(73) Concurrent Cycle
+19:15:20.688 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 59 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[267.867s][info][gc] GC(73) Pause Remark 3895M->3895M(4096M) 2.294ms
+[268.853s][info][gc] GC(74) Pause Young (Normal) (G1 Evacuation Pause) 3918M->3863M(4096M) 385.650ms
+19:15:30.686 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 60 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[272.868s][info][gc] GC(73) Pause Cleanup 4007M->4007M(4096M) 0.511ms
+[272.871s][info][gc] GC(73) Concurrent Cycle 14014.482ms
+[273.293s][info][gc] GC(75) To-space exhausted
+[273.293s][info][gc] GC(75) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4014M->3999M(4096M) 323.458ms
+[273.293s][info][gc] GC(76) Concurrent Cycle
+19:15:35.140 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 61 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[276.144s][info][gc] GC(77) To-space exhausted
+[276.145s][info][gc] GC(77) Pause Young (Normal) (G1 Evacuation Pause) 4091M->4091M(4096M) 256.920ms
+[279.739s][info][gc] GC(78) Pause Full (G1 Evacuation Pause) 4091M->3685M(4096M) 3593.793ms
+[279.739s][info][gc] GC(76) Concurrent Cycle 6445.364ms
+[279.744s][info][gc] GC(79) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3686M->3685M(4096M) 4.431ms
+[279.744s][info][gc] GC(80) Concurrent Cycle
+19:15:41.600 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 62 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:15:41.600 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 63 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:15:41.600 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 64 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[290.229s][info][gc] GC(81) To-space exhausted
+[290.230s][info][gc] GC(81) Pause Young (Normal) (G1 Evacuation Pause) 4045M->4035M(4096M) 557.163ms
+19:15:52.096 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 65 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+[290.820s][info][gc] GC(80) Pause Remark 4041M->4041M(4096M) 2.241ms
+[292.090s][info][gc] GC(82) To-space exhausted
+[292.091s][info][gc] GC(82) Pause Young (Normal) (G1 Humongous Allocation) 4087M->4087M(4096M) 215.201ms
+[295.814s][info][gc] GC(83) Pause Full (G1 Humongous Allocation) 4087M->3772M(4096M) 3723.268ms
+[295.815s][info][gc] GC(80) Concurrent Cycle 16070.528ms
+19:15:57.649 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 66 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:15:57.650 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 67 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+[295.825s][info][gc] GC(84) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3779M->3779M(4096M) 4.489ms
+[295.825s][info][gc] GC(85) Concurrent Cycle
+19:15:57.663 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 68 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:16:02.498 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 0, totalDuration 0 ms, duration = 0 ms
+19:16:02.498 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 6, totalDuration 17230 ms, duration = 9976 ms
+19:16:02.498 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 62, totalDuration 21600 ms, duration = 2947 ms
+[305.287s][info][gc] GC(86) To-space exhausted
+[305.287s][info][gc] GC(86) Pause Young (Normal) (G1 Humongous Allocation) 4088M->4088M(4096M) 603.882ms
+[308.049s][info][gc] GC(87) Pause Full (G1 Humongous Allocation) 4088M->3837M(4096M) 2761.395ms
+[308.049s][info][gc] GC(85) Concurrent Cycle 12224.596ms
+19:16:09.886 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 69 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:16:09.887 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 70 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+[308.060s][info][gc] GC(88) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3844M->3843M(4096M) 4.957ms
+[308.060s][info][gc] GC(89) Concurrent Cycle
+19:16:09.920 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 71 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[315.932s][info][gc] GC(90) To-space exhausted
+[315.933s][info][gc] GC(90) Pause Young (Normal) (G1 Evacuation Pause) 4093M->4093M(4096M) 418.354ms
+[319.930s][info][gc] GC(91) Pause Full (G1 Evacuation Pause) 4093M->3886M(4096M) 3996.601ms
+[319.930s][info][gc] GC(89) Concurrent Cycle 11870.443ms
+[319.935s][info][gc] GC(92) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3888M->3887M(4096M) 4.066ms
+[319.935s][info][gc] GC(93) Concurrent Cycle
+19:16:21.776 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 72 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:16:21.776 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 73 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:16:21.777 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 74 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[326.245s][info][gc] GC(94) To-space exhausted
+[326.246s][info][gc] GC(94) Pause Young (Normal) (G1 Evacuation Pause) 4089M->4089M(4096M) 353.125ms
+[330.203s][info][gc] GC(95) Pause Full (G1 Evacuation Pause) 4089M->3927M(4096M) 3957.431ms
+[330.204s][info][gc] GC(93) Concurrent Cycle 10268.669ms
+[330.210s][info][gc] GC(96) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3931M->3930M(4096M) 5.322ms
+[330.210s][info][gc] GC(97) Concurrent Cycle
+19:16:32.049 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 75 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:16:32.049 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 76 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:16:32.049 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 77 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[335.255s][info][gc] GC(98) To-space exhausted
+[335.256s][info][gc] GC(98) Pause Young (Normal) (G1 Evacuation Pause) 4092M->4092M(4096M) 294.371ms
+[339.058s][info][gc] GC(99) Pause Full (G1 Evacuation Pause) 4092M->3960M(4096M) 3802.371ms
+[339.058s][info][gc] GC(97) Concurrent Cycle 8848.009ms
+[339.068s][info][gc] GC(100) Pause Young (Concurrent Start) (G1 Humongous Allocation) 3966M->3964M(4096M) 8.179ms
+[339.068s][info][gc] GC(101) Concurrent Cycle
+19:16:40.935 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 78 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:16:40.936 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 79 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:16:40.936 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 80 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[342.534s][info][gc] GC(102) To-space exhausted
+[342.534s][info][gc] GC(102) Pause Young (Normal) (G1 Humongous Allocation) 4080M->4082M(4096M) 185.898ms
+19:16:44.372 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 81 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[342.594s][info][gc] GC(103) To-space exhausted
+[342.595s][info][gc] GC(103) Pause Young (Normal) (G1 Humongous Allocation) 4089M->4089M(4096M) 58.184ms
+[345.595s][info][gc] GC(104) Pause Full (G1 Humongous Allocation) 4089M->3994M(4096M) 2999.481ms
+[345.595s][info][gc] GC(101) Concurrent Cycle 6527.112ms
+19:16:47.433 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 82 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:16:47.433 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 83 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+[346.155s][info][gc] GC(105) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4003M->4001M(4096M) 8.976ms
+[346.155s][info][gc] GC(106) Concurrent Cycle
+19:16:47.991 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 84 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[349.040s][info][gc] GC(107) To-space exhausted
+[349.041s][info][gc] GC(107) Pause Young (Normal) (G1 Evacuation Pause) 4091M->4091M(4096M) 175.157ms
+[351.929s][info][gc] GC(108) Pause Full (G1 Evacuation Pause) 4091M->4007M(4096M) 2888.383ms
+[351.929s][info][gc] GC(106) Concurrent Cycle 5774.362ms
+[351.936s][info][gc] GC(109) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4010M->4010M(4096M) 5.584ms
+[351.936s][info][gc] GC(110) Concurrent Cycle
+19:16:53.774 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 85 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:16:53.774 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 86 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:16:53.774 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 87 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[354.278s][info][gc] GC(111) To-space exhausted
+[354.279s][info][gc] GC(111) Pause Young (Normal) (G1 Evacuation Pause) 4088M->4088M(4096M) 131.115ms
+[357.196s][info][gc] GC(112) Pause Full (G1 Evacuation Pause) 4088M->4028M(4096M) 2917.209ms
+[357.196s][info][gc] GC(110) Concurrent Cycle 5259.919ms
+[357.198s][info][gc] GC(113) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4029M->4028M(4096M) 1.959ms
+[357.198s][info][gc] GC(114) Concurrent Cycle
+19:16:59.060 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 88 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:16:59.060 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 89 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:16:59.060 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 90 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[359.002s][info][gc] GC(115) To-space exhausted
+[359.003s][info][gc] GC(115) Pause Young (Normal) (G1 Evacuation Pause) 4088M->4088M(4096M) 106.112ms
+[361.930s][info][gc] GC(116) Pause Full (G1 Evacuation Pause) 4088M->4041M(4096M) 2927.146ms
+[361.930s][info][gc] GC(114) Concurrent Cycle 4731.735ms
+19:17:03.768 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 77, totalDuration 23859 ms, duration = 2259 ms
+19:17:03.768 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 13, totalDuration 40554 ms, duration = 23324 ms
+[361.938s][info][gc] GC(117) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4044M->4043M(4096M) 5.928ms
+[361.938s][info][gc] GC(118) Concurrent Cycle
+19:17:03.799 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 0, totalDuration 0 ms, duration = 0 ms
+19:17:03.799 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 91 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:17:03.799 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 92 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:17:03.799 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 93 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[363.662s][info][gc] GC(119) To-space exhausted
+[363.663s][info][gc] GC(119) Pause Young (Normal) (G1 Evacuation Pause) 4091M->4091M(4096M) 83.132ms
+[366.586s][info][gc] GC(120) Pause Full (G1 Evacuation Pause) 4091M->4049M(4096M) 2922.712ms
+[366.586s][info][gc] GC(118) Concurrent Cycle 4647.778ms
+[366.592s][info][gc] GC(121) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4051M->4051M(4096M) 4.050ms
+[366.592s][info][gc] GC(122) Concurrent Cycle
+19:17:08.464 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 94 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:17:08.464 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 95 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:17:08.465 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 96 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[367.711s][info][gc] GC(123) To-space exhausted
+[367.711s][info][gc] GC(123) Pause Young (Normal) (G1 Humongous Allocation) 4089M->4089M(4096M) 58.672ms
+[371.135s][info][gc] GC(124) Pause Full (G1 Humongous Allocation) 4089M->4058M(4096M) 3423.807ms
+[371.136s][info][gc] GC(122) Concurrent Cycle 4543.740ms
+19:17:12.971 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 97 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:17:12.971 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 98 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+[371.144s][info][gc] GC(125) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4065M->4065M(4096M) 6.153ms
+[371.144s][info][gc] GC(126) Concurrent Cycle
+19:17:12.981 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 99 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[372.237s][info][gc] GC(127) To-space exhausted
+[372.238s][info][gc] GC(127) Pause Young (Normal) (G1 Evacuation Pause) 4090M->4090M(4096M) 47.298ms
+[376.231s][info][gc] GC(128) Pause Full (G1 Evacuation Pause) 4090M->4061M(4096M) 3992.969ms
+[376.231s][info][gc] GC(126) Concurrent Cycle 5086.646ms
+[376.237s][info][gc] GC(129) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4064M->4064M(4096M) 4.745ms
+[376.239s][info][gc] GC(130) Concurrent Cycle
+19:17:18.489 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 100 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:17:18.489 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 101 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:17:18.489 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 102 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[376.808s][info][gc] GC(131) To-space exhausted
+[376.809s][info][gc] GC(131) Pause Young (Normal) (G1 Evacuation Pause) 4092M->4092M(4096M) 53.339ms
+[380.221s][info][gc] GC(132) Pause Full (G1 Evacuation Pause) 4092M->4073M(4096M) 3411.639ms
+[380.221s][info][gc] GC(130) Concurrent Cycle 3981.985ms
+[380.227s][info][gc] GC(133) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4074M->4074M(4096M) 5.661ms
+[380.227s][info][gc] GC(134) Concurrent Cycle
+19:17:22.091 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 103 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:17:22.091 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 104 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:17:22.091 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 105 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[380.785s][info][gc] GC(135) To-space exhausted
+[380.786s][info][gc] GC(135) Pause Young (Normal) (G1 Evacuation Pause) 4092M->4092M(4096M) 35.638ms
+[383.707s][info][gc] GC(136) Pause Full (G1 Evacuation Pause) 4092M->4077M(4096M) 2921.524ms
+[383.708s][info][gc] GC(134) Concurrent Cycle 3480.244ms
+19:17:25.548 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 106 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:17:25.548 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 107 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+[383.715s][info][gc] GC(137) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4078M->4078M(4096M) 3.878ms
+[383.715s][info][gc] GC(138) Concurrent Cycle
+19:17:25.585 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 108 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[384.265s][info][gc] GC(139) To-space exhausted
+[384.266s][info][gc] GC(139) Pause Young (Normal) (G1 Humongous Allocation) 4091M->4091M(4096M) 24.074ms
+[388.108s][info][gc] GC(140) Pause Full (G1 Humongous Allocation) 4091M->4077M(4096M) 3841.625ms
+[388.108s][info][gc] GC(138) Concurrent Cycle 4392.887ms
+19:17:29.939 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 109 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[388.117s][info][gc] GC(141) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4084M->4083M(4096M) 6.149ms
+[388.117s][info][gc] GC(142) Concurrent Cycle
+19:17:29.939 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 110 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+19:17:29.969 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 111 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[388.655s][info][gc] GC(143) To-space exhausted
+[388.655s][info][gc] GC(143) Pause Young (Normal) (G1 Evacuation Pause) 4089M->4089M(4096M) 24.378ms
+[392.640s][info][gc] GC(144) Pause Full (G1 Evacuation Pause) 4089M->4076M(4096M) 3984.459ms
+[392.640s][info][gc] GC(142) Concurrent Cycle 4523.724ms
+19:17:34.471 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 112 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:17:34.471 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 113 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+[392.652s][info][gc] GC(145) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4080M->4079M(4096M) 6.245ms
+[392.655s][info][gc] GC(146) Concurrent Cycle
+19:17:34.521 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 114 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[393.213s][info][gc] GC(147) To-space exhausted
+[393.214s][info][gc] GC(147) Pause Young (Normal) (G1 Evacuation Pause) 4093M->4093M(4096M) 39.468ms
+[397.218s][info][gc] GC(148) Pause Full (G1 Evacuation Pause) 4093M->4078M(4096M) 4003.606ms
+[397.218s][info][gc] GC(146) Concurrent Cycle 4562.785ms
+19:17:39.055 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 115 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:17:39.055 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 116 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+[397.236s][info][gc] GC(149) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4084M->4082M(4096M) 14.438ms
+[397.236s][info][gc] GC(150) Concurrent Cycle
+[397.263s][info][gc] GC(151) To-space exhausted
+[397.264s][info][gc] GC(151) Pause Young (Normal) (G1 Humongous Allocation) 4092M->4092M(4096M) 23.040ms
+[400.195s][info][gc] GC(152) Pause Full (G1 Humongous Allocation) 4092M->4089M(4096M) 2930.868ms
+[400.195s][info][gc] GC(150) Concurrent Cycle 2958.512ms
+19:17:42.447 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 117 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:17:42.447 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 118 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:17:42.447 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 119 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+[400.715s][info][gc] GC(153) To-space exhausted
+[400.716s][info][gc] GC(153) Pause Young (Normal) (G1 Evacuation Pause) 4093M->4093M(4096M) 6.417ms
+[406.016s][info][gc] GC(154) Pause Full (G1 Evacuation Pause) 4093M->4082M(4096M) 5299.948ms
+[406.028s][info][gc] GC(155) To-space exhausted
+[406.029s][info][gc] GC(155) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4088M->4090M(4096M) 10.740ms
+[406.029s][info][gc] GC(156) Concurrent Cycle
+[406.047s][info][gc] GC(157) To-space exhausted
+[406.048s][info][gc] GC(157) Pause Young (Normal) (G1 Evacuation Pause) 4092M->4092M(4096M) 15.764ms
+[409.511s][info][gc] GC(158) Pause Full (G1 Evacuation Pause) 4092M->4087M(4096M) 3463.369ms
+[409.512s][info][gc] GC(156) Concurrent Cycle 3483.132ms
+19:17:51.353 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 120 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:17:51.353 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 121 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:17:51.353 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 122 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+[409.524s][info][gc] GC(159) To-space exhausted
+[409.525s][info][gc] GC(159) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4090M->4090M(4096M) 9.849ms
+[409.525s][info][gc] GC(160) Concurrent Cycle
+[409.527s][info][gc] GC(161) Pause Young (Normal) (G1 Humongous Allocation) 4090M->4090M(4096M) 1.379ms
+[413.752s][info][gc] GC(162) Pause Full (G1 Humongous Allocation) 4090M->4089M(4096M) 4224.910ms
+[417.979s][info][gc] GC(163) Pause Full (G1 Humongous Allocation) 4089M->4089M(4096M) 4226.852ms
+[417.980s][info][gc] GC(160) Concurrent Cycle 8454.490ms
+[417.990s][info][gc] GC(164) To-space exhausted
+[417.991s][info][gc] GC(164) Pause Young (Normal) (G1 Evacuation Pause) 4095M->4095M(4096M) 6.853ms
+[422.216s][info][gc] GC(165) Pause Full (G1 Evacuation Pause) 4095M->4092M(4096M) 4224.370ms
+[422.218s][info][gc] GC(166) To-space exhausted
+[422.218s][info][gc] GC(166) Pause Young (Concurrent Start) (G1 Evacuation Pause) 4093M->4093M(4096M) 1.940ms
+[422.219s][info][gc] GC(167) Concurrent Cycle
+[426.105s][info][gc] GC(168) Pause Full (G1 Evacuation Pause) 4093M->4092M(4096M) 3886.554ms
+[426.106s][info][gc] GC(167) Concurrent Cycle 3887.102ms
+[426.114s][info][gc] GC(169) To-space exhausted
+[426.115s][info][gc] GC(169) Pause Young (Normal) (G1 Evacuation Pause) 4094M->4094M(4096M) 6.907ms
+[430.052s][info][gc] GC(170) Pause Full (G1 Evacuation Pause) 4094M->4093M(4096M) 3937.496ms
+19:18:04.057 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 0, totalDuration 0 ms, duration = 0 ms
+19:18:04.057 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 24, totalDuration 80217 ms, duration = 39663 ms
+19:18:04.057 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 98, totalDuration 24429 ms, duration = 570 ms
+19:18:11.895 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 123 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:18:11.896 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 124 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:18:11.896 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 125 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:18:11.897 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 126 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:18:11.898 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 127 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+19:18:11.902 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 128 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+19:18:11.903 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 129 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:18:11.903 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 130 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:18:11.903 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 131 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:18:11.903 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 132 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:18:11.904 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 133 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:18:11.904 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 134 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+[430.067s][info][gc] GC(171) To-space exhausted
+[430.068s][info][gc] GC(171) Pause Young (Concurrent Start) (G1 Evacuation Pause) 4095M->4095M(4096M) 4.157ms
+[430.068s][info][gc] GC(173) Concurrent Cycle
+[433.493s][info][gc] GC(172) Pause Full (G1 Evacuation Pause) 4095M->4093M(4096M) 3424.841ms
+[433.493s][info][gc] GC(173) Concurrent Cycle 3424.767ms
+[433.495s][info][gc] GC(174) To-space exhausted
+[433.496s][info][gc] GC(174) Pause Young (Normal) (G1 Humongous Allocation) 4094M->4094M(4096M) 2.470ms
+[437.238s][info][gc] GC(175) Pause Full (G1 Humongous Allocation) 4094M->4093M(4096M) 3741.701ms
+[437.240s][info][gc] GC(176) Pause Young (Concurrent Start) (G1 Evacuation Pause) 4095M->4095M(4096M) 1.631ms
+[437.240s][info][gc] GC(177) Concurrent Cycle
+[441.430s][info][gc] GC(178) Pause Full (G1 Evacuation Pause) 4095M->4095M(4096M) 4189.883ms
+[444.745s][info][gc] GC(179) Pause Full (G1 Evacuation Pause) 4095M->4095M(4096M) 3314.467ms
+[444.745s][info][gc] GC(177) Concurrent Cycle 7505.171ms
+[444.747s][info][gc] GC(180) Pause Young (Normal) (G1 Evacuation Pause) 4095M->4095M(4096M) 1.865ms
+[448.288s][info][gc] GC(181) Pause Full (G1 Evacuation Pause) 4095M->4091M(4096M) 3540.423ms
+19:18:30.129 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 135 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:18:30.129 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 136 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:18:30.129 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 137 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:18:30.129 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 138 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+19:18:30.129 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 139 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:18:30.129 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 140 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:18:30.129 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 141 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:18:30.129 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 142 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:18:30.129 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 143 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+[448.823s][info][gc] GC(182) To-space exhausted
+[448.824s][info][gc] GC(182) Pause Young (Concurrent Start) (G1 Evacuation Pause) 4095M->4095M(4096M) 4.971ms
+[448.824s][info][gc] GC(183) Concurrent Cycle
+[452.213s][info][gc] GC(184) Pause Full (G1 Evacuation Pause) 4095M->4085M(4096M) 3388.646ms
+[452.213s][info][gc] GC(183) Concurrent Cycle 3389.127ms
+19:18:34.056 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 144 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:18:34.056 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 145 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+[452.229s][info][gc] GC(185) To-space exhausted
+[452.230s][info][gc] GC(185) Pause Young (Normal) (G1 Evacuation Pause) 4091M->4091M(4096M) 14.847ms
+[455.310s][info][gc] GC(186) Pause Full (G1 Evacuation Pause) 4091M->4088M(4096M) 3080.762ms
+19:18:37.153 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 146 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:18:37.153 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 147 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+[455.323s][info][gc] GC(187) To-space exhausted
+[455.323s][info][gc] GC(187) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4092M->4092M(4096M) 10.758ms
+[455.323s][info][gc] GC(188) Concurrent Cycle
+[455.325s][info][gc] GC(189) Pause Young (Normal) (G1 Humongous Allocation) 4092M->4092M(4096M) 1.703ms
+[458.285s][info][gc] GC(190) Pause Full (G1 Humongous Allocation) 4092M->4090M(4096M) 2959.603ms
+[458.287s][info][gc] GC(191) Pause Young (Normal) (G1 Evacuation Pause) 4092M->4092M(4096M) 1.234ms
+[461.808s][info][gc] GC(192) Pause Full (G1 Evacuation Pause) 4092M->4092M(4096M) 3521.374ms
+[461.809s][info][gc] GC(188) Concurrent Cycle 6485.159ms
+[461.818s][info][gc] GC(193) To-space exhausted
+[461.819s][info][gc] GC(193) Pause Young (Normal) (G1 Evacuation Pause) 4094M->4094M(4096M) 6.569ms
+[464.793s][info][gc] GC(194) Pause Full (G1 Evacuation Pause) 4094M->4092M(4096M) 2974.682ms
+19:18:46.637 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 148 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:18:46.637 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 149 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:18:46.637 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 150 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+19:18:46.637 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 151 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:18:46.638 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 152 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:18:46.638 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 153 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:18:46.638 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 154 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+[464.797s][info][gc] GC(195) To-space exhausted
+[464.798s][info][gc] GC(195) Pause Young (Concurrent Start) (G1 Evacuation Pause) 4094M->4094M(4096M) 1.933ms
+[464.798s][info][gc] GC(196) Concurrent Cycle
+[467.795s][info][gc] GC(197) Pause Full (G1 Evacuation Pause) 4094M->4092M(4096M) 2997.004ms
+[467.795s][info][gc] GC(196) Concurrent Cycle 2997.430ms
+[467.803s][info][gc] GC(198) To-space exhausted
+[467.804s][info][gc] GC(198) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4093M->4093M(4096M) 7.397ms
+[467.804s][info][gc] GC(199) Concurrent Cycle
+[467.805s][info][gc] GC(200) Pause Young (Normal) (G1 Humongous Allocation) 4093M->4093M(4096M) 1.386ms
+[470.820s][info][gc] GC(201) Pause Full (G1 Humongous Allocation) 4093M->4092M(4096M) 3015.034ms
+[474.805s][info][gc] GC(202) Pause Full (G1 Humongous Allocation) 4092M->4092M(4096M) 3984.671ms
+[474.806s][info][gc] GC(199) Concurrent Cycle 7002.291ms
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+	at java.base/java.util.Arrays.copyOf(Arrays.java:3689)
+	at java.base/java.util.ArrayList.grow(ArrayList.java:237)
+	at java.base/java.util.ArrayList.grow(ArrayList.java:242)
+	at java.base/java.util.ArrayList.add(ArrayList.java:485)
+	at java.base/java.util.ArrayList.add(ArrayList.java:498)
+	at java.base/java.util.stream.Collectors$$Lambda$52/0x0000000800125840.accept(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$3ReducingSink.accept(ReduceOps.java:169)
+	at java.base/java.util.stream.IntPipeline$1$1.accept(IntPipeline.java:180)
+	at java.base/java.util.stream.Streams$RangeIntSpliterator.forEachRemaining(Streams.java:104)
+	at java.base/java.util.Spliterator$OfInt.forEachRemaining(Spliterator.java:699)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:913)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:578)
+	at alexander.ivanov.MemoryLeakEmulator.fillArray(MemoryLeakEmulator.java:26)
+	at alexander.ivanov.MemoryLeakEmulator.run(MemoryLeakEmulator.java:21)
+	at alexander.ivanov.Main.main(Main.java:12)
+[474.809s][info][gc] GC(203) To-space exhausted
+[474.809s][info][gc] GC(203) Pause Young (Normal) (G1 Evacuation Pause) 4094M->4094M(4096M) 1.890ms
+[474.827s][info][gc] GC(204) Pause Full (G1 Evacuation Pause) 4094M->3M(4096M) 16.959ms
+19:18:49.626 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 155 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:18:56.666 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 156 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:18:56.666 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 157 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:18:56.666 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 158 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Young Generation
+19:18:56.666 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 159 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+19:18:56.666 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 160 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Humongous Allocation notification.getMessage() = G1 Old Generation
+19:18:56.666 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 161 info.getGcName() = G1 Young Generation info.getGcAction() = end of minor GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Young Generation
+19:18:56.666 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 162 info.getGcName() = G1 Old Generation info.getGcAction() = end of major GC info.getGcCause() = G1 Evacuation Pause notification.getMessage() = G1 Old Generation
+19:19:11.899 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 0, totalDuration 0 ms, duration = 0 ms
+19:19:11.899 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 118, totalDuration 24534 ms, duration = 105 ms
+19:19:11.899 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 44, totalDuration 148336 ms, duration = 68119 ms
