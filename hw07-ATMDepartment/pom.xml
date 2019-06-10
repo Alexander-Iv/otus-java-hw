@@ -9,17 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hw05-GarbageCollectorsComparing</artifactId>
+    <artifactId>hw07-ATMDepartment</artifactId>
 
-    <properties>
-        <main.class.name>alexander.alexander.ivanov.Main</main.class.name>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-    </dependencies>
 
 </project>

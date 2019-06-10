@@ -14,6 +14,7 @@
         <module>hw04-AutomagicallyLogging</module>
         <module>hw05-GarbageCollectorsComparing</module>
         <module>hw06-ATMEmulator</module>
+        <module>hw07-ATMDepartment</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -23,7 +24,7 @@
             <id>1</id>
             <name>Alexander Ivanov</name>
             <url>https://github.com/Alexander-Iv</url>
-            <email>alexander.an.ivanov@gmail.com</email>
+            <email>alexander.an.alexander.ivanov@gmail.com</email>
         </developer>
     </developers>
 
