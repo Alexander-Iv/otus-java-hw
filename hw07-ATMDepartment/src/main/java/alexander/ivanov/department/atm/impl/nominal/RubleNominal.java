@@ -1,6 +1,6 @@
-package alexander.ivanov.atm.impl.nominal;
+package alexander.ivanov.department.atm.impl.nominal;
 
-import alexander.ivanov.atm.Nominal;
+import alexander.ivanov.department.atm.Nominal;
 
 public enum RubleNominal implements Nominal {
 

@@ -1,8 +1,8 @@
-package alexander.ivanov.atm.impl;
+package alexander.ivanov.department.atm.impl;
 
-import alexander.ivanov.atm.Cell;
-import alexander.ivanov.atm.Money;
-import alexander.ivanov.atm.Nominal;
+import alexander.ivanov.department.atm.Cell;
+import alexander.ivanov.department.atm.Money;
+import alexander.ivanov.department.atm.Nominal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,12 +10,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.Stream;
 
 public class CellImpl implements Cell {
     private static final Logger logger = LoggerFactory.getLogger(CellImpl.class);
     private Map<Nominal, Integer> cells = new TreeMap<>(Collections.reverseOrder());
-    private Integer total = 0;
+    private Integer total;
 
     @Override
     public void put(Money amount) {
@@ -59,5 +58,11 @@ public class CellImpl implements Cell {
     @Override
     public Map getCells() {
         return cells;
+    }
+
+    @Override
+    public Map<Nominal, Integer> copy(Map<Nominal, Integer> cells) {
+        this.cells = new TreeMap<>(cells);
+        return this.cells;
     }
 }

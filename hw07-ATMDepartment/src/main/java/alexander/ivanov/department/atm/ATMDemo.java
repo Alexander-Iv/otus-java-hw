@@ -1,6 +1,7 @@
-package alexander.ivanov.atm;
+package alexander.ivanov.department.atm;
 
-import alexander.ivanov.atm.impl.ATMImpl;
+import alexander.ivanov.department.atm.impl.ATMImpl;
+import alexander.ivanov.department.atm.impl.nominal.RubleNominal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,13 +11,10 @@ public class ATMDemo {
     public static void main(String[] args) {
         ATM atm = new ATMImpl();
 
-        atm.printBalance();
-
-        atm.putCash(50); //указанный номинал не поддерживается банкоматом
-        atm.putCash(100);
-        atm.putCash(100);
-        atm.putCash(500);
-        atm.putCash(500);
+        atm.printInfo();
+        atm.putCash(50, 1); //указанный номинал не поддерживается банкоматом
+        atm.putCash(100, 2);
+        atm.putCash(500, 2);
         logger.info("");
         /*
         atm.putCash(1000);
@@ -25,7 +23,7 @@ public class ATMDemo {
         atm.putCash(2000);
         atm.putCash(5000);
         */
-        atm.printBalance();
+        atm.printInfo();
         logger.info("");
         //atm.getCash(100);
         //atm.getCash(100);
@@ -33,6 +31,6 @@ public class ATMDemo {
         logger.info("");
         atm.getCash(100); //не доступно - Not enough money, т.к. уже списали 1200
         logger.info("");
-        atm.printBalance();
+        atm.printInfo();
     }
 }

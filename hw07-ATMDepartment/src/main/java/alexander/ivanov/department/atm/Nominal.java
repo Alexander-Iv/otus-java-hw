@@ -1,4 +1,4 @@
-package alexander.ivanov.atm;
+package alexander.ivanov.department.atm;
 
 public interface Nominal {
     Number getAmount();

@@ -1,8 +1,8 @@
-package alexander.ivanov.atm.impl;
+package alexander.ivanov.department.atm.impl;
 
-import alexander.ivanov.atm.Money;
-import alexander.ivanov.atm.Nominal;
-import alexander.ivanov.atm.impl.nominal.RubleNominal;
+import alexander.ivanov.department.atm.Money;
+import alexander.ivanov.department.atm.Nominal;
+import alexander.ivanov.department.atm.impl.nominal.RubleNominal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

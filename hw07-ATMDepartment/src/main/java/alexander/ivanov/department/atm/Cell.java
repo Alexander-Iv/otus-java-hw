@@ -1,4 +1,4 @@
-package alexander.ivanov.atm;
+package alexander.ivanov.department.atm;
 
 import java.util.Map;
 
@@ -8,4 +8,5 @@ public interface Cell {
     Number total();
     Number total(Nominal nominal);
     Map getCells();
+    Map<Nominal, Integer> copy(Map<Nominal, Integer> cells);
 }
