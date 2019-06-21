@@ -1,13 +1,16 @@
 package alexander.ivanov.department.atm.memento;
 
 import alexander.ivanov.department.atm.ATM;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.List;
 
 public class Caretaker {
-    private Deque<Memento> history = new LinkedList<>();
+    private static final Logger logger = LoggerFactory.getLogger(Caretaker.class);
+    private List<Memento> history = new ArrayList<>();
 
     public void saveMemento(Memento memento) {
         this.history.add(memento);
@@ -15,7 +18,11 @@ public class Caretaker {
 
     public void restoreFirst(ATM atm) {
         if (!history.isEmpty()) {
-            atm.restoreCellState(history.getFirst());
+            if (history.size() > 1) {
+                atm.restoreCellState(history.get(1)); //последнее значние
+            } else {
+                atm.restoreCellState(history.get(0)); //текущее значение
+            }
         }
     }
 

@@ -20,7 +20,7 @@ public class Memento {
     @Override
     public String toString() {
         return "Memento{" +
-                "cell.total()=" + cell.total() +
-                '}';
+                "cell.total()=" + cell +
+                "}";
     }
 }

@@ -14,7 +14,6 @@ import java.util.TreeMap;
 public class CellImpl implements Cell {
     private static final Logger logger = LoggerFactory.getLogger(CellImpl.class);
     private Map<Nominal, Integer> cells = new TreeMap<>(Collections.reverseOrder());
-    private Integer total;
 
     @Override
     public void put(Money amount) {
@@ -23,7 +22,7 @@ public class CellImpl implements Cell {
 
     @Override
     public void get(Money amount) {
-        if (total().intValue() > amount.getNominal().getAmount().intValue()) {
+        if (total().intValue() >= amount.getNominal().getAmount().intValue()) {
             cells.put(amount.getNominal(), value(amount)-1);
         }
     }
@@ -34,12 +33,9 @@ public class CellImpl implements Cell {
 
     @Override
     public Number total() {
-        total = 0;
-        cells.forEach((nominal, integer) -> {
-            //logger.info("nominal = {}, count = {}", nominal.getAmount(), integer);
-            total += total(nominal).intValue();
-        });
-        return total;
+        return cells.keySet().stream()
+                .map(nominal -> total(nominal).intValue())
+                .reduce(0, (integer, integer2) -> integer + integer2);
     }
 
     @Override

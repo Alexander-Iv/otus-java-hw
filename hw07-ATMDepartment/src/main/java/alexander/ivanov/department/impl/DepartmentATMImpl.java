@@ -31,7 +31,7 @@ public class DepartmentATMImpl implements DepartmentATM {
     }
 
     @Override
-    public void rem(List<ATM> atms) {
+    public void remove(List<ATM> atms) {
         this.atms.removeAll(atms);
     }
 
