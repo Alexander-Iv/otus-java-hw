@@ -67,9 +67,9 @@ public class Monitoring {
         ObjectName oldName = null;
         ObjectName othersName = null;
         try {
-            youngName = new ObjectName("alexander.ivanov.YoungGC:type=GarbageCollectorMBean");
-            oldName = new ObjectName("alexander.ivanov.OldGC:type=GarbageCollectorMBean");
-            othersName =  new ObjectName("alexander.ivanov.OthersGC:type=GarbageCollectorMBean");
+            youngName = new ObjectName("alexander.alexander.ivanov.YoungGC:type=GarbageCollectorMBean");
+            oldName = new ObjectName("alexander.alexander.ivanov.OldGC:type=GarbageCollectorMBean");
+            othersName =  new ObjectName("alexander.alexander.ivanov.OthersGC:type=GarbageCollectorMBean");
         } catch (MalformedObjectNameException e) {
             e.printStackTrace();
         }

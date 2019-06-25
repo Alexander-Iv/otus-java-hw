@@ -1,53 +1,53 @@
-"D:\Program Files\Java\jdk-11.0.2\bin\java.exe" -Xms4g -Xmx4g -verbose:gc -Xlog:gc*=debug:file=logs/gc-%p-%t.txt:time,pid,tid,tags,level,uptime:filecount=1,filesize=10m -XX:+UseParallelGC "-javaagent:D:\Program Files\itellj idea\ideaIU-2019.1.1\lib\idea_rt.jar=64226:D:\Program Files\itellj idea\ideaIU-2019.1.1\bin" -Dfile.encoding=UTF-8 -classpath D:\IdeaProjects\otus-java-hw\hw05-GarbageCollectorsComparing\target\classes;D:\IdeaProjects\.m2\repository\com\google\guava\guava\27.1-jre\guava-27.1-jre.jar;D:\IdeaProjects\.m2\repository\com\google\guava\failureaccess\1.0.1\failureaccess-1.0.1.jar;D:\IdeaProjects\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;D:\IdeaProjects\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;D:\IdeaProjects\.m2\repository\org\checkerframework\checker-qual\2.5.2\checker-qual-2.5.2.jar;D:\IdeaProjects\.m2\repository\com\google\errorprone\error_prone_annotations\2.2.0\error_prone_annotations-2.2.0.jar;D:\IdeaProjects\.m2\repository\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;D:\IdeaProjects\.m2\repository\org\codehaus\mojo\animal-sniffer-annotations\1.17\animal-sniffer-annotations-1.17.jar;D:\IdeaProjects\.m2\repository\ch\qos\logback\logback-classic\1.2.3\logback-classic-1.2.3.jar;D:\IdeaProjects\.m2\repository\ch\qos\logback\logback-core\1.2.3\logback-core-1.2.3.jar;D:\IdeaProjects\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar alexander.ivanov.Main
+"D:\Program Files\Java\jdk-11.0.2\bin\java.exe" -Xms4g -Xmx4g -verbose:gc -Xlog:gc*=debug:file=logs/gc-%p-%t.txt:time,pid,tid,tags,level,uptime:filecount=1,filesize=10m -XX:+UseParallelGC "-javaagent:D:\Program Files\itellj idea\ideaIU-2019.1.1\lib\idea_rt.jar=64226:D:\Program Files\itellj idea\ideaIU-2019.1.1\bin" -Dfile.encoding=UTF-8 -classpath D:\IdeaProjects\otus-java-hw\hw05-GarbageCollectorsComparing\target\classes;D:\IdeaProjects\.m2\repository\com\google\guava\guava\27.1-jre\guava-27.1-jre.jar;D:\IdeaProjects\.m2\repository\com\google\guava\failureaccess\1.0.1\failureaccess-1.0.1.jar;D:\IdeaProjects\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;D:\IdeaProjects\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;D:\IdeaProjects\.m2\repository\org\checkerframework\checker-qual\2.5.2\checker-qual-2.5.2.jar;D:\IdeaProjects\.m2\repository\com\google\errorprone\error_prone_annotations\2.2.0\error_prone_annotations-2.2.0.jar;D:\IdeaProjects\.m2\repository\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;D:\IdeaProjects\.m2\repository\org\codehaus\mojo\animal-sniffer-annotations\1.17\animal-sniffer-annotations-1.17.jar;D:\IdeaProjects\.m2\repository\ch\qos\logback\logback-classic\1.2.3\logback-classic-1.2.3.jar;D:\IdeaProjects\.m2\repository\ch\qos\logback\logback-core\1.2.3\logback-core-1.2.3.jar;D:\IdeaProjects\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar alexander.alexander.ivanov.Main
 [0.051s][info][gc] Using Parallel
 GC name:PS MarkSweep
 GC name:PS Scavenge
-19:32:38.435 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 0, totalDuration 0 ms, duration = 0 ms
-19:32:38.454 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 0, totalDuration 0 ms, duration = 0 ms
-19:32:38.435 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 0, totalDuration 0 ms, duration = 0 ms
+19:32:38.435 [Thread-2] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 0, totalDuration 0 ms, duration = 0 ms
+19:32:38.454 [Thread-1] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 0, totalDuration 0 ms, duration = 0 ms
+19:32:38.435 [Thread-0] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 0, totalDuration 0 ms, duration = 0 ms
 [5.990s][info][gc] GC(0) Pause Young (Allocation Failure) 1024M->214M(3925M) 280.659ms
-19:32:43.820 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 1 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
+19:32:43.820 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 1 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
 [13.267s][info][gc] GC(1) Pause Young (Allocation Failure) 1238M->466M(3925M) 645.344ms
-19:32:51.055 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 2 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
+19:32:51.055 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 2 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
 [22.048s][info][gc] GC(2) Pause Young (Allocation Failure) 1490M->717M(3925M) 576.725ms
-19:32:59.836 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 3 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
+19:32:59.836 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 3 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
 [30.683s][info][gc] GC(3) Pause Young (Allocation Failure) 1741M->980M(3925M) 577.448ms
-19:33:08.472 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 4 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
+19:33:08.472 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 4 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
 [44.291s][info][gc] GC(4) Pause Young (Allocation Failure) 2004M->1224M(3925M) 1259.877ms
-19:33:22.080 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 5 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
+19:33:22.080 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 5 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
 [53.711s][info][gc] GC(5) Pause Young (Allocation Failure) 2248M->1756M(3356M) 964.279ms
-19:33:31.501 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 6 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
+19:33:31.501 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 6 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
 [61.069s][info][gc] GC(6) Pause Young (Allocation Failure) 2211M->1859M(3641M) 725.490ms
-19:33:38.859 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 7 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
-19:33:38.861 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 0, totalDuration 0 ms, duration = 0 ms
-19:33:38.861 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 0, totalDuration 0 ms, duration = 0 ms
-19:33:38.863 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 7, totalDuration 5032 ms, duration = 5032 ms
+19:33:38.859 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 7 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
+19:33:38.861 [Thread-1] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 0, totalDuration 0 ms, duration = 0 ms
+19:33:38.861 [Thread-0] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 0, totalDuration 0 ms, duration = 0 ms
+19:33:38.863 [Thread-2] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 7, totalDuration 5032 ms, duration = 5032 ms
 [68.717s][info][gc] GC(7) Pause Young (Allocation Failure) 2314M->1969M(3641M) 1207.634ms
-19:33:46.507 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 8 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
+19:33:46.507 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 8 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
 [77.462s][info][gc] GC(8) Pause Young (Allocation Failure) 2424M->2077M(3641M) 1532.300ms
-19:33:55.254 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 9 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
+19:33:55.254 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 9 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
 [93.425s][info][gc] GC(9) Pause Full (Ergonomics) 3089M->2121M(3641M) 8253.258ms
-19:34:11.225 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 10 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
+19:34:11.225 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 10 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
 [101.402s][info][gc] GC(10) Pause Young (Allocation Failure) 2576M->2241M(3641M) 433.007ms
-19:34:19.370 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 11 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
+19:34:19.370 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 11 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
 [110.229s][info][gc] GC(11) Pause Young (Allocation Failure) 2696M->2349M(3641M) 740.946ms
 [118.597s][info][gc] GC(12) Pause Full (Ergonomics) 2349M->2341M(3641M) 8367.561ms
-19:34:36.385 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 12 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
-19:34:36.385 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 13 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
-19:34:38.865 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 13, totalDuration 25566 ms, duration = 20534 ms
-19:34:38.865 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 0, totalDuration 0 ms, duration = 0 ms
-19:34:38.865 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 0, totalDuration 0 ms, duration = 0 ms
+19:34:36.385 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 12 info.getGcName() = PS Scavenge info.getGcAction() = end of minor GC info.getGcCause() = Allocation Failure notification.getMessage() = PS Scavenge
+19:34:36.385 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 13 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
+19:34:38.865 [Thread-2] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 13, totalDuration 25566 ms, duration = 20534 ms
+19:34:38.865 [Thread-1] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 0, totalDuration 0 ms, duration = 0 ms
+19:34:38.865 [Thread-0] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 0, totalDuration 0 ms, duration = 0 ms
 [133.424s][info][gc] GC(13) Pause Full (Ergonomics) 2794M->2448M(3641M) 6415.773ms
-19:34:51.218 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 14 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
+19:34:51.218 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 14 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
 [149.230s][info][gc] GC(14) Pause Full (Ergonomics) 2902M->2554M(3641M) 6822.217ms
-19:35:07.027 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 15 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
+19:35:07.027 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 15 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
 [165.581s][info][gc] GC(15) Pause Full (Ergonomics) 3009M->2668M(3641M) 7247.867ms
-19:35:23.597 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 16 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
+19:35:23.597 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 16 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
 [184.059s][info][gc] GC(16) Pause Full (Ergonomics) 3123M->2776M(3641M) 8638.295ms
-19:35:41.856 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 0, totalDuration 0 ms, duration = 0 ms
-19:35:41.856 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 17 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
-19:35:41.856 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 0, totalDuration 0 ms, duration = 0 ms
-19:35:41.856 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 16, totalDuration 46053 ms, duration = 20487 ms
+19:35:41.856 [Thread-0] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 0, totalDuration 0 ms, duration = 0 ms
+19:35:41.856 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 17 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
+19:35:41.856 [Thread-1] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 0, totalDuration 0 ms, duration = 0 ms
+19:35:41.856 [Thread-2] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 16, totalDuration 46053 ms, duration = 20487 ms
 [192.669s][info][gc] GC(17) Pause Full (Ergonomics) 2841M->2790M(3641M) 7568.802ms
 [201.121s][info][gc] GC(18) Pause Full (Allocation Failure) 2790M->2789M(3641M) 8451.832ms
 Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
@@ -55,11 +55,11 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 	at java.base/java.util.Arrays.copyOf(Arrays.java:3689)
 	at java.base/java.util.ArrayList.grow(ArrayList.java:237)
 	at java.base/java.util.ArrayList.addAll(ArrayList.java:709)
-	at alexander.ivanov.MemoryLeakEmulator.fillArray(MemoryLeakEmulator.java:26)
-	at alexander.ivanov.MemoryLeakEmulator.run(MemoryLeakEmulator.java:21)
-	at alexander.ivanov.Main.main(Main.java:12)
-19:35:58.914 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 18 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
-19:35:58.914 [Service Thread] INFO alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 19 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Allocation Failure notification.getMessage() = PS MarkSweep
-19:36:41.856 [Thread-0] INFO alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 0, totalDuration 0 ms, duration = 0 ms
-19:36:41.856 [Thread-1] INFO alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 0, totalDuration 0 ms, duration = 0 ms
-19:36:41.866 [Thread-2] INFO alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 19, totalDuration 62073 ms, duration = 16020 ms
+	at alexander.alexander.ivanov.MemoryLeakEmulator.fillArray(MemoryLeakEmulator.java:26)
+	at alexander.alexander.ivanov.MemoryLeakEmulator.run(MemoryLeakEmulator.java:21)
+	at alexander.alexander.ivanov.Main.main(Main.java:12)
+19:35:58.914 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 18 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Ergonomics notification.getMessage() = PS MarkSweep
+19:35:58.914 [Service Thread] INFO alexander.alexander.ivanov.monitoring.Monitoring - notification.getSequenceNumber() = 19 info.getGcName() = PS MarkSweep info.getGcAction() = end of major GC info.getGcCause() = Allocation Failure notification.getMessage() = PS MarkSweep
+19:36:41.856 [Thread-0] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = YOUNG, count = 0, totalDuration 0 ms, duration = 0 ms
+19:36:41.856 [Thread-1] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = OLD, count = 0, totalDuration 0 ms, duration = 0 ms
+19:36:41.866 [Thread-2] INFO alexander.alexander.ivanov.monitoring.GarbageCollector - type = OTHERS, count = 19, totalDuration 62073 ms, duration = 16020 ms
