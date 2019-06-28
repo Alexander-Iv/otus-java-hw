@@ -1,6 +1,6 @@
 package alexander.ivanov.orm.data.source.h2.util;
 
-import alexander.ivanov.orm.data.source.h2.H2;
+import alexander.ivanov.orm.data.source.h2.DataDefinitionAndManipulation;
 import alexander.ivanov.orm.data.source.h2.annotations.Column;
 import alexander.ivanov.orm.data.source.h2.annotations.Id;
 import alexander.ivanov.orm.data.source.h2.annotations.Size;
@@ -79,213 +79,18 @@ public class ReflectionHelper {
     }
 
     public static String objectToSelect(Object object) {
-        AnnotationProperties properties = new AnnotationProperties(setAnnotationProperties(object));
-        StringBuilder conditions = new StringBuilder();
-
-        StringBuilder query = new StringBuilder();
-        query.append("SELECT ");
-
-        AnnotationProperty id = properties.getPropertyByAnnotation(Id.class);
-        List<AnnotationProperty> fields = properties.getPropertiesByAnnotation(Column.class);
-        if (!id.getTarget().isEmpty()
-                && !fields.stream().anyMatch(annotationProperty -> annotationProperty.getTarget().equals(id.getTarget()))) {
-            fields.add(0, id);
-        }
-        if (!fields.isEmpty()) {
-            ListIterator iterator = fields.listIterator();
-            while (iterator.hasNext()) {
-                fields.get(iterator.nextIndex()).getTarget().keySet().forEach(o -> {
-                    query.append(o);
-                    String tmp = getValueByFieldName(object, o);
-                    if (!tmp.isEmpty()) {
-                        if (iterator.nextIndex() > 0) {
-                            conditions.append(" AND ");
-                        }
-                        conditions.append(o + " = " + tmp);
-                    }
-
-                    iterator.next();
-                    if (!(iterator.nextIndex() == fields.size())) {
-                        query.append(", ");
-                    }
-                });
-            }
-        }
-
-        String tableName = properties.getPropertyByAnnotation(Table.class).getProperties()
-                .getOrDefault("name", object.getClass().getSimpleName());
-        query.append(" FROM " + tableName + " \n");
-
-        if (!conditions.toString().isEmpty()) {
-            query.append("WHERE " + conditions + ";\n");
-        }
-
-        logger.info("query:\n" + query);
-        //logger.info("conditions = " + conditions);
-
-        return query.toString();
+        return selectByObjectFields(object);
     }
 
     public static String objectToInsert(Object object) {
-        AnnotationProperties properties = new AnnotationProperties(setAnnotationProperties(object));
-        StringBuilder values = new StringBuilder();
-
-        StringBuilder query = new StringBuilder();
-        query.append("INSERT INTO");
-        String tableName = properties.getPropertyByAnnotation(Table.class).getProperties()
-                .getOrDefault("name", object.getClass().getSimpleName());
-        query.append(" " + tableName + " ");
-
-        AnnotationProperty id = properties.getPropertyByAnnotation(Id.class);
-        List<AnnotationProperty> fields = properties.getPropertiesByAnnotation(Column.class);
-        if (!id.getTarget().isEmpty()
-                && !fields.stream().anyMatch(annotationProperty -> annotationProperty.getTarget().equals(id.getTarget()))) {
-            fields.add(0, id);
-        }
-        if (!fields.isEmpty()) {
-            query.append("(");
-            values.append("(");
-            ListIterator iterator = fields.listIterator();
-            while (iterator.hasNext()) {
-                fields.get(iterator.nextIndex()).getTarget().keySet().forEach(o -> {
-                    String tmp = getValueByFieldName(object, o);
-                    if (!tmp.isEmpty()) {
-                        query.append(o);
-                        values.append(tmp);
-                    }
-
-                    iterator.next();
-                    if (!(iterator.nextIndex() == fields.size())) {
-                        query.append(", ");
-                        values.append(", ");
-                    }
-                });
-            }
-            query.append(")");
-            values.append(");");
-        }
-
-        query.append(" VALUES " + values.toString());
-
-        logger.info("query:\n" + query);
-        //logger.info("values = " + values);
-
-        return query.toString();
+        return insertByObjectFields(object);
     }
 
     public static String objectToUpdate(Object object) {
-        AnnotationProperties properties = new AnnotationProperties(setAnnotationProperties(object));
-        StringBuilder conditions = new StringBuilder();
-
-        StringBuilder query = new StringBuilder();
-        query.append("UPDATE");
-        String tableName = properties.getPropertyByAnnotation(Table.class).getProperties()
-                .getOrDefault("name", object.getClass().getSimpleName());
-        query.append(" " + tableName + " ");
-
-        AnnotationProperty id = properties.getPropertyByAnnotation(Id.class);
-        List<AnnotationProperty> fields = properties.getPropertiesByAnnotation(Column.class);
-        fields.removeIf(annotationProperty -> annotationProperty.getTarget().equals(id.getTarget()));
-        if (!fields.isEmpty()) {
-            ListIterator iterator = fields.listIterator();
-            while (iterator.hasNext()) {
-                fields.get(iterator.nextIndex()).getTarget().keySet().forEach(o -> {
-                    String tmp = getValueByFieldName(object, o);
-                    if (!tmp.isEmpty()) {
-                        conditions.append(o + " = " + tmp);
-                    }
-
-                    iterator.next();
-                    if (!(iterator.nextIndex() == fields.size())) {
-                        conditions.append(", ");
-                    }
-                });
-
-            }
-        }
-
-        if (!conditions.toString().isEmpty()) {
-            query.append("SET " + conditions);
-        }
-
-        id.getTarget().keySet().forEach(s -> {
-            String tmp = getValueByFieldName(object, s);
-            if (!tmp.isEmpty()) {
-                query.append(" WHERE " + s + " = " + tmp);
-            }
-        });
-
-        query.append(";\n");
-
-        logger.info("query:\n" + query);
-        //logger.info("values = " + values);
-
-        return query.toString();
-    }
-    
-    public static Object classToObject(long id, Class<?> clazz, H2 db) {
-        logger.info("id = {}, class = {}", id, clazz);
-
-        Object object = null;
-        try {
-            object = clazz.getConstructor().newInstance();
-
-            AnnotationProperties properties = new AnnotationProperties(setAnnotationProperties(object));
-            AnnotationProperty idProperty = properties.getPropertyByAnnotation(Id.class);
-            String idName = idProperty.getTarget().keySet()
-                    .stream()
-                    .findFirst()
-                    .orElse("");
-
-            Field idField = object.getClass().getDeclaredField(idName);
-
-            idField.setAccessible(true);
-            idField.set(object, id);
-            idField.setAccessible(false);
-
-            List<AnnotationProperty> fields = properties.getPropertiesByAnnotation(Column.class);
-            if (!idProperty.getTarget().isEmpty()
-                    && !fields.stream().anyMatch(annotationProperty -> annotationProperty.getTarget().equals(idProperty.getTarget()))) {
-                fields.add(0, idProperty);
-            }
-
-            setObjectFieldsFromDbSelectResult(object,
-                    Arrays.asList(object.getClass().getDeclaredFields()),
-                    db.select(objectToSelect(object)));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error: " + e.getMessage());
-        }
-
-        logger.info("object = " + object);
-        return null;
+        return updateByObjectFields(object);
     }
 
-    private static void setObjectFieldsFromDbSelectResult(Object object, List<Field> fields, Map<Object, List<Object>> dbResult) {
-        for (Object headerFieldFromDb : dbResult.keySet()) {
-            //logger.info("headerFieldFromDb = " + headerFieldFromDb);
-            fields.stream()
-                    .filter(field -> field.getName().toUpperCase().equals(headerFieldFromDb.toString().toUpperCase()))
-                    //.peek(field -> logger.info("field = " + field))
-                    .forEach(field -> {
-                        field.setAccessible(true);
-                        try {
-                            //logger.info("dbResult.get(headerFieldFromDb).get(0) = " + dbResult.get(headerFieldFromDb).get(0));
-                            if (dbResult.get(headerFieldFromDb).size() > 0) {
-                                field.set(object, dbResult.get(headerFieldFromDb).get(0));
-                            } else {
-                                throw new RuntimeException("No data found");
-                            }
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
-                        field.setAccessible(false);
-                    });
-        }
-    }
-
-    private static List<AnnotationProperty> setAnnotationProperties(Object object) {
+    public static List<AnnotationProperty> setAnnotationProperties(Object object) {
         //class
         List<AnnotationProperty> properties =
                 Arrays.asList(object.getClass().getDeclaredAnnotations())
@@ -361,8 +166,155 @@ public class ReflectionHelper {
         return kv;
     }
 
-    private static String getValueByFieldName(Object object, String name) {
-        String value = "";
+    public static String selectByObjectFields(Object object) {
+        List<String> idColums = getAnnotatedFields(object, Collections.singletonList(Id.class));
+        List<String> allColums = getAnnotatedFields(object, Arrays.asList(Id.class, Column.class));
+
+        StringBuilder where = new StringBuilder();
+        where.append(" WHERE ");
+        where.append(listWithWildcardSeparatedBy(idColums, " AND ", "?", 0L));
+
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT ");
+        query.append(listSeparatedBy(allColums, ", "));
+        query.append(" FROM ");
+        query.append(new AnnotationProperties(setAnnotationProperties(object)).getPropertyByAnnotation(Table.class).getProperties()
+                .getOrDefault("name", object.getClass().getSimpleName()));
+        query.append(where.toString());
+
+        logger.info(query.toString());
+        return query.toString();
+    }
+
+    public static String updateByObjectFields(Object object) {
+        List<String> idColums = getAnnotatedFields(object, Collections.singletonList(Id.class));
+        List<String> onlyColums = getAnnotatedFields(object, Collections.singletonList(Column.class));
+
+        StringBuilder where = new StringBuilder();
+        where.append(" WHERE ");
+        where.append(listWithWildcardSeparatedBy(idColums, " AND ", "?", 0L));
+
+        StringBuilder query = new StringBuilder();
+        query.append("UPDATE ");
+        query.append(new AnnotationProperties(setAnnotationProperties(object)).getPropertyByAnnotation(Table.class).getProperties()
+                .getOrDefault("name", object.getClass().getSimpleName()));
+        query.append(" SET ");
+        query.append(listWithWildcardSeparatedBy(onlyColums, ", ", "?", countWildCard(where.toString())));
+        query.append(where.toString());
+
+        logger.info(query.toString());
+        return query.toString();
+    }
+
+    public static String insertByObjectFields(Object object) {
+        List<String> idColums = getAnnotatedFields(object, Collections.singletonList(Id.class));
+        List<String> allColums = getAnnotatedFields(object, Arrays.asList(Id.class, Column.class));
+
+        StringBuilder values = new StringBuilder();
+        values.append(" VALUES");
+        values.append("(");
+        values.append(listWildcardOnlySeparatedBy(allColums, ", ", "?", 0L));
+        values.append(")");
+
+        StringBuilder query = new StringBuilder();
+        query.append("INSERT INTO ");
+        query.append(new AnnotationProperties(setAnnotationProperties(object)).getPropertyByAnnotation(Table.class).getProperties()
+                .getOrDefault("name", object.getClass().getSimpleName()));
+        query.append("(");
+        query.append(listSeparatedBy(allColums, ", "));
+        query.append(")");
+        query.append(values.toString());
+
+        logger.info(query.toString());
+        return query.toString();
+    }
+
+    private static String listSeparatedBy(List<String> list, String separator) {
+        return listWithWildcardSeparatedBy(list, separator, "", 0);
+    }
+
+    private static String listWithWildcardSeparatedBy(List<String> list, String separator, String wildcard, long wildCardCount) {
+        StringBuilder tmp = new StringBuilder();
+        ListIterator li = list.listIterator();
+        while (li.hasNext()) {
+            tmp.append(li.next());
+            if (wildcard.contains("?")) {
+                tmp.append(" = ?" + "_" + (wildCardCount + li.previousIndex()));
+            }
+            if (!(li.nextIndex() == list.size())) {
+                tmp.append(separator);
+            }
+        }
+        return tmp.toString();
+    }
+
+    private static long countWildCard(String text) {
+        return text.chars().mapToObj(Character::toString).filter(s -> s.equals("?")).count();
+    }
+
+    private static String listWildcardOnlySeparatedBy(List<String> list, String separator, String wildcard, long wildCardCount) {
+        StringBuilder tmp = new StringBuilder();
+        ListIterator li = list.listIterator();
+        while (li.hasNext()) {
+            li.next();
+            if (wildcard.contains("?")) {
+                tmp.append("?" + "_" + (wildCardCount + li.previousIndex()));
+            }
+            if (!(li.nextIndex() == list.size())) {
+                tmp.append(separator);
+            }
+        }
+        return tmp.toString();
+    }
+
+
+    public static List<String> getAnnotatedFields(Object object) {
+        return getAnnotatedFields(object, Arrays.asList(Id.class, Column.class));
+    }
+
+    public static List<String> getAnnotatedFields(Object object, List<Class<? extends Annotation>> anotations) {
+        AnnotationProperties properties = new AnnotationProperties(setAnnotationProperties(object));
+
+        List<AnnotationProperty> fields = new ArrayList<>();
+        anotations.stream()
+                .map(properties::getPropertiesByAnnotation)
+                //.distinct()
+                .reduce(fields, (annotationProperties, annotationProperties2) -> {
+                    annotationProperties2.stream()
+                            .forEach(annotationProperty -> {
+                                if (annotationProperties.stream()
+                                        .noneMatch(annotationProperty1 ->
+                                                annotationProperty1.getTarget().equals(annotationProperty.getTarget()))) {
+                                    annotationProperties.add(annotationProperty);
+                                }
+                    });
+                    return annotationProperties;
+                });
+
+        return fields.stream().map(annotationProperty -> annotationProperty.getTarget().keySet())
+                .map(Set::iterator)
+                .map(Iterator::next)
+                .collect(Collectors.toList());
+    }
+
+    public static List<Object> getIdValue(Object object) {
+        return getFieldValues(object, Arrays.asList(Id.class));
+    }
+
+    public static List<Object> getFieldValues(Object object) {
+        return getFieldValues(object, Arrays.asList(Id.class, Column.class));
+    }
+
+    public static List<Object> getFieldValues(Object object, List<Class<? extends Annotation>> annotations) {
+        return Arrays.asList(object.getClass().getDeclaredFields())
+                .stream()
+                .filter(field -> getAnnotatedFields(object, annotations).stream().anyMatch(s -> s.equals(field.getName())))
+                .map(field -> getValueByFieldName(object, field.getName()))
+                .collect(Collectors.toList());
+    }
+
+    private static Object getValueByFieldName(Object object, String name) {
+        Object value = "";
         try {
             Field f = object.getClass().getDeclaredField(name);
             //logger.info("f = " + f);
@@ -378,5 +330,6 @@ public class ReflectionHelper {
         }
         return value;
     }
+
 
 }

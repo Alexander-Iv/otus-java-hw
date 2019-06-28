@@ -8,27 +8,27 @@ import alexander.ivanov.orm.data.source.h2.annotations.Table;
 @Table(name = "ACCOUNT")
 public class Account {
     @Id @Size(20)
-    private Long id;
+    private Long no;
     @Column @Size(255)
-    private String name;
+    private String type;
     @Column
-    private Integer age;
+    private Integer rest;
 
     public Account() {
     }
 
-    public Account(Long id, String name, Integer age) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
+    public Account(Long no, String type, Integer rest) {
+        this.no = no;
+        this.type = type;
+        this.rest = rest;
     }
 
     @Override
     public String toString() {
         return "Account{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
+                "no=" + no +
+                ", type='" + type + '\'' +
+                ", rest=" + rest +
                 '}';
     }
 }

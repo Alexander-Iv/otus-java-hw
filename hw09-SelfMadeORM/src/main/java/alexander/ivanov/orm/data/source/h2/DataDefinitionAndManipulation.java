@@ -3,7 +3,7 @@ package alexander.ivanov.orm.data.source.h2;
 import java.util.List;
 import java.util.Map;
 
-public interface H2 {
+public interface DataDefinitionAndManipulation {
     void create(String query);
     void create(String query, List params);
 

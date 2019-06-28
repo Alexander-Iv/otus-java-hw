@@ -1,17 +1,19 @@
 package alexander.ivanov.orm.data.source.h2.impl;
 
-import alexander.ivanov.orm.data.source.h2.H2;
+import alexander.ivanov.orm.data.source.h2.DataDefinitionAndManipulation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
-public class H2Impl implements H2 {
-    private static final Logger logger = LoggerFactory.getLogger(H2Impl.class);
+public class DataDefinitionAndManipulationImpl implements DataDefinitionAndManipulation {
+    private static final Logger logger = LoggerFactory.getLogger(DataDefinitionAndManipulationImpl.class);
+    private static final String WILDCARD_WITH_INDEX_PATTERN = "[?][_][0-9]+";
     private Connection connection;
 
-    public H2Impl(String url) {
+    public DataDefinitionAndManipulationImpl(String url) {
         try {
             connection = DriverManager.getConnection(url);
             connection.setAutoCommit(false);
@@ -22,38 +24,40 @@ public class H2Impl implements H2 {
 
     @Override
     public void create(String query) {
-        create(query, Arrays.asList());
+        create(query, Collections.emptyList());
     }
 
     @Override
     public void create(String query, List params) {
-        logger.info("H2Impl.create");
+        logger.info("DataDefinitionAndManipulationImpl.create");
         update(query, params);
         logger.info("Table successfully created!");
     }
 
     @Override
     public int insert(String query) {
-        return insert(query, Arrays.asList());
+        return insert(query, Collections.emptyList());
     }
 
     @Override
     public int insert(String query, List params) {
-        logger.info("H2Impl.insert");
+        logger.info("DataDefinitionAndManipulationImpl.insert");
         return update(query, params);
     }
 
     @Override
     public Map<Object, List<Object>> select(String query) {
-        return select(query, Arrays.asList());
+        return select(query, Collections.emptyList());
     }
 
     @Override
     public Map<Object, List<Object>> select(String query, List params) {
         Map<Object, List<Object>> table = new HashMap<>();
-        try (PreparedStatement pst = this.connection.prepareStatement(query)) {
-            setParams(pst, params);
-            logger.info("QUERY:\n" + query);
+        List newParams = getSortParamsByWildcardIndexes(query, params);
+        String newQuery = query.replaceAll(WILDCARD_WITH_INDEX_PATTERN, "?");
+        try (PreparedStatement pst = this.connection.prepareStatement(newQuery)) {
+            setParams(pst, /*params*/newParams);
+            logger.info("QUERY:\n" + newQuery);
             try (ResultSet rs = pst.executeQuery()) {
                 StringBuilder header = new StringBuilder();
                 header.append("\n");
@@ -85,14 +89,15 @@ public class H2Impl implements H2 {
 
     @Override
     public int update(String query) {
-        return update(query, Arrays.asList());
+        return update(query, Collections.emptyList());
     }
 
     public int update(String query, List params) {
         int count = 0;
-        try (PreparedStatement pst = connection.prepareStatement(query)) {
-
-            setParams(pst, params);
+        List newParams = getSortParamsByWildcardIndexes(query, params);
+        String newQuery = query.replaceAll(WILDCARD_WITH_INDEX_PATTERN, "?");
+        try (PreparedStatement pst = connection.prepareStatement(newQuery)) {
+            setParams(pst, newParams);
             count = pst.executeUpdate();
             connection.commit();
 
@@ -109,13 +114,30 @@ public class H2Impl implements H2 {
 
     @Override
     public int delete(String query) {
-        return delete(query, Arrays.asList());
+        return delete(query, Collections.emptyList());
     }
 
     @Override
     public int delete(String query, List params) {
-        logger.info("H2Impl.delete");
+        logger.info("DataDefinitionAndManipulationImpl.delete");
         return update(query, params);
+    }
+
+    private List getSortParamsByWildcardIndexes(String query, List params) {
+        List newParams = new ArrayList(params.size());
+        logger.info("params = " + params);
+
+        Pattern.compile("([?][_][0-9]+)+").matcher(query).results().forEach(matchResult -> {
+            String tmp = matchResult.group();
+            logger.info("tmp = " + tmp);
+            int index = Integer.valueOf(tmp.substring(tmp.indexOf("?_")+2));
+            logger.info("index = " + index);
+            logger.info("params = " + params.get(index));
+            newParams.add(params.get(index));
+        });
+        logger.info("newParams = " + newParams);
+
+        return newParams;
     }
 
     private void setParams(PreparedStatement preparedStatement, List params) throws SQLException {
@@ -133,31 +155,7 @@ public class H2Impl implements H2 {
         ListIterator iter = params.listIterator();
         while(iter.hasNext()) {
             Object val = iter.next();
-            /*logger.info("val instanceof Integer = " + (val instanceof Integer));
-            logger.info("val instanceof Long = " + (val instanceof Long));
-            logger.info("val instanceof Double = " + (val instanceof Double));
-            logger.info("val instanceof Float = " + (val instanceof Float));*/
-            if (val instanceof Integer) {
-                preparedStatement.setInt(iter.nextIndex(), (Integer) val);
-            } else if (val instanceof Long) {
-                preparedStatement.setLong(iter.nextIndex(), (Long) val);
-            } else if (val instanceof Double) {
-                preparedStatement.setDouble(iter.nextIndex(), (Double) val);
-            } else if (val instanceof Float) {
-                preparedStatement.setFloat(iter.nextIndex(), (Float) val);
-            } else if (val instanceof String) {
-                if(!((String) val).startsWith("'")) {
-                    val = "'" + val;
-                }
-                if(!((String) val).endsWith("'")) {
-                    val = val + "'";
-                }
-                logger.info("val = " + val);
-                preparedStatement.setString(iter.nextIndex(), (String) val);
-            }
-            else {
-                throw new UnsupportedOperationException("Unsupported parameter type.");
-            }
+            preparedStatement.setObject(iter.nextIndex(), val);
         }
     }
 
