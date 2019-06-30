@@ -1,6 +1,5 @@
 package alexander.ivanov.orm.data.source.h2.util;
 
-import alexander.ivanov.orm.data.source.h2.DataDefinitionAndManipulation;
 import alexander.ivanov.orm.data.source.h2.annotations.Column;
 import alexander.ivanov.orm.data.source.h2.annotations.Id;
 import alexander.ivanov.orm.data.source.h2.annotations.Size;
@@ -186,6 +185,19 @@ public class ReflectionHelper {
         return query.toString();
     }
 
+    public static String objectToSimpleSelect(Object object) {
+        List<String> idColums = getAnnotatedFields(object, Collections.singletonList(Id.class));
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT 1 FROM ");
+        query.append(new AnnotationProperties(setAnnotationProperties(object)).getPropertyByAnnotation(Table.class).getProperties()
+                .getOrDefault("name", object.getClass().getSimpleName()));
+        query.append(" WHERE ");
+        query.append(listWithWildcardSeparatedBy(idColums, " AND ", "?", 0L));
+
+        logger.info(query.toString());
+        return query.toString();
+    }
+
     public static String updateByObjectFields(Object object) {
         List<String> idColums = getAnnotatedFields(object, Collections.singletonList(Id.class));
         List<String> onlyColums = getAnnotatedFields(object, Collections.singletonList(Column.class));
@@ -322,7 +334,7 @@ public class ReflectionHelper {
             Object obj = f.get(object);
             if(obj != null) {
                 //logger.info("obj = {}, {}", obj, (obj == null));
-                value = (obj instanceof String) ? "\'" + obj.toString() + "\'" : obj.toString();
+                value = obj.toString();
             }
             f.setAccessible(false);
         } catch (Exception e) {
