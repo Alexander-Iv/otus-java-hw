@@ -45,24 +45,26 @@ public class Demo {
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
-            Phone phone1 = new Phone("01112223344");
-            session.save(phone1);
-            Phone phone2 = new Phone("98887776655");
-            session.save(phone2);
-
-            Address address = new Address("qwerty");
-            session.save(address);
-
-            User newUser = new User("unknown", 0, address, Arrays.asList(phone1, phone2));
+            User newUser = new User("unknown",
+                    22,
+                    new Address("qwerty1"),
+                    Arrays.asList(new Phone("1111111111"), new Phone("2222222222")));
             session.save(newUser);
+
+            User newUser2 = new User("unknown",
+                    44,
+                    new Address("qwerty2"),
+                    Arrays.asList(new Phone("3333333333"), new Phone("44444444444")));
+            session.save(newUser2);
+
             session.getTransaction().commit();
 
-            logger.info("user = {}", newUser);
+            logger.info("user1 = {}", newUser);
+            logger.info("user2 = {}", newUser2);
 
-            User loadedUser = session.load(User.class, 1L);
+            User loadedUser = session.get(User.class, 2L);
             logger.info("loadedUser.getId() = {}", loadedUser.getId());
             logger.info("loadedUser = {}", loadedUser);
         }
-
     }
 }

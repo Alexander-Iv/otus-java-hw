@@ -17,11 +17,9 @@ public class User {
     private String name;
     @Column(name = "AGE")
     private Integer age;
-    //@OneToOne @JoinColumn(name = "ADDRESS_ID")
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true) @JoinColumn(name = "ADDR_ADDR_ID")
     private Address address;
-    //@OneToMany @JoinColumn(name = "PHONE_ID")
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) @JoinColumn(name = "PHONE_PHONE_ID")
     private Collection<Phone> phones;
 
     public User() {
@@ -32,6 +30,11 @@ public class User {
         this.age = age;
         this.address = address;
         this.phones = phones;
+    }
+
+    public User(Long id, String name, Integer age, Address address, Collection<Phone> phones) {
+        this(name, age, address, phones);
+        this.id = id;
     }
 
     public Long getId() {
@@ -75,11 +78,11 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id.equals(user.id) &&
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        User user = (User) object;
+        return Objects.equals(id, user.id) &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(age, user.age) &&
                 Objects.equals(address, user.address) &&

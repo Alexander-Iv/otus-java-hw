@@ -9,7 +9,7 @@ public class Address {
     @Id
     @SequenceGenerator(name="ADDR_SEQ", initialValue=1, allocationSize=1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDR_SEQ")
-    @Column(name = "ADDRESS_ID")
+    @Column(name = "ADDR_ID")
     private Long id;
     @Column(name = "STREET")
     private String street;
@@ -19,6 +19,11 @@ public class Address {
 
     public Address(String street) {
         this.street = street;
+    }
+
+    public Address(Long id, String street) {
+        this(street);
+        this.id = id;
     }
 
     public Long getId() {
@@ -38,11 +43,11 @@ public class Address {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Address address = (Address) o;
-        return id.equals(address.id) &&
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Address address = (Address) object;
+        return Objects.equals(id, address.id) &&
                 Objects.equals(street, address.street);
     }
 

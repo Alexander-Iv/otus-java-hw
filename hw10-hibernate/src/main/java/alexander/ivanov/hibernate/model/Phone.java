@@ -21,6 +21,11 @@ public class Phone {
         this.number = number;
     }
 
+    public Phone(Long id, String number) {
+        this(number);
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
@@ -38,11 +43,11 @@ public class Phone {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Phone phone = (Phone) o;
-        return id.equals(phone.id) &&
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Phone phone = (Phone) object;
+        return Objects.equals(id, phone.id) &&
                 Objects.equals(number, phone.number);
     }
 
