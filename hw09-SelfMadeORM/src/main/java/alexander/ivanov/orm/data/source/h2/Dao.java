@@ -18,5 +18,5 @@ public interface Dao {
     int delete(String query);
     int delete(String query, List params);
 
-    <T> T getInstance(long id, Class<T> clazz);
+    <T> T selectObjectById(long id, Class<T> clazz);
 }

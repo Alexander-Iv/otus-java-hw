@@ -12,23 +12,23 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Pattern;
 
 public class DaoImpl implements Dao {
     private static final Logger logger = LoggerFactory.getLogger(DaoImpl.class);
     private static final String WILDCARD_WITH_INDEX_PATTERN = "[?][_][0-9]+";
     private Connection connection;
-    private Map<Object, List<Object>> table;
-    private Map<Class, String> loadedQueries;
-    private Map<Class, List<Object>> loadedIds;
+    private ConcurrentMap<Class, String> loadedQueries;
+    private ConcurrentMap<Class, List<Object>> loadedIds;
 
     public DaoImpl(String url) {
         try {
             connection = DriverManager.getConnection(url);
             connection.setAutoCommit(false);
-            table = new HashMap<>();
-            loadedQueries = new HashMap<>();
-            loadedIds = new HashMap<>();
+            loadedQueries = new ConcurrentHashMap<>();
+            loadedIds = new ConcurrentHashMap<>();
         } catch (SQLException e) {
             errorHandler(e);
         }
@@ -78,8 +78,6 @@ public class DaoImpl implements Dao {
                 header.append("\n");
                 for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
                     header.append(String.format("%10s", rs.getMetaData().getColumnName(i)));
-                    Object obj = rs.getMetaData().getColumnName(i);
-                    table.put(obj, new ArrayList<>());
                 }
                 header.append("\n");
 
@@ -87,8 +85,6 @@ public class DaoImpl implements Dao {
                 while (rs.next()) {
                     for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
                         body.append(String.format("%10s", rs.getObject(i)));
-                        Object obj = rs.getMetaData().getColumnName(i);
-                        table.get(obj).add(rs.getObject(i));
                     }
                     body.append("\n");
                     count++;
@@ -202,7 +198,7 @@ public class DaoImpl implements Dao {
     }
 
     @Override
-    public <T> T getInstance(long id, Class<T> clazz) {
+    public <T> T selectObjectById(long id, Class<T> clazz) {
         T object;
 
         try {
@@ -241,7 +237,8 @@ public class DaoImpl implements Dao {
                 idNameInDb = ReflectionHelper.getIdValue(object);
             }
 
-            select(query, idNameInDb);
+            //select(query, idNameInDb);
+            Map<Object, List<Object>> table = getTableData(query, idNameInDb);
             for (Object headerFieldFromDb : table.keySet()) {
                 //logger.info("headerFieldFromDb = " + headerFieldFromDb);
                 Arrays.asList(object.getClass().getDeclaredFields()).stream()
@@ -271,5 +268,30 @@ public class DaoImpl implements Dao {
         }
 
         return object;
+    }
+
+    private Map<Object, List<Object>> getTableData(String query, List params) {
+        List newParams = getSortParamsByWildcardIndexes(query, params);
+        String newQuery = query.replaceAll(WILDCARD_WITH_INDEX_PATTERN, "?");
+        Map<Object, List<Object>> table = new HashMap<>();
+        try (PreparedStatement pst = this.connection.prepareStatement(newQuery)) {
+            setParams(pst, newParams);
+            try (ResultSet rs = pst.executeQuery()) {
+                for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+                    Object obj = rs.getMetaData().getColumnName(i);
+                    table.put(obj, new ArrayList<>());
+                }
+
+                while (rs.next()) {
+                    for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+                        Object obj = rs.getMetaData().getColumnName(i);
+                        table.get(obj).add(rs.getObject(i));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            errorHandler(e);
+        }
+        return table;
     }
 }

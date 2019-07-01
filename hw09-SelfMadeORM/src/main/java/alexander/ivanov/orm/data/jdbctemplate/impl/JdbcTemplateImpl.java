@@ -41,7 +41,7 @@ public class JdbcTemplateImpl<T> implements JdbcTemplate<T> {
 
     @Override
     public <T> T load(long id, Class<T> clazz) {
-        return dao.getInstance(id, clazz);
+        return dao.selectObjectById(id, clazz);
     }
 
     public String getSimpleSelect(T objectData) {
