@@ -17,10 +17,15 @@ public class User {
     private String name;
     @Column(name = "AGE")
     private Integer age;
-    @OneToOne(mappedBy = "id", cascade = CascadeType.ALL)
+    //@OneToOne @JoinColumn(name = "ADDRESS_ID")
+    @Transient
     private Address address;
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    //@OneToMany @JoinColumn(name = "PHONE_ID")
+    @Transient
     private Collection<Phone> phones;
+
+    public User() {
+    }
 
     public User(String name, Integer age, Address address, Collection<Phone> phones) {
         this.name = name;

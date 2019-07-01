@@ -9,9 +9,17 @@ public class Phone {
     @Id
     @SequenceGenerator(name="PHONE_SEQ", initialValue=1, allocationSize=1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PHONE_SEQ")
+    @Column(name = "PHONE_ID")
     private Long id;
     @Column(name = "NUMBER")
     private String number;
+
+    public Phone() {
+    }
+
+    public Phone(String number) {
+        this.number = number;
+    }
 
     public Long getId() {
         return id;

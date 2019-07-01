@@ -7,11 +7,19 @@ import java.util.Objects;
 @Table(name = "ADDRESS")
 public class Address {
     @Id
-    @SequenceGenerator(name="ADDRESS_SEQ", initialValue=1, allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_SEQ")
+    @SequenceGenerator(name="ADDR_SEQ", initialValue=1, allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDR_SEQ")
+    @Column(name = "ADDRESS_ID")
     private Long id;
     @Column(name = "STREET")
     private String street;
+
+    public Address() {
+    }
+
+    public Address(String street) {
+        this.street = street;
+    }
 
     public Long getId() {
         return id;
