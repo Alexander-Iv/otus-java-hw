@@ -17,9 +17,11 @@ public class User {
     private String name;
     @Column(name = "AGE")
     private Integer age;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER) @JoinColumn(name = "ADDR_ADDR_ID")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ADDR_ADDR_ID")
     private Address address;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER) @JoinColumn(name = "PHONE_PHONE_ID")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn(name = "PHONE_PHONE_ID")
     private Collection<Phone> phones;
 
     public User() {
