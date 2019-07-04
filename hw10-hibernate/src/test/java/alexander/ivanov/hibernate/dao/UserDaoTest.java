@@ -42,7 +42,7 @@ class UserDaoTest {
 
         userDao.create(newUser);
 
-        newUser.setPhone(Arrays.asList(new Phone(1L,"11111"), new Phone(2L,"22222")));
+        newUser.setPhones(Arrays.asList(new Phone(1L,"11111"), new Phone(2L,"22222")));
         newUser.setAddress(new Address(1L,"djdjdj"));
         newUser.setAge(20);
 

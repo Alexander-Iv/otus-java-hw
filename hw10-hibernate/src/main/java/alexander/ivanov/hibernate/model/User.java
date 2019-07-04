@@ -1,6 +1,7 @@
 package alexander.ivanov.hibernate.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -20,8 +21,7 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "ADDR_ADDR_ID")
     private Address address;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn(name = "PHONE_PHONE_ID")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Collection<Phone> phones;
 
     public User() {
@@ -32,6 +32,7 @@ public class User {
         this.age = age;
         this.address = address;
         this.phones = phones;
+        phones.forEach(phone -> phone.setUser(this));
     }
 
     public User(Long id, String name, Integer age, Address address, Collection<Phone> phones) {
@@ -75,8 +76,9 @@ public class User {
         return phones;
     }
 
-    public void setPhone(Collection<Phone> phones) {
+    public void setPhones(Collection<Phone> phones) {
         this.phones = phones;
+        phones.forEach(phone -> phone.setUser(this));
     }
 
     @Override
