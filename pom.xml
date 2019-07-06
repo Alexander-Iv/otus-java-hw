@@ -16,6 +16,7 @@
         <module>hw06-ATMEmulator</module>
         <module>hw07-ATMDepartment</module>
         <module>hw09-SelfMadeORM</module>
+        <module>hw10-hibernate</module>
     </modules>
 
     <packaging>pom</packaging>
