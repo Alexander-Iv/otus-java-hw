@@ -17,6 +17,7 @@
         <module>hw07-ATMDepartment</module>
         <module>hw09-SelfMadeORM</module>
         <module>hw10-hibernate</module>
+        <module>hw12-webServer</module>
     </modules>
 
     <packaging>pom</packaging>
