@@ -1,5 +1,6 @@
 package alexander.ivanov.webserver.util;
 
+import alexander.ivanov.webserver.util.appender.ServletContextAppender;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.junit.jupiter.api.Test;
 

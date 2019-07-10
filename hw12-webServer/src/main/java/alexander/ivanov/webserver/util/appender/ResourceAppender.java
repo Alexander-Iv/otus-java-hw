@@ -1,6 +1,6 @@
-package alexander.ivanov.webserver.util;
+package alexander.ivanov.webserver.util.appender;
 
-import alexander.ivanov.webserver.util.appender.Appender;
+import alexander.ivanov.webserver.util.RelativeDirectoryPath;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

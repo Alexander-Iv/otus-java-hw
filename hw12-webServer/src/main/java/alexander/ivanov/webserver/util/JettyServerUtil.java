@@ -1,5 +1,7 @@
 package alexander.ivanov.webserver.util;
 
+import alexander.ivanov.webserver.util.appender.ResourceAppender;
+import alexander.ivanov.webserver.util.appender.ServletContextAppender;
 import org.eclipse.jetty.security.ConstraintMapping;
 import org.eclipse.jetty.security.ConstraintSecurityHandler;
 import org.eclipse.jetty.security.SecurityHandler;
@@ -9,6 +11,7 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.util.security.Constraint;
+import org.eclipse.jetty.webapp.WebInfConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +22,7 @@ public class JettyServerUtil {
 
     public static Server createServer(int port) {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        context.setContextPath("/");
         //context.addServlet(DefaultServlet.class, "/*");
         ServletContextAppender appender = new ServletContextAppender(context);
         appender.appendFrom("servlets/", new ServletContextAppender.Servlet());
@@ -34,8 +38,8 @@ public class JettyServerUtil {
         ResourceHandler resourceHandler = new ResourceHandler();
         resourceHandler.setDirectoriesListed(false);
         ResourceAppender appender = new ResourceAppender(resourceHandler);
-        appender.appendFrom("pages/welcome/", new ResourceAppender.Welcome());
-        appender.appendFrom("pages/", new ResourceAppender.Base());
+        appender.appendFrom("webapp/welcome/", new ResourceAppender.Welcome());
+        appender.appendFrom("webapp/", new ResourceAppender.Base());
         return resourceHandler;
     }
 

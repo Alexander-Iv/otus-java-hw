@@ -21,7 +21,5 @@ public class Test extends HttpServlet {
         PrintWriter printWriter = resp.getWriter();
         printWriter.print(resultAsString);
         printWriter.flush();
-
-        super.doGet(req, resp);
     }
 }
