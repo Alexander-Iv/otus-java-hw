@@ -1,11 +1,13 @@
 package alexander.ivanov.webserver.servlets;
 
 import alexander.ivanov.webserver.util.RelativeDirectoryPath;
+import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.util.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,15 @@ import java.nio.file.Paths;
 
 public class Login extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(Login.class);
+    RequestDispatcher dispatcher;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        logger.info("config = {}", config);
+        dispatcher = config.getServletContext().getRequestDispatcher("/login.html");
+        logger.info("dispatcher = {}", dispatcher);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -66,6 +77,8 @@ public class Login extends HttpServlet {
                 //.forward(req, resp);
         ;
 
+        printWriter.println("~~~ = " + getServletContext().getResource("/login.html").getPath());
+
         RequestDispatcher dispatcher = //getServletContext().getRequestDispatcher("/login.html");
                 getServletContext().getNamedDispatcher("/login.html");
         printWriter.println("dispatcher = " + dispatcher);
@@ -74,11 +87,13 @@ public class Login extends HttpServlet {
         //dispatcher.include(req, resp);
         //dispatcher.forward(req, resp);
 
-        printWriter.println("~~~ = " + " " + String.format("%s.html", req.getServletPath()));
+        //printWriter.println("~~~ = " + " " + String.format("%s.html", req.getServletPath()));
         (dispatcher = req.getServletContext()
-                .getRequestDispatcher(String.format("%s.html", req.getServletPath()))).include(req, resp);
-
-        dispatcher.forward(req, resp);
+                .getRequestDispatcher("/login.html"))
+                .include(req, resp);
+        printWriter.println("dispatcher = " + dispatcher);
+        printWriter.println("dispatcher = " + ServletContextHandler.getCurrentContext().getRequestDispatcher("/login.html"));
+        //dispatcher.forward(req, resp);
     }
 
 }
