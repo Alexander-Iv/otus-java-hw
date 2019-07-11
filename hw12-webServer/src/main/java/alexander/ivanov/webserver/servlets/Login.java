@@ -88,9 +88,9 @@ public class Login extends HttpServlet {
         //dispatcher.forward(req, resp);
 
         //printWriter.println("~~~ = " + " " + String.format("%s.html", req.getServletPath()));
-        (dispatcher = req.getServletContext()
+        /*(dispatcher = req.getServletContext()
                 .getRequestDispatcher("/login.html"))
-                .include(req, resp);
+                .include(req, resp);*/
         printWriter.println("dispatcher = " + dispatcher);
         printWriter.println("dispatcher = " + ServletContextHandler.getCurrentContext().getRequestDispatcher("/login.html"));
         //dispatcher.forward(req, resp);
