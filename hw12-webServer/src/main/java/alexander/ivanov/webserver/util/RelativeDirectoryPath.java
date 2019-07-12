@@ -25,7 +25,7 @@ public class RelativeDirectoryPath {
             logger.error("e.getMessage() = " + e.getMessage());
             logger.warn(NO_DIRECTORY_FOUND.replace("$PATH$", path));
         }
-        logger.debug("dirPath = {}", dirPath);
+        //logger.debug("dirPath = {}", dirPath);
         return dirPath;
     }
 

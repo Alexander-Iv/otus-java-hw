@@ -1,7 +1,10 @@
 package alexander.ivanov.webserver.util;
 
 import alexander.ivanov.webserver.util.appender.ResourceAppender;
+import alexander.ivanov.webserver.util.appender.ServletContextAppender;
+import org.eclipse.jetty.http.HttpContent;
 import org.eclipse.jetty.http.HttpURI;
+import org.eclipse.jetty.http.ResourceHttpContent;
 import org.eclipse.jetty.security.ConstraintMapping;
 import org.eclipse.jetty.security.ConstraintSecurityHandler;
 import org.eclipse.jetty.security.HashLoginService;
@@ -55,19 +58,29 @@ public class JettyServerUtil {
         );
         //context.setContextPath("/");
         //context.addServlet(HelloServlet.class, "/hello");
-        /*ServletContextAppender appender = new ServletContextAppender(context);
+        ServletContextAppender appender = new ServletContextAppender(context);
         appender.appendFrom("servlets/", new ServletContextAppender.Servlet());
-        appender.appendFrom("filters/", new ServletContextAppender.Filter());*/
+        appender.appendFrom("filters/", new ServletContextAppender.Filter());
 
-        /*ResourceHandler rh0 = new ResourceHandler();
-        ContextHandler context0 = new ContextHandler("/login.html");
+        //ResourceHandler rh0 = new ResourceHandler();
+        ResourceHandler rh0 = new ResourceHandler();
+        rh0.setResourceBase(RelativeDirectoryPath.get("webapp/") + "/login.html");
+        rh0.setDirectoriesListed(true);
         logger.info("Resource.newResource(file0) = " + RelativeDirectoryPath.get("webapp/") + "/login.html");
-        context0.setResourceBase(RelativeDirectoryPath.get("webapp/") + "/login.html");
+
+        ContextHandler context0 = new ContextHandler("/login");
+        //context0.setResourceBase(RelativeDirectoryPath.get("webapp/") + "/login.html");
         context0.setHandler(rh0);
-        logger.info("context0 = " + context0);*/
+        //context0.setHandler(rhc);
+        logger.info("context0 = " + context0);
 
         Server server = new Server(port);
-        server.setHandler(new HandlerCollection(createResourceHandler(context), /*context0,*/ context));
+        //server.setHandler(new HandlerCollection(createResourceHandler(context), /*context0,*/ context));
+
+        ContextHandlerCollection contexts = new ContextHandlerCollection();
+        contexts.setHandlers(new Handler[] { context0, context });
+
+        server.setHandler(contexts);
 
         //HandlerList handlers = new HandlerList();
         //handlers.setHandlers(new Handler[]{createResourceHandler(context), createSecurityHandler(context)});
@@ -139,7 +152,7 @@ public class JettyServerUtil {
             //RequestDispatcher dispatcher = getServletContext().getNamedDispatcher("/login.html");
             //RequestDispatcher dispatcher = ContextHandler.getCurrentContext().getRequestDispatcher("/login.html");
             //RequestDispatcher dispatcher = getServletContext().getContext("/login.html").getRequestDispatcher("/login.html");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.html");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login");
             response.getWriter().print("<p>dispatcher = </p> <p>" + dispatcher + "</p>");
 
             ServletContext ctx = getServletContext()
@@ -148,24 +161,25 @@ public class JettyServerUtil {
             response.getWriter().print("ctx = " + ctx.getServletContextName() + "<br>");
             response.getWriter().print("ctx = " + ctx.getRequestDispatcher("/login.html") + "<br>");
             response.getWriter().print("ctx = " + ctx.getResourcePaths("/login.html") + "<br>");
-            //response.getWriter().print("ctx = " + ctx.getResource("file:///C:/IdeaProjects/otus-java-hw/hw12-webServer/target/classes/alexander/ivanov/webserver/webapp/login.html") + "<br>");
+            response.getWriter().print("ctx = " + request.getRequestDispatcher("/login.html") + "<br>");
 
             response.getWriter().print("httpURI = "
                     + ContextHandler.getCurrentContext().getRequestDispatcher("/login.html")
                     + "<br>");
 
-            //dispatcher.include(request, response);
-            //dispatcher.forward(request, response);
+
+            dispatcher.include(request, response);
+            dispatcher.forward(request, response);
             /*getServletContext()
                     .getContext("/login.html")
                     .getRequestDispatcher("/login.html")
                     .include(request, response);*/
             /*getServletContext()
-                    //.getContext("/login.html")
+                    .getContext("/login.html")
                     .getRequestDispatcher("/login.html")
                     .include(request, response);
             getServletContext()
-                    //.getContext("/login.html")
+                    .getContext("/login.html")
                     .getRequestDispatcher("/login.html")
                     .forward(request, response);*/
         }

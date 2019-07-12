@@ -1,6 +1,7 @@
 package alexander.ivanov.webserver.util.appender;
 
 import alexander.ivanov.webserver.util.RelativeDirectoryPath;
+import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
@@ -102,6 +103,10 @@ public class ServletContextAppender {
         @Override
         public void append(Class clazz, String path) {
             context.addServlet(clazz, path);
+            new ResourceAppender(new ResourceHandler())
+                    .appendFrom(path.replace(clazz.getSimpleName().toLowerCase() + "s", "webapp")
+                            + clazz.getSimpleName().toLowerCase() + ".html",
+                            new ResourceAppender.Base());
         }
     }
 
