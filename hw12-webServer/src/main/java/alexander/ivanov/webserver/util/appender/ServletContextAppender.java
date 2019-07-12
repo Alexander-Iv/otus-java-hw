@@ -88,7 +88,7 @@ public class ServletContextAppender {
                             .substring(fullLowerClassName.indexOf(appenderDirName) + appenderDirName.length())
                             .replace(".", "/");
                     //context.Servlet(servlet, servletPath);
-                    appender.append(clazz, servletPath);
+                    appender.append(clazz, servletPath+"/*");
                     logger.debug("added servletPath = {}, servletClass = {}", servletPath, clazz);
                 }
             } else {
@@ -103,10 +103,10 @@ public class ServletContextAppender {
         @Override
         public void append(Class clazz, String path) {
             context.addServlet(clazz, path);
-            new ResourceAppender(new ResourceHandler())
+            /*new ResourceAppender(new ResourceHandler())
                     .appendFrom(path.replace(clazz.getSimpleName().toLowerCase() + "s", "webapp")
                             + clazz.getSimpleName().toLowerCase() + ".html",
-                            new ResourceAppender.Base());
+                            new ResourceAppender.Base());*/
         }
     }
 

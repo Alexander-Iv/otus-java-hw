@@ -45,7 +45,7 @@ public class ResourceAppender {
     public static class Base implements Appender<ResourceHandler> {
         @Override
         public void append(ResourceHandler resourceHandler, String path) {
-            resourceHandler.setResourceBase(path /*+ "/login.html"*/);
+            resourceHandler.setResourceBase(path /*+ "/auth.html"*/);
             logger.info("resourceHandler.getResourceBase() = " + resourceHandler.getResourceBase());
         }
     }
