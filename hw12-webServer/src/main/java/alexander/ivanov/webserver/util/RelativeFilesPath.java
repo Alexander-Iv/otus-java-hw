@@ -16,8 +16,10 @@ public class RelativeFilesPath {
     private static List<String> names = new ArrayList<>();
 
     public static List<String> get(String path) {
-        rootDir = path.substring(0, path.indexOf("\\"));
+        rootDir = path.substring(0, path.indexOf("/"));
+        //logger.info("rootDir = " + rootDir);
         rootPath = path;
+        //logger.info("rootPath = " + rootPath);
 
         getFileList(path).forEach(file -> {
             if (file.isDirectory()) {

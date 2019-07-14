@@ -1,15 +1,15 @@
 package alexander.ivanov.webserver.util.appender;
 
 import alexander.ivanov.webserver.util.RelativeDirectoryPath;
-import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.DispatcherType;
 import javax.servlet.http.HttpServlet;
 import java.io.File;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 
 public class ServletContextAppender {
@@ -28,35 +28,11 @@ public class ServletContextAppender {
         }
 
         String packagePath = ROOT_PACKAGE_PATH + "."
-                //+ path.replace("/", ".").replace("\\", ".");
                 + appender.getClass().getSimpleName().toLowerCase() + "s";
         logger.debug("PATH_TO_SERVLET_PKG = {}", packagePath);
 
         List<File> files = Arrays.asList(new File(dirPath).listFiles());
         append(dirPath, files, packagePath, appender);
-        /*files.forEach(file -> {
-            if (file.isFile()) {
-                logger.debug("{}, {}", file.getName(), file.getPath());
-                Class clazz = null;
-                String className = null;
-                try {
-                    logger.debug("file.getPath() = {}", file.getPath());
-                    className = file.getName().replace(".class", "");
-                    logger.debug("className = {}", className);
-                    clazz = ServletContextAppender.class.getClassLoader().loadClass(packagePath + className);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                if (clazz != null) {
-                    String servletPath = "/" + clazz.getSimpleName().toLowerCase();
-                    //context.Servlet(servlet, servletPath);
-                    appender.append(clazz, servletPath);
-                    logger.info("added servletPath = {}, servletClass = {}", servletPath, clazz);
-                }
-            } else {
-                logger.info("file = {}", file.getName());
-            }
-        });*/
     }
 
     private void append(String dirPath, List<File> files, String packagePath, Appender appender) {
@@ -82,14 +58,20 @@ public class ServletContextAppender {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                if (clazz != null && clazz.getSuperclass().equals(HttpServlet.class)) {
+                if (clazz != null && (clazz.getSuperclass().equals(HttpServlet.class) ||
+                                        Arrays.asList(clazz.getInterfaces()).contains(javax.servlet.Filter.class))) {
                     String fullLowerClassName = clazz.getName().toLowerCase();
-                    String servletPath = fullLowerClassName
+                    String contextPath = fullLowerClassName
                             .substring(fullLowerClassName.indexOf(appenderDirName) + appenderDirName.length())
                             .replace(".", "/");
-                    //context.Servlet(servlet, servletPath);
-                    appender.append(clazz, servletPath+"/*");
-                    logger.debug("added servletPath = {}, servletClass = {}", servletPath, clazz);
+                    if (contextPath.contains("index")) {
+                        logger.info("contextPath = " + contextPath);
+                        contextPath = "/*";
+                    } else {
+                        contextPath = contextPath + "/*";
+                    }
+                    appender.append(clazz, contextPath);
+                    logger.debug("added contextPath = {}, class = {}", contextPath, clazz);
                 }
             } else {
                 String newDirPath = dirPath + File.separator + file.getName() /*+ File.separator*/;
@@ -103,17 +85,13 @@ public class ServletContextAppender {
         @Override
         public void append(Class clazz, String path) {
             context.addServlet(clazz, path);
-            /*new ResourceAppender(new ResourceHandler())
-                    .appendFrom(path.replace(clazz.getSimpleName().toLowerCase() + "s", "webapp")
-                            + clazz.getSimpleName().toLowerCase() + ".html",
-                            new ResourceAppender.Base());*/
         }
     }
 
     public static class Filter implements Appender<Class> {
         @Override
         public void append(Class clazz, String path) {
-            context.addFilter(clazz, path, null);
+            context.addFilter(clazz, path, EnumSet.allOf(DispatcherType.class));
         }
     }
 }

@@ -15,6 +15,7 @@ public class WebServerImpl implements WebServer {
     public void start() {
         try {
             server = JettyServerUtil.createServer(SERVER_PORT);
+            server.setStopTimeout(5*60*1000);
             server.start();
             server.join();
         } catch (Exception e) {
