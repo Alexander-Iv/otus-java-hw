@@ -3,8 +3,9 @@ package alexander.ivanov.webserver.servlets;
 import alexander.ivanov.webserver.models.hibernate.dao.UserDao;
 import alexander.ivanov.webserver.models.hibernate.dao.impl.UserDaoImpl;
 import alexander.ivanov.webserver.models.hibernate.model.User;
-import alexander.ivanov.webserver.util.CollectionTransformer;
+import alexander.ivanov.webserver.util.RelativeDirectoryPath;
 import alexander.ivanov.webserver.util.RelativeFileReader;
+import alexander.ivanov.webserver.util.WriterTemplate;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +23,8 @@ import java.util.List;
 public class HomeServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(HomeServlet.class);
     private static final String filePath = "webapp" +  File.separator + "home-page.html";
+    private static final String templateFilePath = RelativeDirectoryPath.get("templates/") + File.separator + "users.tpl";
     private UserDao userDao;
-    private String macro = "${USERS}";
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -38,13 +39,7 @@ public class HomeServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         StringBuffer htmlPage = RelativeFileReader.getFileContent(filePath);
         List<User> users = userDao.loadAll();
-        StringBuffer usersTab = CollectionTransformer.toHtmlTable(users);
-        htmlPage.replace(htmlPage.indexOf(macro), htmlPage.indexOf(macro) + macro.length(), usersTab.toString());
         out.print(htmlPage.toString());
-
-        //getRequestDispatcher возвращает null, не понимаю почему.. возможно дело в Jetty
-        /*RequestDispatcher dispatcher = req.getServletContext().getRequestDispatcher("/home-page");
-        dispatcher.include(req, resp);
-        dispatcher.forward(req, resp);*/
+        WriterTemplate.writeTo(out, templateFilePath,"users", users);
     }
 }

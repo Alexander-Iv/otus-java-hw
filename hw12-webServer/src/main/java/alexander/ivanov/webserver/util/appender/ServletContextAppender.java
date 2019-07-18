@@ -70,6 +70,7 @@ public class ServletContextAppender {
                     } else {
                         contextPath = contextPath + "/*";
                     }
+                    contextPath = contextPath.replace(appender.getClass().getSimpleName().toLowerCase(), "");
                     appender.append(clazz, contextPath);
                     logger.debug("added contextPath = {}, class = {}", contextPath, clazz);
                 }
