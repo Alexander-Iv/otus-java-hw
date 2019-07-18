@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class Test extends HttpServlet {
-    private static final Logger logger = LoggerFactory.getLogger(Test.class);
+public class TestServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(TestServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-public class Register extends HttpServlet {
-    private static final Logger logger = LoggerFactory.getLogger(Register.class);
+public class RegisterServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(RegisterServlet.class);
     private UserDao userDao;
 
     @Override

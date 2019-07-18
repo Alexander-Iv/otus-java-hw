@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Optional;
 
-public class Index implements Filter {
-    private static final Logger logger = LoggerFactory.getLogger(Index.class);
+public class IndexFilter implements Filter {
+    private static final Logger logger = LoggerFactory.getLogger(IndexFilter.class);
     private ServletContext context;
 
     @Override

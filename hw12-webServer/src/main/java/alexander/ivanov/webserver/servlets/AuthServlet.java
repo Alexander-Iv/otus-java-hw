@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
-public class Auth extends HttpServlet {
-    private static final Logger logger = LoggerFactory.getLogger(Auth.class);
+public class AuthServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(AuthServlet.class);
     private UserDao userDao;
 
     @Override

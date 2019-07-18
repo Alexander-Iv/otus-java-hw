@@ -19,8 +19,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class Home extends HttpServlet {
-    private static final Logger logger = LoggerFactory.getLogger(Home.class);
+public class HomeServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(HomeServlet.class);
     private static final String filePath = "webapp" +  File.separator + "home-page.html";
     private UserDao userDao;
     private String macro = "${USERS}";
