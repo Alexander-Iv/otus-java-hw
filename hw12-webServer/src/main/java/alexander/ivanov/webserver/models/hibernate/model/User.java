@@ -36,12 +36,16 @@ public class User {
         return name;
     }
 
+    public String getPassword() {
+        return password.replaceAll(".", "*");
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", password='" + "***" + '\'' +
+                ", password='" + getPassword() + '\'' +
                 '}';
     }
 }

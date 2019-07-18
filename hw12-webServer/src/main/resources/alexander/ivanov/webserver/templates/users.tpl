@@ -8,8 +8,7 @@ table(border:1) {
         tr {
             td(user.id)
             td(user.name)
-            //td(user.password)
-            td(user.password.replaceAll(".","*"))
+            td(user.password)
         }
     }
 }
