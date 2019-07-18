@@ -3,7 +3,8 @@ package alexander.ivanov.webserver.servlets;
 import alexander.ivanov.webserver.models.hibernate.dao.UserDao;
 import alexander.ivanov.webserver.models.hibernate.dao.impl.UserDaoImpl;
 import alexander.ivanov.webserver.models.hibernate.model.User;
-import alexander.ivanov.webserver.util.RelativeDirectoryPath;
+import alexander.ivanov.webserver.util.CollectionTransformer;
+import alexander.ivanov.webserver.util.RelativeFileReader;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,12 +14,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 public class Home extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(Home.class);
-    private static final String filePath = RelativeDirectoryPath.get("webapp/") + File.separator + "home-page.html";
+    private static final String filePath = "webapp" +  File.separator + "home-page.html";
     private UserDao userDao;
     private String macro = "${USERS}";
 
@@ -33,30 +36,10 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        StringBuffer htmlPage = new StringBuffer();
-        StringBuffer usersTab = new StringBuffer();
-
-        //костылище? :)
-        try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(new File(filePath)))) {
-            int buffer;
-            while ((buffer = bis.read()) > 0) {
-                htmlPage.append(Character.toString(buffer));
-            }
-        }
-
+        StringBuffer htmlPage = RelativeFileReader.getFileContent(filePath);
         List<User> users = userDao.loadAll();
-        if (!users.isEmpty()) {
-            usersTab.append("<th>").append("User Id").append("</th>")
-                    .append("<th>").append("User Name").append("</th>");
-            users.forEach(user -> {
-                usersTab.append("<tr>")
-                        .append("<td>").append(user.getId()).append("</td>")
-                        .append("<td>").append(user.getName()).append("</td>")
-                        .append("</tr>");
-            });
-            htmlPage.replace(htmlPage.indexOf(macro), htmlPage.indexOf(macro) + macro.length(), usersTab.toString());
-        }
-
+        StringBuffer usersTab = CollectionTransformer.toHtmlTable(users);
+        htmlPage.replace(htmlPage.indexOf(macro), htmlPage.indexOf(macro) + macro.length(), usersTab.toString());
         out.print(htmlPage.toString());
 
         //getRequestDispatcher возвращает null, не понимаю почему.. возможно дело в Jetty
