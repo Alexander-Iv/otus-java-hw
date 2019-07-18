@@ -3,8 +3,8 @@ package alexander.ivanov.webserver.impl;
 import alexander.ivanov.webserver.WebServer;
 import alexander.ivanov.webserver.models.hibernate.data.Config;
 import alexander.ivanov.webserver.models.hibernate.data.impl.HibernateConfig;
-import alexander.ivanov.webserver.util.RelativeDirectoryPath;
 import alexander.ivanov.webserver.util.RelativeFilesPath;
+import alexander.ivanov.webserver.util.Resources;
 import alexander.ivanov.webserver.util.appender.ServletContextAppender;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -84,13 +84,13 @@ public class WebServerImpl implements WebServer {
                     logger.info("s = " + s);
 
                     ResourceHandler resourceHandler = new ResourceHandler();
-                    String resourcePath = RelativeDirectoryPath.get("webapp/").replace("webapp", s);
+                    String resourcePath = Resources.getResourcePath(s);
                     logger.info("resourcePath = " + resourcePath);
                     resourceHandler.setResourceBase(resourcePath);
 
-                    String contextPath = s.replace("webapp","")
+                    String contextPath = s.substring(s.lastIndexOf(File.separator))
                             .replace(File.separator, "/")
-                            .replace(".html", "") + "/*";
+                            .replace(".html", "/*");
 
                     if (contextPath.contains("index")) {
                         contextPath = "/*";
