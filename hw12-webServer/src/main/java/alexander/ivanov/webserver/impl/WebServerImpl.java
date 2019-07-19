@@ -4,6 +4,7 @@ import alexander.ivanov.webserver.WebServer;
 import alexander.ivanov.webserver.models.hibernate.data.Config;
 import alexander.ivanov.webserver.models.hibernate.data.impl.HibernateConfig;
 import alexander.ivanov.webserver.util.RelativeFilesPath;
+import alexander.ivanov.webserver.util.ResourceContextMapper;
 import alexander.ivanov.webserver.util.Resources;
 import alexander.ivanov.webserver.util.appender.ServletContextAppender;
 import org.eclipse.jetty.server.Handler;
@@ -12,6 +13,7 @@ import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.util.resource.Resource;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,7 +80,29 @@ public class WebServerImpl implements WebServer {
 
     private List<ContextHandler> createResourceContexts() {
         List<ContextHandler> contexts = new ArrayList<>();
-        RelativeFilesPath.get("webapp/").stream()
+
+        ResourceContextMapper.getContextPathAndUrl("webapp/").forEach((s, url) -> {
+
+            logger.info("Resource.newClassPathResource(s) = {}", Resource.newClassPathResource(s));
+
+            logger.info("contextPath = {}", s);
+            logger.info("url = {}", url.toString());
+            logger.info("url.toExternalForm() = {}", url.toExternalForm());
+            logger.info("url.getPath() = {}", url.getPath());
+            logger.info("url = {}", url.getFile());
+            logger.info("url.toExternalForm() = {}", url.toExternalForm());
+            logger.info("Resource.newResource(url) = {}", Resource.newResource(url));
+
+            ResourceHandler resourceHandler = new ResourceHandler();
+            resourceHandler.setBaseResource(Resource.newResource(url));
+
+            ContextHandler contextHandler = new ContextHandler(s);
+            contextHandler.setHandler(resourceHandler);
+
+            contexts.add(contextHandler);
+        });
+
+        /*RelativeFilesPath.get("webapp/").stream()
                 .filter(s -> s.contains(".html"))
                 .forEach(s -> {
                     logger.info("s = " + s);
@@ -101,9 +125,12 @@ public class WebServerImpl implements WebServer {
                     contextHandler.setHandler(resourceHandler);
 
                     contexts.add(contextHandler);
-                });
+                });*/
 
-        logger.info("contexts = " + contexts);
+        //logger.info("contexts = " + contexts);
+        contexts.forEach(contextHandler -> {
+            logger.info("context = {}", contextHandler);
+        });
         return contexts;
     }
 }
