@@ -11,5 +11,12 @@
 
     <artifactId>hw11-cache</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>3.8.0</version>
+        </dependency>
+    </dependencies>
 
 </project>
