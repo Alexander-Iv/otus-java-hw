@@ -9,16 +9,16 @@ public class Demo {
     private static final Logger logger = LoggerFactory.getLogger(Demo.class);
 
     public static void main(String[] args) {
-        PrimitiveTypeExample primitiveTypeExample = new PrimitiveTypeExample(
-                (byte)2,
-                'a',
-                (short)4,
-                8,
-                16L,
-                32.2F,
-                64.4D,
-                true
-        );
+        PrimitiveTypeExample primitiveTypeExample = PrimitiveTypeExample.builder()
+                .byte1((byte)2)
+                .char1('a')
+                .short1((short)4)
+                .int1(8)
+                .long1(16L)
+                .float1(32.2F)
+                .double1(64.4D)
+                .boolean1(true)
+                .build();
 
         logger.info("primitiveTypeExample = \n{}", primitiveTypeExample);
         JsonConverter converter = new JsonConverterImpl();
