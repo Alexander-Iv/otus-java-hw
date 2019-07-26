@@ -19,6 +19,10 @@ public class Resources {
     private static final Logger logger = LoggerFactory.getLogger(Resources.class);
     private static final Class applicationClass = Application.class;
 
+    public static ClassLoader getAppClassLoader() {
+        return applicationClass.getClassLoader();
+    }
+
     public static URL getResourcePathUrl(String name) throws ResourceNotFoundException {
         URL resourceUrl = applicationClass.getResource(name);
         logger.info("resourceUrl = {}", resourceUrl);
