@@ -1,5 +1,7 @@
 package alexander.ivanov.cache.database.hibernate.dao;
 
+import alexander.ivanov.cache.database.hibernate.model.User;
+
 import java.util.List;
 
 public interface UserDao extends JdbcTemplate<User> {
@@ -11,8 +13,6 @@ public interface UserDao extends JdbcTemplate<User> {
 
     @Override
     <T> T load(long id, Class<T> clazz);
-
-    User load(String name, String password);
 
     List<User> loadAll();
 }

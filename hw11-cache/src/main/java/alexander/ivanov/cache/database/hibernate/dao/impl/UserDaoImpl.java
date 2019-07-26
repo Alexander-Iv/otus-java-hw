@@ -2,6 +2,7 @@ package alexander.ivanov.cache.database.hibernate.dao.impl;
 
 import alexander.ivanov.cache.database.hibernate.config.impl.HibernateConfig;
 import alexander.ivanov.cache.database.hibernate.dao.UserDao;
+import alexander.ivanov.cache.database.hibernate.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -47,29 +48,6 @@ public class UserDaoImpl implements UserDao {
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             object = session.get(clazz, id);
-            session.getTransaction().commit();
-        }
-        return object;
-    }
-
-    @Override
-    public User load(String name, String password) {
-        User object = null;
-
-        try(Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-
-            try {
-                object = session.createQuery(
-                        "select u from User u where u.name = :name and u.password = :password", User.class)
-                        .setParameter( "name", name)
-                        .setParameter( "password", password)
-                        .getSingleResult();
-            } catch (NoResultException e) {
-                session.getTransaction().rollback();
-                throw new NoResultException("No Data found");
-            }
-
             session.getTransaction().commit();
         }
         return object;
