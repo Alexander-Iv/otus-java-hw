@@ -1,9 +1,11 @@
 package alexander.ivanov.webserver.web.impl;
 
-import alexander.ivanov.webserver.web.WebServer;
-import alexander.ivanov.webserver.web.filters.IndexFilter;
 import alexander.ivanov.webserver.database.hibernate.config.Config;
 import alexander.ivanov.webserver.database.hibernate.config.impl.HibernateConfig;
+import alexander.ivanov.webserver.database.hibernate.dao.UserDao;
+import alexander.ivanov.webserver.database.hibernate.dao.impl.UserDaoImpl;
+import alexander.ivanov.webserver.web.WebServer;
+import alexander.ivanov.webserver.web.filters.IndexFilter;
 import alexander.ivanov.webserver.web.servlets.AuthServlet;
 import alexander.ivanov.webserver.web.servlets.HomeServlet;
 import alexander.ivanov.webserver.web.servlets.LogoutServlet;
@@ -76,13 +78,14 @@ public class WebServerImpl implements WebServer {
 
         Config hibernateConfig = new HibernateConfig();
         SessionFactory sessionFactory = hibernateConfig.configure();
+        UserDao userDao = new UserDaoImpl(sessionFactory);
 
         context.addFilter(new FilterHolder(new IndexFilter()), "/*", null);
 
-        context.addServlet(new ServletHolder("Auth", new AuthServlet(sessionFactory)), "/auth/*");
-        context.addServlet(new ServletHolder("Home", new HomeServlet(sessionFactory)), "/home/*");
+        context.addServlet(new ServletHolder("Auth", new AuthServlet(userDao)), "/auth/*");
+        context.addServlet(new ServletHolder("Home", new HomeServlet(userDao)), "/home/*");
         context.addServlet(new ServletHolder("Logout", new LogoutServlet()), "/logout/*");
-        context.addServlet(new ServletHolder("Register", new RegisterServlet(sessionFactory)), "/register/*");
+        context.addServlet(new ServletHolder("Register", new RegisterServlet(userDao)), "/register/*");
 
         Server server = new Server(port);
 

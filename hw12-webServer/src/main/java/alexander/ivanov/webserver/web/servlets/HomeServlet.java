@@ -1,10 +1,8 @@
 package alexander.ivanov.webserver.web.servlets;
 
 import alexander.ivanov.webserver.database.hibernate.dao.UserDao;
-import alexander.ivanov.webserver.database.hibernate.dao.impl.UserDaoImpl;
 import alexander.ivanov.webserver.database.hibernate.model.User;
 import alexander.ivanov.webserver.web.util.WriterTemplate;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +20,8 @@ public class HomeServlet extends HttpServlet {
     private static final String homeTemplateFilePath = "web/templates/home.tpl";
     private UserDao userDao;
 
-    public HomeServlet(SessionFactory sessionFactory) {
-        userDao = new UserDaoImpl(sessionFactory);
+    public HomeServlet(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @Override

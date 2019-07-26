@@ -1,9 +1,7 @@
 package alexander.ivanov.webserver.web.servlets;
 
 import alexander.ivanov.webserver.database.hibernate.dao.UserDao;
-import alexander.ivanov.webserver.database.hibernate.dao.impl.UserDaoImpl;
 import alexander.ivanov.webserver.database.hibernate.model.User;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,8 +17,8 @@ public class AuthServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(AuthServlet.class);
     private UserDao userDao;
 
-    public AuthServlet(SessionFactory sessionFactory) {
-        userDao = new UserDaoImpl(sessionFactory);
+    public AuthServlet(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @Override

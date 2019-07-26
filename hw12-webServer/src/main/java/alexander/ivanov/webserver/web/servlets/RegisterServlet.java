@@ -1,9 +1,7 @@
 package alexander.ivanov.webserver.web.servlets;
 
 import alexander.ivanov.webserver.database.hibernate.dao.UserDao;
-import alexander.ivanov.webserver.database.hibernate.dao.impl.UserDaoImpl;
 import alexander.ivanov.webserver.database.hibernate.model.User;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,8 +16,8 @@ public class RegisterServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(RegisterServlet.class);
     private UserDao userDao;
 
-    public RegisterServlet(SessionFactory sessionFactory) {
-        userDao = new UserDaoImpl(sessionFactory);
+    public RegisterServlet(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @Override
