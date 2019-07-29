@@ -8,6 +8,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class JsonWrappers {
     private static final Logger logger = LoggerFactory.getLogger(JsonWrappers.class);
@@ -120,6 +121,8 @@ public class JsonWrappers {
                 res = new StringWrapper().wrap(charString);
             } else if (source instanceof Boolean) {
                 res = new BooleanWrapper().wrap((boolean) source);
+            } else if (source instanceof Enum) {
+                res = new StringWrapper().wrap(((Enum) source).name());
             } else {
                 res = new ObjectWrapper().wrap(source);
             }

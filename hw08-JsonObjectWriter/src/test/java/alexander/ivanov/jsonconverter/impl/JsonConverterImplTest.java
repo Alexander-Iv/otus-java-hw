@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.lang.annotation.ElementType;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -103,6 +104,8 @@ class JsonConverterImplTest {
         private Map<String, Object> s = new HashMap<>();
         private List<C> cc = new ArrayList<>();
         private Collection<C> collection = new LinkedList<>();
+        private Object[] objects = new Object[]{"text1", "text2", 1, 2, 3, new A(), new B(), new C(), ElementType.values()};
+        private ElementType[] elements = ElementType.values();
 
         Z() {
             ss.put("s1", "v1");
