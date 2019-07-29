@@ -20,9 +20,8 @@ public class JsonWrappers {
             while (iterator.hasNext()) {
                 Object key = iterator.next();
                 Object value = source.get(key);
-                tmp.append(" ");
                 tmp.append(new StringWrapper().wrap(String.valueOf(key)));
-                tmp.append(": ");
+                tmp.append(":");
                 tmp.append(new ValueWrapper().wrap(value));
                 if (iterator.hasNext()) {
                     tmp.append(",");
@@ -79,12 +78,12 @@ public class JsonWrappers {
             Iterator keysIterator = map.keySet().iterator();
             while (keysIterator.hasNext()) {
                 String keyName = keysIterator.next().toString();
-                tmp.append(String.format("%s: %s",
+                tmp.append(String.format("%s:%s",
                         new StringWrapper().wrap(keyName),
                         new ValueWrapper().wrap(map.get(keyName)))
                 );
                 if (keysIterator.hasNext()) {
-                    tmp.append(", ");
+                    tmp.append(",");
                 }
             }
 
@@ -107,6 +106,8 @@ public class JsonWrappers {
                 res = new ArrayWrapper().wrap(values);
             } else if (source instanceof Collection) {
                 res = new ArrayWrapper().wrap((Collection<?>) source);
+            } else if (source instanceof Map) {
+                res = new RecordWrapper().wrap((Map)source);
             } else if (source instanceof Number) {
                 res = source.toString();
             } else if (source instanceof String) {
