@@ -1,12 +1,17 @@
 package alexander.ivanov.jsonconverter.data;
 
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
 public class ArraysPrimitiveTypeExample {
-    private byte[] byte1;
-    private char[] char1;
-    private short[] short1;
-    private int[] int1;
-    private long[] long1;
-    private float[] float1;
-    private double[] double1;
-    private boolean[] boolean1;
+    private byte[] bytePrimitiveArray = new byte[]{};
+    private char[] charPrimitiveArray = new char[]{};
+    private short[] shortPrimitiveArray = new short[]{};
+    private int[] intPrimitiveArray = new int[]{};
+    private long[] longPrimitiveArray = new long[]{};
+    private float[] floatPrimitiveArray = new float[]{};
+    private double[] doublePrimitiveArray = new double[]{};
+    private boolean[] booleanPrimitiveArray = new boolean[]{};
 }
