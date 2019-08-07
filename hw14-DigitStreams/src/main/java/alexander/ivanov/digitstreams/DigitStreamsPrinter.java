@@ -12,7 +12,7 @@ public class DigitStreamsPrinter {
     private int end;
 
     public DigitStreamsPrinter() {
-        this(0, 11);
+        this(1, 11);
     }
 
     public DigitStreamsPrinter(int start, int end) {
@@ -22,49 +22,55 @@ public class DigitStreamsPrinter {
     }
 
     public void demoRun() {
-        Thread digitStream1 = new Thread(this::printDigitsInOrderAndInReverseOrder, "1");
-        Thread digitStream2 = new Thread(this::printDigitsInOrderAndInReverseOrder, "2");
-        //Thread digitStream3 = new Thread(this::printDigitsInOrderAndInReverseOrder, "3");
+        CommonObject commonObject = new CommonObject();
+        Thread digitStream1 = new Thread(() -> printDigitsInOrderAndInReverseOrder(commonObject), "1");
+        Thread digitStream2 = new Thread(() -> printDigitsInOrderAndInReverseOrder(commonObject), "2");
         digitStream1.start();
         digitStream2.start();
-        //digitStream3.start();
 
         try {
             digitStream1.join();
             digitStream2.join();
-            //digitStream3.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    private void printDigitsInOrderAndInReverseOrder() {
-        StringBuffer res = new StringBuffer();
+    private void printDigitsInOrderAndInReverseOrder(CommonObject commonObject) {
         for (int i = start; i < end; i++) {
             while (!digit.compareAndSet(digit.get(), i)) {
 
             }
-            print(digit.get(), res);
+            print(digit.get(), commonObject.getResultText());
         }
-        for (int i = end; i > start; i--) {
+        for (int i = end; i >= start; i--) {
             while (!digit.compareAndSet(digit.get(), i)) {
 
             }
-            print(digit.get(), res);
+            print(digit.get(), commonObject.getResultText());
         }
     }
 
-    private void print(int value, StringBuffer text) {
-        text.append(value).append(" ");
-        logger.info("{}", text.toString().replaceFirst("[\\d+]", String.format("[%s]", Thread.currentThread().getName())));
-        waiting(500);
-    }
-
-    private void waiting(long millis) {
+    private synchronized void print(int value, StringBuffer text) {
         try {
-            Thread.sleep(millis);
+            wait(100);
+            text.append(value).append(" ");
+            logger.info("text = {}", text);
+            notifyAll();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    class CommonObject {
+        private StringBuffer resultText = new StringBuffer();
+
+        public StringBuffer getResultText() {
+            return resultText;
+        }
+
+        public void setResultText(StringBuffer resultText) {
+            this.resultText = resultText;
         }
     }
 }
