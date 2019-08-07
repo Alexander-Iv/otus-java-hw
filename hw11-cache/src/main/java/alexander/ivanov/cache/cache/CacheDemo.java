@@ -1,36 +1,54 @@
 package alexander.ivanov.cache.cache;
 
-import org.ehcache.Cache;
-import org.ehcache.CacheManager;
-import org.ehcache.config.builders.CacheConfigurationBuilder;
-import org.ehcache.config.builders.CacheManagerBuilder;
-import org.ehcache.config.builders.ResourcePoolsBuilder;
+import alexander.ivanov.cache.cache.impl.CacheImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.stream.LongStream;
-
 public class CacheDemo {
     private static final Logger logger = LoggerFactory.getLogger(CacheDemo.class);
+    private static final int CACHE_SIZE = 100_000;
 
-    public static void main(String[] args) {
-        CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
-                .withCache("myCache", CacheConfigurationBuilder.newCacheConfigurationBuilder(Long.class, String.class, ResourcePoolsBuilder.heap(100)).build())
-                .build(true);
-        logger.info("cacheManager = {}", cacheManager);
+    public static void main(String[] args) throws InterruptedException {
+        Cache softCache = new CacheImpl<>(CACHE_SIZE, 0, 0, true);
 
-        Cache<Long, String> myCache1 = cacheManager.getCache("myCache", Long.class, String.class);
-        logger.info("myCache1 = {}", myCache1);
+        int batch = 100;
+        int counter = 0;
+        int from = 0, to = 0;
+        for (int i = 0; i < 1000; i++) {
+            if (i == 0) {
+                from = i * ++counter;
+            } else {
+                from = to;
+            }
+            to = from + batch;
+            //logger.info("i = {}, from = {}, to = {}", i, from, to);
+            addBigObjects(softCache, from, to);
+            roundElements(softCache, 0, to);
 
-        Cache<Long, String> myCache2 = cacheManager.createCache("myCache2", CacheConfigurationBuilder.newCacheConfigurationBuilder(Long.class, String.class, ResourcePoolsBuilder.heap(100)).build());
-        logger.info("myCache2 = {}", myCache2);
+            System.out.println("CacheImpl hits: " + String.format("%,d", softCache.getHitCount()));
+            System.out.println("CacheImpl misses: " + String.format("%,d", softCache.getMissCount()));
+            Thread.sleep(250);
+        }
+        softCache.dispose();
+    }
 
-        LongStream.range(0L, 1001L).forEach(value -> {
-            String val = String.valueOf(Math.random());
-            logger.info("key = {}, value = {}", value, val);
-            myCache1.put(value, val);
-        });
+    private static void addBigObjects(alexander.ivanov.cache.cache.Cache cache, int start, int end) {
+        for (int i = start; i < end; i++) {
+            cache.put(i, new BigObject());
+        }
+    }
 
-        cacheManager.close();
+    private static void roundElements(alexander.ivanov.cache.cache.Cache cache, int start, int end) {
+        for (int i = start; i < end; i++) {
+            cache.get(i);
+        }
+    }
+
+    static class BigObject {
+        final byte[] array = new byte[1024 * 1024];
+
+        public byte[] getArray() {
+            return array;
+        }
     }
 }
