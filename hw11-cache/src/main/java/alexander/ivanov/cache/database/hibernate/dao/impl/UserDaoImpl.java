@@ -51,13 +51,15 @@ public class UserDaoImpl implements UserDao {
     public <T> T load(long id, Class<T> clazz) {
         T object = null;
         try(Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
             object = cache.get(id);
             if (Objects.isNull(object)) {
+                session.beginTransaction();
                 object = session.get(clazz, id);
+                session.getTransaction().commit();
                 cache.put(id, (User)object);
+            } else {
+                logger.info("object from cache = {}", object);
             }
-            session.getTransaction().commit();
         }
         return object;
     }
