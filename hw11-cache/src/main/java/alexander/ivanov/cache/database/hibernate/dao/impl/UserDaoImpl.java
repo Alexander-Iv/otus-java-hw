@@ -1,5 +1,7 @@
 package alexander.ivanov.cache.database.hibernate.dao.impl;
 
+import alexander.ivanov.cache.cache.Cache;
+import alexander.ivanov.cache.cache.impl.CacheImpl;
 import alexander.ivanov.cache.database.hibernate.config.impl.HibernateConfig;
 import alexander.ivanov.cache.database.hibernate.dao.UserDao;
 import alexander.ivanov.cache.database.hibernate.model.User;
@@ -10,11 +12,13 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.NoResultException;
 import java.util.List;
+import java.util.Objects;
 
 public class UserDaoImpl implements UserDao {
     private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
     private SessionFactory sessionFactory;
+    private Cache<Long, User> cache;
 
     public UserDaoImpl() {
         this(new HibernateConfig().configure());
@@ -22,6 +26,7 @@ public class UserDaoImpl implements UserDao {
 
     public UserDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+        cache = new CacheImpl(100, 0, 0, true);
     }
 
     @Override
@@ -47,7 +52,11 @@ public class UserDaoImpl implements UserDao {
         T object = null;
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            object = session.get(clazz, id);
+            object = cache.get(id);
+            if (Objects.isNull(object)) {
+                object = session.get(clazz, id);
+                cache.put(id, (User)object);
+            }
             session.getTransaction().commit();
         }
         return object;
