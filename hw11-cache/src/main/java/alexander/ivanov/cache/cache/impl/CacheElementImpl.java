@@ -46,6 +46,6 @@ public class CacheElementImpl<K, V> implements CacheElement<K, V> {
 
     @Override
     public String toString() {
-        return "{key=" + key + ", value=" + value + "}";
+        return "{key=" + key + ", value=" + value + " creationTime=" + creationTime + " lastAccessTime=" + lastAccessTime + "}";
     }
 }

@@ -2,12 +2,15 @@ package alexander.ivanov.cache.cache.impl;
 
 import alexander.ivanov.cache.cache.Cache;
 import alexander.ivanov.cache.cache.CacheElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.ref.SoftReference;
 import java.util.*;
 import java.util.function.Function;
 
 public class CacheImpl<K, V> implements Cache<K, V> {
+    private static final Logger logger = LoggerFactory.getLogger(CacheImpl.class);
     private static final int TIME_THRESHOLD_MS = 0;
 
     private final int maxElements;
@@ -22,7 +25,7 @@ public class CacheImpl<K, V> implements Cache<K, V> {
     private int miss = 0;
 
     public CacheImpl(int maxElements, long lifeTimeMs, long idleTimeMs, boolean isEternal) {
-        this.elements = new LinkedHashMap<>(maxElements);
+        this.elements = new LinkedHashMap<>(maxElements, 0.75F, true);
         this.maxElements = maxElements;
         this.lifeTimeMs = lifeTimeMs > 0 ? lifeTimeMs : 0;
         this.idleTimeMs = idleTimeMs > 0 ? idleTimeMs : 0;
@@ -31,22 +34,22 @@ public class CacheImpl<K, V> implements Cache<K, V> {
 
     @Override
     public void put(K key, V value) {
-        if (elements.size() == maxElements) {
+        if (elements.size() > maxElements) {
             K firstKey = elements.keySet().iterator().next();
             elements.remove(firstKey);
-        }
+        } else {
+            CacheElement<K, SoftReference<V>> element = new SoftReferenceCacheElementImpl<>(key, value);
+            elements.put(key, element);
 
-        CacheElement<K, SoftReference<V>> element = new SoftReferenceCacheElementImpl<>(key, value);
-        elements.put(key, element);
-
-        if (!isEternal) {
-            if (lifeTimeMs != 0) {
-                TimerTask lifeTimerTask = getTimerTask(key, lifeElement -> lifeElement.getCreationTime() + lifeTimeMs);
-                timer.schedule(lifeTimerTask, lifeTimeMs);
-            }
-            if (idleTimeMs != 0) {
-                TimerTask idleTimerTask = getTimerTask(key, idleElement -> idleElement.getLastAccessTime() + idleTimeMs);
-                timer.schedule(idleTimerTask, idleTimeMs, idleTimeMs);
+            if (!isEternal) {
+                if (lifeTimeMs != 0) {
+                    TimerTask lifeTimerTask = getTimerTask(key, lifeElement -> lifeElement.getCreationTime() + lifeTimeMs);
+                    timer.schedule(lifeTimerTask, lifeTimeMs);
+                }
+                if (idleTimeMs != 0) {
+                    TimerTask idleTimerTask = getTimerTask(key, idleElement -> idleElement.getLastAccessTime() + idleTimeMs);
+                    timer.schedule(idleTimerTask, idleTimeMs, idleTimeMs);
+                }
             }
         }
     }
@@ -69,6 +72,7 @@ public class CacheImpl<K, V> implements Cache<K, V> {
                 miss++;
             } else {
                 hit++;
+                softElement.setAccessed();
             }
         } else {
             miss++;
@@ -89,6 +93,17 @@ public class CacheImpl<K, V> implements Cache<K, V> {
     @Override
     public void dispose() {
         timer.cancel();
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer contentElements = new StringBuffer();
+        elements.forEach((k, kSoftReferenceCacheElement) -> {
+            contentElements.append("\n").append("key=").append(k).append("; ").append("value=").append(kSoftReferenceCacheElement);
+        });
+        return "CacheImpl{" +
+                "elements=" + contentElements +
+                '}' + "\n";
     }
 
     private TimerTask getTimerTask(final K key, Function<CacheElement<K, SoftReference<V>>, Long> timeFunction) {
