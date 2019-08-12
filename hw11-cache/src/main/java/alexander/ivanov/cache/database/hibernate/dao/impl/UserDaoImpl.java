@@ -48,41 +48,71 @@ public class UserDaoImpl implements UserDao {
             return object;
         }
 
-        try(Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            object = session.get(clazz, id);
-            session.getTransaction().commit();
-            cache.put(id, (User)object);
-        }
+        object = (T)executeTransaction(new LoadFunc(), new IdClass(id, clazz));
+        cache.put(id, (User)object);
         return object;
     }
 
-    private void executeTransaction(BiFunction func, Object object) {
+    private Object executeTransaction(BiFunction func, Object object) {
         try(Session session = sessionFactory.openSession()) {
+            Object obj = null;
             try {
                 session.beginTransaction();
-                func.apply(session, object);
+                obj = func.apply(session, object);
                 session.getTransaction().commit();
             } catch (Exception e) {
                 session.getTransaction().rollback();
                 logger.error("e.getMessage() = {}", e.getMessage());
             }
+            return obj;
         }
     }
 
-    private class UpdateFunc implements BiFunction<Session, Object, Void> {
+    private class UpdateFunc implements BiFunction<Session, User, Void> {
         @Override
-        public Void apply(Session session, Object o) {
-            session.update(o);
+        public Void apply(Session session, User user) {
+            User fromCache = cache.get(user.getId());
+            if (fromCache.equals(user)) {
+                session.update(fromCache);
+                logger.info("updated from cache: {}", fromCache);
+            } else {
+                session.update(user);
+            }
             return null;
         }
     }
 
-    private class CreateFunc implements BiFunction<Session, Object, Void> {
+    private class CreateFunc implements BiFunction<Session, User, Void> {
         @Override
-        public Void apply(Session session, Object o) {
-            session.save(o);
+        public Void apply(Session session, User user) {
+            session.save(user);
+            cache.put(user.getId(), user);
             return null;
+        }
+    }
+
+    private class LoadFunc implements BiFunction<Session, IdClass, User> {
+        @Override
+        public User apply(Session session, IdClass idClass) {
+            return (User)session.get(idClass.getClazz(), idClass.getId());
+        }
+    }
+
+    private class IdClass {
+        private Long id;
+        private Class<?> clazz;
+
+        public IdClass(Long id, Class<?> clazz) {
+            this.id = id;
+            this.clazz = clazz;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public Class<?> getClazz() {
+            return clazz;
         }
     }
 
