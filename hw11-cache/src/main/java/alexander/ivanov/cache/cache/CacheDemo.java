@@ -10,7 +10,7 @@ public class CacheDemo {
     public static void main(String[] args) throws InterruptedException {
         //demo();
         cacheSortingDemo();
-        //System.exit(0);
+        System.exit(0);
     }
 
     public static void demo() throws InterruptedException {

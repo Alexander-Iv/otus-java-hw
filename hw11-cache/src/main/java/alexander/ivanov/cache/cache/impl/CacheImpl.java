@@ -56,8 +56,7 @@ public class CacheImpl<K, V> implements Cache<K, V> {
 
     @Override
     public void remove(K key) {
-        CacheElement<K, SoftReference<V>> element = elements.get(key);
-        if (element != null) {
+        if (key != null) {
             elements.remove(key);
         }
     }
