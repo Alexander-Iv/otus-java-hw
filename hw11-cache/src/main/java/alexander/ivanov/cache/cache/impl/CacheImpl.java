@@ -5,7 +5,7 @@ import alexander.ivanov.cache.cache.CacheElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.ref.SoftReference;
+import java.lang.ref.Reference;
 import java.util.*;
 import java.util.function.Function;
 
@@ -18,7 +18,7 @@ public class CacheImpl<K, V> implements Cache<K, V> {
     private final long idleTimeMs;
     private final boolean isEternal;
 
-    private final Map<K, CacheElement<K, SoftReference<V>>> elements/* = new LinkedHashMap<>()*/;
+    private final Map<K, Reference<CacheElement<K, V>>> elements;
     private final Timer timer = new Timer();
 
     private int hit = 0;
@@ -38,12 +38,13 @@ public class CacheImpl<K, V> implements Cache<K, V> {
             K firstKey = elements.keySet().iterator().next();
             elements.remove(firstKey);
         } else {
-            CacheElement<K, SoftReference<V>> element = new SoftReferenceCacheElementImpl<>(key, value);
+            Reference element = new SoftReferenceCacheElementImpl(key, value);
             elements.put(key, element);
 
             if (!isEternal) {
                 if (lifeTimeMs != 0) {
                     TimerTask lifeTimerTask = getTimerTask(key, lifeElement -> lifeElement.getCreationTime() + lifeTimeMs);
+                    logger.info("lifeTimerTask = {}", lifeTimerTask);
                     timer.schedule(lifeTimerTask, lifeTimeMs);
                 }
                 if (idleTimeMs != 0) {
@@ -66,17 +67,21 @@ public class CacheImpl<K, V> implements Cache<K, V> {
         try {
             return Optional.ofNullable(key)
                     .map(k -> Optional.ofNullable(elements.get(key)))
-                    .map(kSoftReferenceCacheElement -> {
-                        kSoftReferenceCacheElement.get().setAccessed();
-                        hit++;
-                        return kSoftReferenceCacheElement.get().getValue().get();
-                    })
-                    .get();
+                    .map(cacheElementReference -> {
+                        Optional<CacheElement<K, V>> element = Optional.ofNullable(cacheElementReference.get().get());
+                        if(element.isPresent()) {
+                            element.get().setAccessed();
+                            hit++;
+                        } else {
+                            miss++;
+                        }
+                        return element.get().getValue();
+                    }).get();
         } catch (NoSuchElementException e) {
             logger.warn("Element {} not found", key);
             miss++;
-            return (V)Optional.empty();
         }
+        return null;
     }
 
     @Override
@@ -105,11 +110,11 @@ public class CacheImpl<K, V> implements Cache<K, V> {
                 '}' + "\n";
     }
 
-    private TimerTask getTimerTask(final K key, Function<CacheElement<K, SoftReference<V>>, Long> timeFunction) {
+    private TimerTask getTimerTask(final K key, Function<CacheElement<K, V>, Long> timeFunction) {
         return new TimerTask() {
             @Override
             public void run() {
-                CacheElement<K, SoftReference<V>> element = elements.get(key);
+                CacheElement<K, V> element = elements.get(key).get();
                 if (element == null || isT1BeforeT2(timeFunction.apply(element), System.currentTimeMillis())) {
                     elements.remove(key);
                     this.cancel();

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.BiFunction;
 
 public class UserDaoImpl implements UserDao {
     private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
@@ -21,47 +22,68 @@ public class UserDaoImpl implements UserDao {
     private Cache<Long, User> cache;
 
     public UserDaoImpl() {
-        this(new HibernateConfig().configure());
+        this(new HibernateConfig().configure(), new CacheImpl(10, 0, 0, true));
     }
 
-    public UserDaoImpl(SessionFactory sessionFactory) {
+    public UserDaoImpl(SessionFactory sessionFactory, Cache cache) {
         this.sessionFactory = sessionFactory;
-        cache = new CacheImpl(100, 0, 0, true);
+        this.cache = cache;
     }
 
     @Override
     public void create(User objectData) {
-        try(Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.save(objectData);
-            session.getTransaction().commit();
-        }
+        executeTransaction(new CreateFunc(), objectData);
     }
 
     @Override
     public void update(User objectData) {
-        try(Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.update(objectData);
-            session.getTransaction().commit();
-        }
+        executeTransaction(new UpdateFunc(), objectData);
     }
 
     @Override
     public <T> T load(long id, Class<T> clazz) {
-        T object = null;
+        T object = (T)cache.get(id);
+        if (Objects.nonNull(object)) {
+            logger.info("object from cache = {}", object);
+            return object;
+        }
+
         try(Session session = sessionFactory.openSession()) {
-            object = (T)cache.get(id);
-            if (Objects.isNull(object)) {
-                session.beginTransaction();
-                object = session.get(clazz, id);
-                session.getTransaction().commit();
-                cache.put(id, (User)object);
-            } else {
-                logger.info("object from cache = {}", object);
-            }
+            session.beginTransaction();
+            object = session.get(clazz, id);
+            session.getTransaction().commit();
+            cache.put(id, (User)object);
         }
         return object;
+    }
+
+    private void executeTransaction(BiFunction func, Object object) {
+        try(Session session = sessionFactory.openSession()) {
+            try {
+                session.beginTransaction();
+                func.apply(session, object);
+                session.getTransaction().commit();
+            } catch (Exception e) {
+                session.getTransaction().rollback();
+                logger.error("e.getMessage() = {}", e.getMessage());
+            }
+        }
+    }
+
+    private class UpdateFunc implements BiFunction<Session, Object, Void> {
+        @Override
+        public Void apply(Session session, Object o) {
+            session.update(o);
+            return null;
+        }
+    }
+
+    private class CreateFunc implements BiFunction<Session, Object, Void> {
+        @Override
+        public Void apply(Session session, Object o) {
+            session.save(o);
+            return null;
+        }
     }
 
     public List<User> loadAll() {
