@@ -62,7 +62,7 @@ public class CacheImpl<K, V> implements Cache<K, V> {
     }
 
     @Override
-    public <R> R get(K key) {
+    public V get(K key) {
         V value = null;
         CacheElement<K, SoftReference<V>> softElement = elements.get(key);
         if (softElement != null) {
@@ -76,7 +76,7 @@ public class CacheImpl<K, V> implements Cache<K, V> {
         } else {
             miss++;
         }
-        return (R) value;
+        return value;
     }
 
     @Override
