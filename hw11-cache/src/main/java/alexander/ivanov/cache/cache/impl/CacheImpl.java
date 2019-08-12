@@ -63,20 +63,20 @@ public class CacheImpl<K, V> implements Cache<K, V> {
 
     @Override
     public V get(K key) {
-        V value = null;
-        CacheElement<K, SoftReference<V>> softElement = elements.get(key);
-        if (softElement != null) {
-            value = elements.get(key).getValue().get();
-            if (Objects.isNull(value)) {
-                miss++;
-            } else {
-                hit++;
-                softElement.setAccessed();
-            }
-        } else {
+        try {
+            return Optional.ofNullable(key)
+                    .map(k -> Optional.ofNullable(elements.get(key)))
+                    .map(kSoftReferenceCacheElement -> {
+                        kSoftReferenceCacheElement.get().setAccessed();
+                        hit++;
+                        return kSoftReferenceCacheElement.get().getValue().get();
+                    })
+                    .get();
+        } catch (NoSuchElementException e) {
+            logger.warn("Element {} not found", key);
             miss++;
+            return (V)Optional.empty();
         }
-        return value;
     }
 
     @Override

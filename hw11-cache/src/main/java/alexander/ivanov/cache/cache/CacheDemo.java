@@ -67,9 +67,17 @@ public class CacheDemo {
 
         softCache.put(5, new BigObject());
         softCache.put(6, new BigObject());
-        logger.debug("After adding element by index 5:");
+        logger.debug("After adding element by index 5 and 6:");
         logger.debug("softCache = {}", softCache);
         //roundElements(softCache, 0, 5);
+
+        softCache.get(10);
+        logger.debug("After getting not exists element by index 0:");
+        logger.debug("softCache = {}", softCache);
+
+        softCache.get(6);
+        logger.debug("After getting element by index 6:");
+        logger.debug("softCache = {}", softCache);
 
         System.out.println("CacheImpl hits: " + String.format("%,d", softCache.getHitCount()));
         System.out.println("CacheImpl misses: " + String.format("%,d", softCache.getMissCount()));
