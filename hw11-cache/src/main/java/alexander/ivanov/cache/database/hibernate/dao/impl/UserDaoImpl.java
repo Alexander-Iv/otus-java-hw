@@ -22,10 +22,10 @@ public class UserDaoImpl implements UserDao {
     private Cache<Long, User> cache;
 
     public UserDaoImpl() {
-        this(new HibernateConfig().configure(), new CacheImpl(10, 0, 0, true));
+        this(new HibernateConfig().configure(), new CacheImpl<>(10, 0, 0, true));
     }
 
-    public UserDaoImpl(SessionFactory sessionFactory, Cache cache) {
+    public UserDaoImpl(SessionFactory sessionFactory, Cache<Long, User> cache) {
         this.sessionFactory = sessionFactory;
         this.cache = cache;
     }
@@ -54,12 +54,12 @@ public class UserDaoImpl implements UserDao {
         return object;
     }
 
-    private User executeTransaction(BiFunction func, Object object) {
+    private <T, R> R executeTransaction(BiFunction<Session, T, R> func, T object) {
         try(Session session = sessionFactory.openSession()) {
-            User obj = null;
+            R obj = null;
             try {
                 session.beginTransaction();
-                obj = (User)func.apply(session, object);
+                obj = func.apply(session, object);
                 session.getTransaction().commit();
             } catch (Exception e) {
                 session.getTransaction().rollback();
@@ -69,23 +69,23 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    private class UpdateFunc implements BiFunction<Session, User, Void> {
+    private class UpdateFunc implements BiFunction<Session, User, User> {
         @Override
-        public Void apply(Session session, User user) {
-            User fromCache = cache.get(user.getId());
-            if (fromCache.equals(user)) {
+        public User apply(Session session, User object) {
+            User fromCache = cache.get(object.getId());
+            if (fromCache.equals(object)) {
                 session.update(fromCache);
                 logger.info("updated from cache: {}", fromCache);
             } else {
-                session.update(user);
+                session.update(object);
             }
             return null;
         }
     }
 
-    private class CreateFunc implements BiFunction<Session, User, Void> {
+    private class CreateFunc implements BiFunction<Session, User, User> {
         @Override
-        public Void apply(Session session, User user) {
+        public User apply(Session session, User user) {
             session.save(user);
             cache.put(user.getId(), user);
             return null;
@@ -103,23 +103,23 @@ public class UserDaoImpl implements UserDao {
         private Long id;
         private Class<?> clazz;
 
-        public IdClass(Long id, Class<?> clazz) {
+        IdClass(Long id, Class<?> clazz) {
             this.id = id;
             this.clazz = clazz;
         }
 
-        public Long getId() {
+        Long getId() {
             return id;
         }
 
-        public Class<?> getClazz() {
+        Class<?> getClazz() {
             return clazz;
         }
     }
 
     @Override
     public List<User> loadAll() {
-        List<User> users = null;
+        List<User> users;
 
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
