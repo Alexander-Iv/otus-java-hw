@@ -31,34 +31,35 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void create(User objectData) {
-        executeTransaction(new CreateFunc(), objectData);
+    public void create(User user) {
+        executeTransaction(new CreateFunc(), user);
     }
 
     @Override
-    public void update(User objectData) {
-        executeTransaction(new UpdateFunc(), objectData);
+    public void update(User user) {
+        executeTransaction(new UpdateFunc(), user);
     }
 
+
     @Override
-    public <T> T load(long id, Class<T> clazz) {
-        T object = (T)cache.get(id);
+    public User load(long id, Class<User> clazz) {
+        User object = cache.get(id);
         if (Objects.nonNull(object)) {
             logger.info("object from cache = {}", object);
             return object;
         }
 
-        object = (T)executeTransaction(new LoadFunc(), new IdClass(id, clazz));
-        cache.put(id, (User)object);
+        object = executeTransaction(new LoadFunc(), new IdClass(id, clazz));
+        cache.put(id, object);
         return object;
     }
 
-    private Object executeTransaction(BiFunction func, Object object) {
+    private User executeTransaction(BiFunction func, Object object) {
         try(Session session = sessionFactory.openSession()) {
-            Object obj = null;
+            User obj = null;
             try {
                 session.beginTransaction();
-                obj = func.apply(session, object);
+                obj = (User)func.apply(session, object);
                 session.getTransaction().commit();
             } catch (Exception e) {
                 session.getTransaction().rollback();
@@ -116,6 +117,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
     public List<User> loadAll() {
         List<User> users = null;
 

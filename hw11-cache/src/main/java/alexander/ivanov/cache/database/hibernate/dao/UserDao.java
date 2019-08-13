@@ -6,13 +6,14 @@ import java.util.List;
 
 public interface UserDao extends JdbcTemplate<User> {
     @Override
-    void create(User objectData);
+    void create(User user);
 
     @Override
-    void update(User objectData);
+    void update(User user);
 
     @Override
-    <T> T load(long id, Class<T> clazz);
+    User load(long id, Class<User> clazz);
 
+    @Override
     List<User> loadAll();
 }
