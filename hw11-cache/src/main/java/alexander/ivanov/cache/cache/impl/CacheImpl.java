@@ -64,24 +64,17 @@ public class CacheImpl<K, V> implements Cache<K, V> {
 
     @Override
     public V get(K key) {
-        try {
-            return Optional.ofNullable(key)
-                    .map(k -> Optional.ofNullable(elements.get(key)))
-                    .map(cacheElementReference -> {
-                        Optional<CacheElement<K, V>> element = Optional.ofNullable(cacheElementReference.get().get());
-                        if(element.isPresent()) {
-                            element.get().setAccessed();
-                            hit++;
-                        } else {
-                            miss++;
-                        }
-                        return element.get().getValue();
-                    }).get();
-        } catch (NoSuchElementException e) {
-            logger.warn("Element {} not found", key);
-            miss++;
-        }
-        return null;
+        return Optional.ofNullable(key)
+                .map(elements::get)
+                .map(SoftReference::get)
+                .map(kvCacheElement -> {
+                    hit++;
+                    return kvCacheElement.getValue();
+                }).orElseGet(() -> {
+                    miss++;
+                    logger.warn("Element {} not found", key);
+                    return null;
+                });
     }
 
     @Override
