@@ -5,7 +5,7 @@ import alexander.ivanov.cache.cache.CacheElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.ref.Reference;
+import java.lang.ref.SoftReference;
 import java.util.*;
 import java.util.function.Function;
 
@@ -18,7 +18,7 @@ public class CacheImpl<K, V> implements Cache<K, V> {
     private final long idleTimeMs;
     private final boolean isEternal;
 
-    private final Map<K, Reference<CacheElement<K, V>>> elements;
+    private final Map<K, SoftReference<CacheElement<K, V>>> elements;
     private final Timer timer = new Timer();
 
     private int hit = 0;
@@ -38,7 +38,7 @@ public class CacheImpl<K, V> implements Cache<K, V> {
             K firstKey = elements.keySet().iterator().next();
             elements.remove(firstKey);
         } else {
-            Reference element = new SoftReferenceCacheElementImpl(key, value);
+            SoftReference element = new SoftReferenceCacheElementImpl(key, value);
             elements.put(key, element);
 
             if (!isEternal) {
