@@ -71,14 +71,9 @@ public class UserDaoImpl implements UserDao {
 
     private class UpdateFunc implements BiFunction<Session, User, User> {
         @Override
-        public User apply(Session session, User object) {
-            User fromCache = cache.get(object.getId());
-            if (fromCache.equals(object)) {
-                session.update(fromCache);
-                logger.info("updated from cache: {}", fromCache);
-            } else {
-                session.update(object);
-            }
+        public User apply(Session session, User user) {
+            session.update(user);
+            cache.put(user.getId(), user);
             return null;
         }
     }
