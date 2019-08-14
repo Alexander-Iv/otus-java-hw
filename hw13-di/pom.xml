@@ -13,8 +13,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>db-service</module>
         <module>cache-service</module>
+        <module>db-service</module>
         <module>di-service</module>
     </modules>
 
