@@ -13,11 +13,11 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-@Configuration
+/*@Configuration
 @ComponentScan
-@EnableWebMvc
-public class Application implements WebApplicationInitializer {
-    private static final Logger logger = LoggerFactory.getLogger(Application.class);
+@EnableWebMvc*/
+public class Application /*implements WebApplicationInitializer*/ {
+    /*private static final Logger logger = LoggerFactory.getLogger(Application.class);
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         logger.info("servletContext = {}", servletContext);
@@ -31,11 +31,11 @@ public class Application implements WebApplicationInitializer {
         registration.setLoadOnStartup(1);
         registration.addMapping("/di/*");
 
-        /*
+        *//*
         context.addServlet(new ServletHolder("Auth", new AuthServlet(userDao)), "/auth/*");
         context.addServlet(new ServletHolder("Home", new HomeServlet(userDao)), "/home/*");
         context.addServlet(new ServletHolder("Logout", new LogoutServlet()), "/logout/*");
         context.addServlet(new ServletHolder("Register", new RegisterServlet(userDao)), "/register/*");
-        */
-    }
+        *//*
+    }*/
 }
