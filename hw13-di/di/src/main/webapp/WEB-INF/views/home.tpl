@@ -2,10 +2,16 @@ layout 'html-page.tpl',
 title: 'Home',
 bodyContents:
     contents {
-        a(href: "registration") {
+        yield "Hello, " + userName + "!"
+        br()
+        a(href: "/di/auth/logout") {
+            yield 'logout'
+        }
+        br()
+        a(href: "/di/registration") {
             yield 'Register new user'
         }
-        newLine()
+        br()
         if (users != null && !users.isEmpty()) {
             table(border:1) {
                 tr {

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/registration")
@@ -36,6 +38,10 @@ public class RegistrationController {
         User newUser = new User(userName, userPassword);
         userService.add(newUser);
         model.addAttribute("users", userService.findAll());
+        if(session.getAttribute("name") == null) {
+            return "auth/login";
+        }
+        model.addAttribute("userName", session.getAttribute("name"));
         return "home";
     }
 }

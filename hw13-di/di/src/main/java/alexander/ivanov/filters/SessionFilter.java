@@ -21,7 +21,7 @@ public class SessionFilter implements Filter {
         logger.debug("req = {}", req);
         logger.debug("resp = {}", resp);
 
-        Optional<HttpSession> session = Optional.ofNullable(req.getSession(false));
+        /*Optional<HttpSession> session = Optional.ofNullable(req.getSession(false));
         session.ifPresentOrElse(httpSession -> {
             logger.debug("httpSession = {}", httpSession);
             try {
@@ -30,17 +30,42 @@ public class SessionFilter implements Filter {
                 e.printStackTrace();
             }
         }, () -> {
-                if (!req.getServletPath().contains("/auth/login")) {
+            logger.debug("session = {}, req.getServletPath() = {}", session, req.getServletPath());
+                //if (!req.getServletPath().contains("/auth/login")) {
                     try {
-                        logger.debug("session = {}, req.getServletPath() = {}", session, req.getServletPath());
                         RequestDispatcher dispatcher = req.getRequestDispatcher("auth/login");
                         //dispatcher.include(request, response);
                         //dispatcher.forward(request, response);
-                        resp.sendRedirect(req.getContextPath() + "/auth/login");
-                    } catch (IOException /*| ServletException*/ e) {
+                        //resp.sendRedirect(req.getContextPath() + "/auth/login");
+                        resp.sendRedirect("auth/login");
+                    } catch (IOException *//*| ServletException*//* e) {
                         e.printStackTrace();
                     }
-                }
-        });
+                //}
+        });*/
+        String authPath;
+        HttpSession session = req.getSession(false);
+        if (session == null) {
+            logger.info("session = " + session);
+            logger.debug("req.getContextPath() = {}, req.getServletPath() = {}, info = {}", req.getContextPath(), req.getServletPath(), req.getPathInfo());
+            if (!req.getServletPath().contains("login")) {
+                logger.info("START auth condition");
+                authPath = req.getContextPath() + "/auth/login";
+                logger.info("authPath {}", authPath);
+                //resp.sendRedirect(authPath);
+                resp.sendRedirect(authPath);
+                //resp.sendRedirect();
+                logger.info("END auth condition");
+            } else {
+                logger.info("else do doFilter()");
+                chain.doFilter(req, resp);
+            }
+        } else {
+            logger.info("authorized session = " + session);
+            authPath = req.getContextPath()+ "/home";
+            logger.info("authPath {}", authPath);
+            resp.sendRedirect(authPath);
+            chain.doFilter(req, resp);
+        }
     }
 }

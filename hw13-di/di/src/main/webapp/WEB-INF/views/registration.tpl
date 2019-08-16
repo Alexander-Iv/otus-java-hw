@@ -5,7 +5,7 @@ bodyContents:
         h3 {
             'Registration'
         }
-        form(method:"post", action:"registration") {
+        form(method:"post", action:"/di/registration") {
             table {
                 tr {
                     th(align:"left") {
