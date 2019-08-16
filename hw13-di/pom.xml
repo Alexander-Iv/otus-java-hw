@@ -13,10 +13,26 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>cache-service</module>
-        <module>db-service</module>
-        <module>di-service</module>
+        <module>cache</module>
+        <module>db</module>
+        <module>di</module>
     </modules>
 
+    <properties>
+        <spring.version>5.1.9.RELEASE</spring.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
