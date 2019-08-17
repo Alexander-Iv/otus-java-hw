@@ -4,11 +4,11 @@ bodyContents:
     contents {
         yield "Hello, " + userName + "!"
         br()
-        a(href: "/di/auth/logout") {
+        a(href: "/auth/logout") {
             yield 'logout'
         }
         br()
-        a(href: "/di/registration") {
+        a(href: "/registration") {
             yield 'Register new user'
         }
         br()

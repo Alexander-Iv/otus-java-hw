@@ -14,6 +14,11 @@ import java.util.function.Function;
 public class CacheImpl<K, V> implements Cache<K, V> {
     private static final Logger logger = LoggerFactory.getLogger(CacheImpl.class);
     private static final int TIME_THRESHOLD_MS = 0;
+    private static final int MAX_ELEMENTS_DEFAULT = 1000;
+    private static final int LIFE_TIME_MS_DEFAULT = 0;
+    private static final int IDLE_TIME_MS_DEFAULT = 0;
+    private static final boolean IS_ETERNAL_DEFAULT = true;
+
 
     private final int maxElements;
     private final long lifeTimeMs;
@@ -27,7 +32,7 @@ public class CacheImpl<K, V> implements Cache<K, V> {
     private int miss = 0;
 
     public CacheImpl() {
-        this(1000, 0, 0, true);
+        this(MAX_ELEMENTS_DEFAULT, LIFE_TIME_MS_DEFAULT, IDLE_TIME_MS_DEFAULT, IS_ETERNAL_DEFAULT);
     }
 
     public CacheImpl(int maxElements, long lifeTimeMs, long idleTimeMs, boolean isEternal) {

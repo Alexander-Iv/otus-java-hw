@@ -2,11 +2,11 @@ package alexander.ivanov.services;
 
 import alexander.ivanov.dbservice.database.hibernate.dao.UserDao;
 import alexander.ivanov.dbservice.database.hibernate.model.User;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-@Component
+@Service
 public class UserServiceImpl implements UserService {
     private UserDao userDao;
 

@@ -5,7 +5,7 @@ bodyContents:
         h3 {
             'Login'
         }
-        form(method:"post", action:"/di/auth/login") {
+        form(method:"post", action:"/auth/login") {
             table {
                 tr {
                     th(align:"left") {
@@ -33,7 +33,7 @@ bodyContents:
                 }
             }
         }
-        yield 'If you are new user, please ' a(href:"/di/registration"){ yield 'register' }
+        yield 'If you are new user, please ' a(href:"/registration"){ yield 'register' }
         if (message != null && !message.isEmpty()) {
             br()
             yield message
