@@ -10,6 +10,30 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hw15-messageSystem</artifactId>
+    <packaging>pom</packaging>
 
+    <modules>
+        <module>hw15-0-ms</module>
+        <module>hw15-1-cache</module>
+        <module>hw15-2-db</module>
+        <module>hw15-3-fe</module>
+    </modules>
+
+    <properties>
+        <spring.version>5.1.9.RELEASE</spring.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
