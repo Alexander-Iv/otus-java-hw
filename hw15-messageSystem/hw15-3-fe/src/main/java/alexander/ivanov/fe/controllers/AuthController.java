@@ -1,7 +1,6 @@
-package alexander.ivanov.fe.controllers.controllers;
+package alexander.ivanov.fe.controllers;
 
-import alexander.ivanov.dbservice.database.hibernate.model.User;
-import alexander.ivanov.fe.services.services.UserService;
+import alexander.ivanov.messageSystem.services.FeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,18 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Collection;
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     private final HttpSession session;
-    private final UserService userService;
+    //private final UserService userService;
+    private final FeService feService;
 
-    public AuthController(HttpSession session, UserService userService) {
+    public AuthController(HttpSession session, /*UserService userService*/FeService feService) {
         this.session = session;
-        this.userService = userService;
+        //this.userService = userService;
+        this.feService = feService;
     }
 
     @GetMapping("/login")
@@ -33,7 +33,9 @@ public class AuthController {
 
     @PostMapping("/login")
     public String postLogin(Model model, String userName, String userPassword) throws IOException {
-        User newUser = new User(userName, userPassword);
+        feService.auth(userName, userPassword);
+
+        /*User newUser = new User(userName, userPassword);
         Collection<User> users = userService.findAll();
         if (users.contains(newUser)) {
             session.setAttribute("name", userName);
@@ -44,7 +46,7 @@ public class AuthController {
             logger.info("user({}) not found", userName);
             model.addAttribute("message", "Incorrect user or password. Please try again");
             return "auth/login";
-        }
+        }*/
         return "home";
     }
 

@@ -42,7 +42,7 @@
     <dependencies>
         <dependency>
             <groupId>alexander.ivanov</groupId>
-            <artifactId>hw15-2-db</artifactId>
+            <artifactId>hw15-0-ms</artifactId>
             <version>0.01</version>
         </dependency>
 

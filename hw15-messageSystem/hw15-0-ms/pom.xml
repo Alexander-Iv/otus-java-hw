@@ -11,5 +11,17 @@
 
     <artifactId>hw15-0-ms</artifactId>
 
+    <!--<dependencies>
+        <dependency>
+            <groupId>alexander.ivanov</groupId>
+            <artifactId>hw15-2-db</artifactId>
+            <version>0.01</version>
+        </dependency>
+        <dependency>
+            <groupId>alexander.ivanov</groupId>
+            <artifactId>hw15-3-fe</artifactId>
+            <version>0.01</version>
+        </dependency>
+    </dependencies>-->
 
 </project>

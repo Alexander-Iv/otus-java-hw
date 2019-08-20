@@ -26,6 +26,11 @@
 
         <dependency>
             <groupId>alexander.ivanov</groupId>
+            <artifactId>hw15-0-ms</artifactId>
+            <version>0.01</version>
+        </dependency>
+        <dependency>
+            <groupId>alexander.ivanov</groupId>
             <artifactId>hw15-1-cache</artifactId>
             <version>0.01</version>
         </dependency>

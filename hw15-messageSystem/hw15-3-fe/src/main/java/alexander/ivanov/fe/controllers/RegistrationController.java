@@ -1,7 +1,6 @@
-package alexander.ivanov.fe.controllers.controllers;
+package alexander.ivanov.fe.controllers;
 
-import alexander.ivanov.dbservice.database.hibernate.model.User;
-import alexander.ivanov.fe.services.services.UserService;
+import alexander.ivanov.messageSystem.services.FeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -18,10 +17,12 @@ public class RegistrationController {
     private static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
     private final UserService userService;
     private final HttpSession session;
+    private final FeService feService;
 
-    public RegistrationController(UserService userService, HttpSession session) {
+    public RegistrationController(UserService userService, HttpSession session, FeService feService) {
         this.userService = userService;
         this.session = session;
+        this.feService = feService;
     }
 
     @GetMapping
@@ -33,8 +34,9 @@ public class RegistrationController {
     public String post(Model model, String userName, String userPassword) {
         logger.debug("RegistrationController.post");
         logger.debug("session = {}", session);
-        User newUser = new User(userName, userPassword);
-        userService.add(newUser);
+        //User newUser = new User(userName, userPassword);
+        feService.registration(userName, userPassword);
+        //userService.add(newUser);
         model.addAttribute("users", userService.findAll());
         if(session.getAttribute("name") == null) {
             return "auth/login";

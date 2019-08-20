@@ -1,5 +1,6 @@
 package alexander.ivanov.dbservice.database.hibernate.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity

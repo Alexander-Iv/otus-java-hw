@@ -1,7 +1,6 @@
-package alexander.ivanov.fe.controllers.controllers;
+package alexander.ivanov.fe.controllers;
 
-import alexander.ivanov.dbservice.database.hibernate.model.User;
-import alexander.ivanov.fe.services.services.UserService;
+import alexander.ivanov.messageSystem.services.FeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -9,17 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.Collection;
 import java.util.Iterator;
 
 @Controller
 public class HomeController {
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-    private final UserService userService;
+    private final FeService feService;
     private final HttpSession session;
 
-    public HomeController(UserService userService, HttpSession session) {
-        this.userService = userService;
+    public HomeController(FeService feService, HttpSession session) {
+        this.feService = feService;
         this.session = session;
     }
 
@@ -37,8 +35,8 @@ public class HomeController {
                 logger.info("iter.next() = " + iter.next());
             }
         }
-        Collection<User> users = userService.findAll();
-        model.addAttribute("users", users);
+        //Collection<User> users = userService.findAll();
+        //model.addAttribute("users", users);
         return "";
     }
 }
