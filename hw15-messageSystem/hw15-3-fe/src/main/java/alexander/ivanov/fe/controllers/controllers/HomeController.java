@@ -1,7 +1,7 @@
-package alexander.ivanov.controllers;
+package alexander.ivanov.fe.controllers.controllers;
 
 import alexander.ivanov.dbservice.database.hibernate.model.User;
-import alexander.ivanov.services.UserService;
+import alexander.ivanov.fe.services.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

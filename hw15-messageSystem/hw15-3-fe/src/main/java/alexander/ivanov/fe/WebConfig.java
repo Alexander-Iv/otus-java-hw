@@ -1,4 +1,4 @@
-package alexander.ivanov;
+package alexander.ivanov.fe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

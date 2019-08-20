@@ -1,4 +1,4 @@
-package alexander.ivanov.services;
+package alexander.ivanov.fe.services.services;
 
 import alexander.ivanov.dbservice.database.hibernate.model.User;
 
