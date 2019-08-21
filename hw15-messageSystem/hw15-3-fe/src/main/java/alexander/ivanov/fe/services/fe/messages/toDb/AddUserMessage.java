@@ -7,17 +7,27 @@ import alexander.ivanov.messageSystem.Receiver;
 import alexander.ivanov.messageSystem.services.DbService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AddUserMessage implements Message {
     private static final Logger logger = LoggerFactory.getLogger(AddUserMessage.class);
 
-    private final MessageSystemContext context;
-    private final String userName;
-    private final String userPassword;
+    private MessageSystemContext context;
+    private String userName;
+    private String userPassword;
 
-    public AddUserMessage(MessageSystemContext context, String userName, String userPassword) {
+    @Autowired
+    private void setContext(MessageSystemContext context) {
         this.context = context;
+    }
+
+    public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
 

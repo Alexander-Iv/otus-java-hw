@@ -1,9 +1,13 @@
 package alexander.ivanov.messageSystem;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Objects;
 import java.util.UUID;
 
 public class Address {
+    private static final Logger logger = LoggerFactory.getLogger(Address.class);
     private final String name;
 
     public Address() {
@@ -23,12 +27,14 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(name, address.name);
+        boolean isEquals = Objects.equals(name, address.name);
+        return isEquals;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        logger.info("Address.name = {}", name);
+        return name != null ? name.hashCode() : 0;
     }
 
     @Override

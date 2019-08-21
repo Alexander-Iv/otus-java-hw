@@ -50,13 +50,14 @@ public class DbServiceImpl extends UserDaoImpl implements DbService {
 
     @Override
     public void auth(String name, String password) {
+        logger.debug("DbServiceImpl.auth");
         Collection<User> users = loadAll();
         User newUser = new User(name, password);
         if (users.contains(newUser)) {
             logger.debug("isCorrectUser");
-            context.getMessageSystem().sendMessage(new IsCorrectUser());
+            context.getMessageSystem().sendMessage(new IsCorrectUser(context));
         } else {
-            context.getMessageSystem().sendMessage(new IsIncorrectUser());
+            context.getMessageSystem().sendMessage(new IsIncorrectUser(context));
             logger.debug("isIncorrectUser");
         }
     }
@@ -64,5 +65,12 @@ public class DbServiceImpl extends UserDaoImpl implements DbService {
     @Override
     public Collection<User> findAll() {
         return loadAll();
+    }
+
+    @Override
+    public String toString() {
+        return "DbServiceImpl{" +
+                "context=" + context +
+                '}';
     }
 }

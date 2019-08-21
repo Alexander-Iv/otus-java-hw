@@ -15,17 +15,20 @@ import org.springframework.stereotype.Service;
 public class FeServiceImpl implements FeService {
     private static final Logger logger = LoggerFactory.getLogger(FeServiceImpl.class);
 
-    private final MessageSystemContext context;
+    private MessageSystemContext context;
 
     @Autowired
     public FeServiceImpl(MessageSystemContext context) {
+        logger.debug("FeServiceImpl.FeServiceImpl");
         this.context = context;
+        logger.debug("context = {}", context);
     }
 
     @Override
     public void init() {
         logger.debug("FeServiceImpl.init");
         context.getMessageSystem().addReceiver(this);
+        context.getMessageSystem().start();
         logger.debug("this = {}", this);
     }
 
@@ -41,11 +44,26 @@ public class FeServiceImpl implements FeService {
 
     @Override
     public void auth(String name, String password) {
-        context.getMessageSystem().sendMessage(new AuthUserMessage(context, name, password));
+        AuthUserMessage message = new AuthUserMessage(context);
+        message.setUserName(name);
+        message.setUserPassword(password);
+        init();
+        context.getMessageSystem().sendMessage(message);
     }
 
     @Override
     public void registration(String name, String password) {
-        context.getMessageSystem().sendMessage(new AddUserMessage(context, name, password));
+        AddUserMessage message = new AddUserMessage();
+        message.setUserName(name);
+        message.setUserPassword(password);
+        init();
+        context.getMessageSystem().sendMessage(message);
+    }
+
+    @Override
+    public String toString() {
+        return "FeServiceImpl{" +
+                "context=" + context +
+                '}';
     }
 }

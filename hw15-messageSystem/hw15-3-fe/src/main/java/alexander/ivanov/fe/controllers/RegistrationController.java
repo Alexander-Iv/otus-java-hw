@@ -15,12 +15,11 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/registration")
 public class RegistrationController {
     private static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
-    private final UserService userService;
+    //private final UserService userService;
     private final HttpSession session;
     private final FeService feService;
 
-    public RegistrationController(UserService userService, HttpSession session, FeService feService) {
-        this.userService = userService;
+    public RegistrationController(FeService feService, HttpSession session) {
         this.session = session;
         this.feService = feService;
     }
@@ -37,7 +36,7 @@ public class RegistrationController {
         //User newUser = new User(userName, userPassword);
         feService.registration(userName, userPassword);
         //userService.add(newUser);
-        model.addAttribute("users", userService.findAll());
+        //model.addAttribute("users", userService.findAll());
         if(session.getAttribute("name") == null) {
             return "auth/login";
         }

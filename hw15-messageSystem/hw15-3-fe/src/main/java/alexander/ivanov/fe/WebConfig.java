@@ -1,7 +1,11 @@
 package alexander.ivanov.fe;
 
+import alexander.ivanov.messageSystem.MessageSystemContext;
+import alexander.ivanov.messageSystem.services.DbService;
+import alexander.ivanov.messageSystem.services.FeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +18,12 @@ import org.springframework.web.servlet.view.groovy.GroovyMarkupViewResolver;
 @ComponentScan(basePackages = {"alexander.ivanov"})
 public class WebConfig implements WebMvcConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);
+    /*private MessageSystemContext context;
+
+    @Autowired
+    public void setContext(MessageSystemContext context) {
+        this.context = context;
+    }*/
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
