@@ -28,8 +28,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         logger.debug("WebConfig.addResourceHandlers");
-        registry.addResourceHandler("/META-INF/views/")
-                .addResourceLocations("/");
+        //registry.addResourceHandler("/META-INF/views/").addResourceLocations("/");
+        registry.addResourceHandler("/WEB-INF/views/").addResourceLocations("/");
+        registry.addResourceHandler("/WEB-INF/scripts/").addResourceLocations("/scripts/");
+        //registry.addResourceHandler("classpath:/webjars/**").addResourceLocations("/webjars/");
+        registry.addResourceHandler("classpath:/webjars/**").addResourceLocations("/webjars/");
     }
 
     @Override
