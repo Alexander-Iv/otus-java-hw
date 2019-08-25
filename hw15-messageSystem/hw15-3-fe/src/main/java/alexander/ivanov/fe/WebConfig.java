@@ -6,12 +6,18 @@ import alexander.ivanov.messageSystem.services.FeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.groovy.GroovyMarkupConfigurer;
 import org.springframework.web.servlet.view.groovy.GroovyMarkupViewResolver;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
@@ -49,27 +55,30 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public GroovyMarkupViewResolver groovyMarkupViewResolver() {
-        logger.debug("WebConfig.viewResolver");
-        GroovyMarkupViewResolver resolver = new GroovyMarkupViewResolver();
-        resolver.setSuffix(".tpl");
-        resolver.setRequestContextAttribute("requestContext");
-        return resolver;
+    public SpringResourceTemplateResolver templateResolver(ApplicationContext applicationContext){
+        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+        templateResolver.setApplicationContext(applicationContext);
+        templateResolver.setPrefix("/WEB-INF/views/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCacheable(true);
+        templateResolver.setCharacterEncoding("UTF-8");
+        return templateResolver;
     }
 
     @Bean
-    public GroovyMarkupConfigurer groovyMarkupConfigurer() {
-        logger.debug("WebConfig.markupConfig");
-        GroovyMarkupConfigurer groovyMarkupConfigurer = new GroovyMarkupConfigurer();
-        groovyMarkupConfigurer.setResourceLoaderPath("/WEB-INF/views/");
-        groovyMarkupConfigurer.setAutoNewLine(true);
-        logger.debug("groovyMarkupConfigurer = {}", groovyMarkupConfigurer);
+    public SpringTemplateEngine templateEngine(SpringResourceTemplateResolver templateResolver) {
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver);
+        return templateEngine;
+    }
 
-        //Paths.get("/WEB-INF/views/**").toFile()
-        /*MarkupTemplateEngine templateEngine = new MarkupTemplateEngine(groovyMarkupConfigurer);
-        groovyMarkupConfigurer.setTemplateEngine(templateEngine);
-        logger.debug("templateEngine = {}", templateEngine);*/
-
-        return groovyMarkupConfigurer;
+    @Bean
+    public ThymeleafViewResolver viewResolver(SpringTemplateEngine templateEngine) {
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(templateEngine);
+        viewResolver.setOrder(1);
+        viewResolver.setCharacterEncoding("UTF-8");
+        return viewResolver;
     }
 }
