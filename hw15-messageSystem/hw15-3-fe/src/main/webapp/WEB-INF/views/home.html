@@ -2,13 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <style type="text/css">
-        body {
-            padding: 50px;
-        }
-
         .users, .users td {
             border: 1px solid lightgray;
-            padding: 5px;
         }
     </style>
     <meta charset="UTF-8">
@@ -23,18 +18,18 @@
     <br>
     <table class="users">
         <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Password</th>
-        </tr>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Password</th>
+            </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.id}">id</td>
-            <td th:text="${user.name}">name</td>
-            <td th:text="${user.password}">password</td>
-        </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">id</td>
+                <td th:text="${user.name}">name</td>
+                <td th:text="${user.password}">password</td>
+            </tr>
         </tbody>
     </table>
 </body>

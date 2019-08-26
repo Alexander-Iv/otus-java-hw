@@ -1,51 +1,42 @@
 package alexander.ivanov.fe;
 
-import alexander.ivanov.messageSystem.MessageSystemContext;
-import alexander.ivanov.messageSystem.services.DbService;
-import alexander.ivanov.messageSystem.services.FeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
+import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.view.groovy.GroovyMarkupConfigurer;
-import org.springframework.web.servlet.view.groovy.GroovyMarkupViewResolver;
+import org.springframework.web.servlet.resource.WebJarsResourceResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"alexander.ivanov"})
 public class WebConfig implements WebMvcConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);
-    /*private MessageSystemContext context;
-
-    @Autowired
-    public void setContext(MessageSystemContext context) {
-        this.context = context;
-    }*/
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         logger.debug("WebConfig.addResourceHandlers");
-        //registry.addResourceHandler("/META-INF/views/").addResourceLocations("/");
-        registry.addResourceHandler("/WEB-INF/views/").addResourceLocations("/");
-        registry.addResourceHandler("/WEB-INF/scripts/").addResourceLocations("/scripts/");
-        //registry.addResourceHandler("classpath:/webjars/**").addResourceLocations("/webjars/");
-        registry.addResourceHandler("classpath:/webjars/**").addResourceLocations("/webjars/");
+        registry.addResourceHandler("/WEB-INF/views/**").addResourceLocations("/");
+        registry.addResourceHandler("/scripts/**").addResourceLocations("/WEB-INF/scripts/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/")
+                .setCacheControl(CacheControl.maxAge(1L, TimeUnit.DAYS).cachePublic())
+                .resourceChain(true)
+                .addResolver(new WebJarsResourceResolver());
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         logger.debug("WebConfig.addViewControllers");
         registry.addRedirectViewController("", "/home");
-        //registry.addViewController("").setViewName("home");
         logger.debug("registry = {}", registry);
     }
 
