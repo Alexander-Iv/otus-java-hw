@@ -10,10 +10,10 @@ import org.springframework.stereotype.Controller;
 public class MessageController {
     private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 
-    @MessageMapping("/message")
+    @MessageMapping("/login/message")
     @SendTo("/topic/response")
-    public String messageHandler(String message) {
-        logger.info("got message: {}", message);
+    public String loginMessageHandler(String message) {
+        logger.info("got login message: {}", message);
         return String.format("{\"result\":\"%s\"}", "Is correct user");
     }
 }

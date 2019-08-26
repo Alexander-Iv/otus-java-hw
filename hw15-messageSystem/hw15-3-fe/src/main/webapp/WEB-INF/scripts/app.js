@@ -33,6 +33,6 @@ const send = (target) => {
 $(function () {
     $("#login-form").on('submit', (event) => {
         event.preventDefault();
-        $("#login").click(send("/app/message"));
+        $("#login").click(send("/app/login/message"));
     });
 });
