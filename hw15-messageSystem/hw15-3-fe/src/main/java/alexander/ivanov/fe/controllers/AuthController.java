@@ -35,7 +35,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String postLogin(Model model, String userName, String userPassword) {
+    public void postLogin(Model model, String userName, String userPassword) {
         try {
             //feService.init();
             feService.auth(userName, userPassword);
@@ -56,7 +56,7 @@ public class AuthController {
             model.addAttribute("message", "Incorrect user or password. Please try again");
             return "auth/login";
         }*/
-        return "home";
+        //return "home";
     }
 
     @GetMapping("/logout")

@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
+import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.WebJarsResourceResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -18,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableWebMvc
+@EnableAsync
 @ComponentScan(basePackages = {"alexander.ivanov"})
 public class WebConfig implements WebMvcConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);
@@ -29,7 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/scripts/**").addResourceLocations("/WEB-INF/scripts/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/")
                 .setCacheControl(CacheControl.maxAge(1L, TimeUnit.DAYS).cachePublic())
-                .resourceChain(true)
+                .resourceChain(false)
                 .addResolver(new WebJarsResourceResolver());
     }
 
