@@ -13,10 +13,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>hw15-0-ms</module>
         <module>hw15-1-cache</module>
         <module>hw15-2-db</module>
         <module>hw15-3-fe</module>
+        <module>hw15-0-ms</module>
     </modules>
 
     <properties>

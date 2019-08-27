@@ -3,14 +3,14 @@ package alexander.ivanov.messageSystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class MessageSystemContext {
     private final MessageSystem messageSystem;
 
     private Address feAddress;
     private Address dbAddress;
 
-    @Autowired
+    //@Autowired
     public MessageSystemContext(MessageSystem messageSystem) {
         this.messageSystem = messageSystem;
         this.feAddress = new Address("fe-address");

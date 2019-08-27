@@ -1,6 +1,5 @@
 package alexander.ivanov.fe.controllers;
 
-import alexander.ivanov.messageSystem.services.FeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,11 +12,9 @@ import java.util.Iterator;
 @Controller
 public class HomeController {
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-    private final FeService feService;
     private final HttpSession session;
 
-    public HomeController(FeService feService, HttpSession session) {
-        this.feService = feService;
+    public HomeController(HttpSession session) {
         this.session = session;
     }
 

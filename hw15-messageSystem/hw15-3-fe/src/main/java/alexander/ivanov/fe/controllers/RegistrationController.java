@@ -1,6 +1,5 @@
 package alexander.ivanov.fe.controllers;
 
-import alexander.ivanov.messageSystem.services.FeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -17,11 +16,11 @@ public class RegistrationController {
     private static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
     //private final UserService userService;
     private final HttpSession session;
-    private final FeService feService;
+    //private final FeService feService;
 
-    public RegistrationController(FeService feService, HttpSession session) {
+    public RegistrationController(/*FeService feService, */HttpSession session) {
         this.session = session;
-        this.feService = feService;
+        //this.feService = feService;
     }
 
     @GetMapping
@@ -34,7 +33,7 @@ public class RegistrationController {
         logger.debug("RegistrationController.post");
         logger.debug("session = {}", session);
         //User newUser = new User(userName, userPassword);
-        feService.registration(userName, userPassword);
+        //feService.registration(userName, userPassword);
         //userService.add(newUser);
         //model.addAttribute("users", userService.findAll());
         if(session.getAttribute("name") == null) {

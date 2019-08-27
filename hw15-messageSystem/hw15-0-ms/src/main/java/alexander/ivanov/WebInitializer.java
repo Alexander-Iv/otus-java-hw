@@ -1,4 +1,4 @@
-package alexander.ivanov.fe;
+package alexander.ivanov;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[] {
-                //WebSocketConfig.class
+                WebSocketConfig.class
         };
     }
 

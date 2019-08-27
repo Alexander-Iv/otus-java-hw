@@ -24,11 +24,11 @@
             <version>5.4.2.Final</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>alexander.ivanov</groupId>
             <artifactId>hw15-0-ms</artifactId>
             <version>0.01</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>alexander.ivanov</groupId>
             <artifactId>hw15-1-cache</artifactId>

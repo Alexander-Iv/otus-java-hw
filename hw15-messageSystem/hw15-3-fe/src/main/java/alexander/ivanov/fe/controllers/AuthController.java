@@ -1,6 +1,5 @@
 package alexander.ivanov.fe.controllers;
 
-import alexander.ivanov.messageSystem.services.FeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +17,10 @@ import java.util.Collections;
 public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     private final HttpSession session;
-    //private final UserService userService;
-    private final FeService feService;
 
     @Autowired
-    public AuthController(HttpSession session, /*UserService userService*/FeService feService) {
+    public AuthController(HttpSession session) {
         this.session = session;
-        //this.userService = userService;
-        this.feService = feService;
-        logger.debug("feService = {}", feService);
     }
 
     @GetMapping("/login")
@@ -38,7 +32,8 @@ public class AuthController {
     public void postLogin(Model model, String userName, String userPassword) {
         try {
             //feService.init();
-            feService.auth(userName, userPassword);
+            //messageSystem.createMessageFor(dbService, userName + ", " + userPassword);
+            //feService.auth(userName, userPassword);
             model.addAttribute("users", Collections.emptyList());
         } catch (Exception e) {
             e.printStackTrace();
