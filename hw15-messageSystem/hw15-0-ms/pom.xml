@@ -48,7 +48,7 @@
                     <warFile>target/${project.name}.war</warFile>
                     <url>http://localhost:8080/manager/text</url>
                     <server>tomcat</server>
-                    <path>/ms</path>
+                    <path>/message-system</path>
                 </configuration>
             </plugin>
         </plugins>

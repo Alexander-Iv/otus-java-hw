@@ -1,12 +1,13 @@
 let stompClient = null;
+let messageSystemName = "/message-system";
 
 const connect = () => {
     console.log("Stomp = " + stompClient);
     if (stompClient == null) {
-        stompClient = Stomp.over(new SockJS('/gs-guide-websocket'));
+        stompClient = Stomp.over(new SockJS(messageSystemName + "/websocket"));
         stompClient.connect({}, (frame) => {
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/response', (response) => show(JSON.parse(response.body)));
+            stompClient.subscribe('/message-broker', (response) => show(JSON.parse(response.body)));
         });
     }
 };
@@ -27,12 +28,12 @@ const disconnect = () => {
 const send = (target) => {
     let user = JSON.stringify({'userName': $("#userName").val(), 'userPassword': $("#userPassword").val()});
     console.log("user = " + user);
-    stompClient.send(target, {}, user)
+    stompClient.send(messageSystemName + target, {}, user)
 };
 
 $(function () {
     $("#login-form").on('submit', (event) => {
         event.preventDefault();
-        $("#login").click(send("/app/login/message"));
+        $("#login").click(send("/login/message"));
     });
 });

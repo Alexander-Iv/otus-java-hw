@@ -1,24 +1,33 @@
 package alexander.ivanov.ms;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
-import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.web.socket.config.annotation.*;
 
+@EnableAsync
+@ComponentScan
 @Configuration
 @EnableWebSocket
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+    private static final Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/topic");
-        registry.setApplicationDestinationPrefixes("/app");
+        logger.info("WebSocketConfig.configureMessageBroker");
+        registry.enableSimpleBroker("/message-broker");
+        registry.setApplicationDestinationPrefixes("/message-system");
+        logger.info("registry = {}", registry);
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/gs-guide-websocket").withSockJS();
+        logger.info("WebSocketConfig.registerStompEndpoints");
+        SockJsServiceRegistration ssr = registry.addEndpoint("/websocket").withSockJS();
+        logger.info("ssr = {}", ssr);
     }
 }

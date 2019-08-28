@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.*;
 
-@Component
+//@Component
 public class MessageSystemImpl implements MessageSystem {
     private static final Logger logger = LoggerFactory.getLogger(MessageSystemImpl.class);
     private final int CAPACITY_DEFAULT = 10;
@@ -22,25 +22,25 @@ public class MessageSystemImpl implements MessageSystem {
     @Override
     public void init() {
         logger.info("MessageSystemImpl.init");
-        /*clients.forEach(client -> {
+        clients.forEach(client -> {
             clientExecutors.put(client, Executors.newSingleThreadExecutor());
             clientQueueMessage.put(client, new ArrayBlockingQueue<>(CAPACITY_DEFAULT));
-        });*/
+        });
 
         logger.info("Starting execute");
         executorInbox.execute(this::processMsgInbox);
 
-        logger.info("Shutdown executors");
-        executorInbox.shutdown();
+        /*logger.info("Shutdown executors");
+        executorInbox.shutdown();*/
 
         clientExecutors.forEach((client, executorService) -> {
             logger.info("client = {}, executorService = {}", client, executorService);
             executorService.execute(() -> this.processMsgOutbox(clientQueueMessage.get(client), client));
         });
 
-        clientExecutors.forEach((client, executorService) -> {
+        /*clientExecutors.forEach((client, executorService) -> {
             executorService.shutdown();
-        });
+        });*/
     }
 
     private void processMsgInbox() {
@@ -81,9 +81,6 @@ public class MessageSystemImpl implements MessageSystem {
     public void addClient(MessageClient client) {
         logger.info("client.getName() = {}", client.getName());
         clients.add(client);
-        clientExecutors.put(client, Executors.newSingleThreadExecutor());
-        clientQueueMessage.put(client, new ArrayBlockingQueue<>(CAPACITY_DEFAULT));
-        init();
     }
 
     /*@Override
@@ -106,7 +103,7 @@ public class MessageSystemImpl implements MessageSystem {
         logger.info("MessageSystemImpl.createMessageFor");
         logger.info("clientName = {}, data = {}", clientName, data);
         MessageClient client = getClientByName(clientName);
-        logger.info("client = {}", client);
+        logger.info("messageClient = {}", client);
         ArrayBlockingQueue<Message> targetQueue = clientQueueMessage.get(client);
         Message message = new MessageImpl(clientName, data);
         message.setQueueTo(targetQueue);
@@ -114,10 +111,10 @@ public class MessageSystemImpl implements MessageSystem {
     }
 
     private MessageClient getClientByName(String name) {
-        logger.info("All clients:");
-        clients.forEach(client -> {
-            logger.info("client = {}, isEquals = {}", client, client.getName().equals(name));
-        });
-        return clients.stream().filter(client -> client.getName().equals(name)).findFirst().get();
+        logger.info("MessageSystemImpl.getClientByName");
+        return clients.stream()
+                .filter(client -> client.getName().equals(name))
+                .findFirst()
+                .orElse(null);
     }
 }

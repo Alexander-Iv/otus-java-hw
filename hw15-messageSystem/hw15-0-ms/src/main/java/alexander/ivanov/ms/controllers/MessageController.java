@@ -29,7 +29,7 @@ public class MessageController {
     }
 
     @MessageMapping("/login/message")
-    @SendTo("/topic/response")
+    @SendTo("/message-broker")
     public String loginMessageHandler(String message) {
         logger.info("got login message: {}", message);
         String userName = null;

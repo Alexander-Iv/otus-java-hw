@@ -20,7 +20,7 @@ public class FeService implements MessageClient {
 
     @Override
     public void init() {
-        //this.ms.addClient(this);
+        this.ms.addClient(this);
     }
 
     @Override
