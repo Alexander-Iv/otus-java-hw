@@ -1,4 +1,4 @@
-package alexander.ivanov;
+package alexander.ivanov.ms;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +11,11 @@ import java.nio.charset.StandardCharsets;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     private static final Logger logger = LoggerFactory.getLogger(WebInitializer.class);
+
+    @Override
+    protected String getServletName() {
+        return "ms-dispatcher";
+    }
 
     @Override
     protected Class<?>[] getRootConfigClasses() {

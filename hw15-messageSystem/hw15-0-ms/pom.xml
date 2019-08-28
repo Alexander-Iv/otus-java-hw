@@ -27,6 +27,9 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <!--<packagingIncludes>./hw15-3-fe/target/hw15-3-fe.war</packagingIncludes>-->
+                    <!--<outputDirectory>./target</outputDirectory>-->
+                    <!--<dependentWarIncludes></dependentWarIncludes>-->
                     <warName>${project.name}</warName>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <!--<webResources>
@@ -34,6 +37,18 @@
                             <directory>src/main/webapp</directory>
                         </resource>
                     </webResources>-->
+                </configuration>
+            </plugin>
+            <plugin>
+                <!--https://www.baeldung.com/tomcat-deploy-war-->
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <warFile>target/${project.name}.war</warFile>
+                    <url>http://localhost:8080/manager/text</url>
+                    <server>tomcat</server>
+                    <path>/ms</path>
                 </configuration>
             </plugin>
         </plugins>
@@ -47,13 +62,11 @@
             <groupId>alexander.ivanov</groupId>
             <artifactId>hw15-2-db</artifactId>
             <version>0.01</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>alexander.ivanov</groupId>
             <artifactId>hw15-3-fe</artifactId>
             <version>0.01</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

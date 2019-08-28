@@ -8,7 +8,6 @@
         <version>0.01</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-s
     <artifactId>hw01-maven</artifactId>
     <name>hw01-maven</name>
 

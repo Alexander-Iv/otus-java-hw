@@ -1,4 +1,4 @@
-package alexander.ivanov;
+package alexander.ivanov.ms;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
