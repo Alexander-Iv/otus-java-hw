@@ -13,6 +13,11 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     private static final Logger logger = LoggerFactory.getLogger(WebInitializer.class);
 
     @Override
+    protected String getServletName() {
+        return "fe-dispatcher";
+    }
+
+    @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[] {
                 //WebSocketConfig.class

@@ -1,6 +1,7 @@
 package alexander.ivanov.ms.controllers;
 
 import alexander.ivanov.ms.MessageSystem;
+import alexander.ivanov.ms.util.UserHelper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -17,15 +18,16 @@ import java.util.stream.Collectors;
 @Controller
 public class MessageController {
     private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
-    //private final FeService feService;
     private final MessageSystem messageSystem;
-    //private final MessageClient feService;
 
     @Autowired
     public MessageController(MessageSystem messageSystem) {
-        //this.feService = feService;
         this.messageSystem = messageSystem;
-        //this.dbService = dbService;
+    }
+
+    @SendTo("/message-broker")
+    public String toBroker(String message) {
+        return message;
     }
 
     @MessageMapping("/login/message")
@@ -43,6 +45,20 @@ public class MessageController {
             //messageSystem.createMessageFor(dbService, message);
             messageSystem.sendMessage(messageSystem.createMessageFor("DbService", message));
             //feService.auth(userName, userPassword);
+        } catch (Exception e) {
+            List<?> errorStack = Arrays.stream(e.getStackTrace()).map(stackTraceElement -> stackTraceElement.toString() + "\n").collect(Collectors.toList());
+            logger.error("ERROR STACKTRACE:\n{}", errorStack);
+            return String.format("{\"result\":\"%s\"}", "Incorrect user or password. Please try again.");
+        }
+        return String.format("{\"result\":\"%s\"}", "");
+    }
+
+    @MessageMapping("/register/message")
+    @SendTo("/message-broker")
+    public String registerMessageHandler(String message) {
+        logger.info("got register message: {}", message);
+        try {
+            messageSystem.sendMessage(messageSystem.createMessageFor("DbService", "create: " + UserHelper.getUserFromJsonMessage(message)));
         } catch (Exception e) {
             List<?> errorStack = Arrays.stream(e.getStackTrace()).map(stackTraceElement -> stackTraceElement.toString() + "\n").collect(Collectors.toList());
             logger.error("ERROR STACKTRACE:\n{}", errorStack);

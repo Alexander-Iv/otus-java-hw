@@ -36,4 +36,8 @@ $(function () {
         event.preventDefault();
         $("#login").click(send("/login/message"));
     });
+    $("#registration-form").on('submit', (event) => {
+        event.preventDefault();
+        $("#register").click(send("/register/message"));
+    });
 });

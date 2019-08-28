@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @EnableWebMvc
 @EnableAsync
-@ComponentScan(basePackages = {"alexander.ivanov"})
+@ComponentScan//(basePackages = {"alexander.ivanov.fe"})
 public class WebConfig implements WebMvcConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);
 
@@ -44,7 +44,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable("fe-dispatcher");
+        configurer.enable();
     }
 
     @Bean

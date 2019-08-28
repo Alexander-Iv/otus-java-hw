@@ -1,5 +1,6 @@
 package alexander.ivanov.ms.config;
 
+import alexander.ivanov.dbservice.database.hibernate.dao.UserDao;
 import alexander.ivanov.ms.MessageClient;
 import alexander.ivanov.ms.MessageSystem;
 import alexander.ivanov.ms.MessageSystemImpl;
@@ -9,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 @Configuration
 public class MessageSystemConfig {
@@ -21,13 +22,13 @@ public class MessageSystemConfig {
     }
 
     @Bean
-    public DbService dbService(MessageSystem messageSystem) {
-        return new DbService(messageSystem);
+    public DbService dbService(MessageSystem messageSystem, UserDao userDao) {
+        return new DbService(messageSystem, userDao);
     }
 
     @Bean
-    public FeService feService(MessageSystem messageSystem) {
-        return new FeService(messageSystem);
+    public FeService feService(MessageSystem messageSystem, SimpMessagingTemplate simpMessagingTemplate) {
+        return new FeService(messageSystem, simpMessagingTemplate);
     }
 
     @Bean

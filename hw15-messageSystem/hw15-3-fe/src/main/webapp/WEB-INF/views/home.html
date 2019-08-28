@@ -8,14 +8,19 @@
     </style>
     <meta charset="UTF-8">
     <title>Home</title>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/scripts/app.js"></script>
 </head>
-<body>
+<body onload="connect()">
     <p>Hello, ${userName}!</p>
     <br>
     <a href="/auth/logout">logout</a>
     <br>
     <a href="/registration">Register new user</a>
     <br>
+    <p id="resultMessage"></p>
     <table class="users">
         <thead>
             <tr>

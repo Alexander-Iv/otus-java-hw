@@ -1,4 +1,4 @@
-package alexander.ivanov.ms;
+package alexander.ivanov;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.socket.config.annotation.*;
 
 @EnableAsync
-@ComponentScan
+@ComponentScan(basePackages = {
+        "alexander.ivanov.ms", "alexander.ivanov.cache", "alexander.ivanov.dbservice", "alexander.ivanov.fe"
+})
 @Configuration
 @EnableWebSocket
 @EnableWebSocketMessageBroker

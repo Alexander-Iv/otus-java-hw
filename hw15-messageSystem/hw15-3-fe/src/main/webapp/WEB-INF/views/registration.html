@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/scripts/app.js"></script>
 </head>
-<body>
+<body onload="connect()">
     <h3>Login</h3>
-    <form method="post" action="/registration">
+    <form id="registration-form" method="post" action="/registration">
         <table>
             <tr>
                 <th align="left">User Name</th>
                 <td>
-                    <input type="text" id="name", name="userName">
+                    <input type="text" id="userName", name="userName">
                 </td>
             </tr>
             <tr>
                 <th align="left">User Password</th>
                 <td>
-                    <input type="password" id="password", name="userPassword">
+                    <input type="password" id="userPassword", name="userPassword">
                 </td>
             </tr>
             <tr>
@@ -28,5 +32,6 @@
             </tr>
         </table>
     </form>
+    <p id="resultMessage"></p>
 </body>
 </html>
