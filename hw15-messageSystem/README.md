@@ -3,7 +3,7 @@
 2) в "%CATALINA_HOME%"\conf\tomcat-users.xml добавить пользователя для деплоя war файлов, например:
     <role rolename="manager-gui"/>
     <role rolename="manager-script"/>
-    <user username="admin" password="admin" roles="manager-gui, manager-script"/>
+    <user username="user-with-deploy-roles" password="1111" roles="manager-gui, manager-script"/>
 3) запустить локальный tomcat:
     "%CATALINA_HOME%"\bin\startup.bat
 4) для модуля otus-java-hw/hw15-messageSystem выполнить:
