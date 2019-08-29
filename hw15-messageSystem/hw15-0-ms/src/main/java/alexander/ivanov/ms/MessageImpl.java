@@ -17,7 +17,7 @@ public class MessageImpl extends Message {
     @Override
     public String toString() {
         return "Message{" +
-                "forClient='" + clientName + '\'' +
+                "for='" + clientName + '\'' +
                 ", data='" + data + '\'' +
                 '}';
     }

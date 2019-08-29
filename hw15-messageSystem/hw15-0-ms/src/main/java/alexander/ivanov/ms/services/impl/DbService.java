@@ -5,12 +5,11 @@ import alexander.ivanov.dbservice.database.hibernate.model.User;
 import alexander.ivanov.ms.Message;
 import alexander.ivanov.ms.MessageClient;
 import alexander.ivanov.ms.MessageSystem;
-import alexander.ivanov.ms.util.ResultConverter;
-import alexander.ivanov.ms.util.UserHelper;
+import alexander.ivanov.ms.util.MessageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
+import java.util.Optional;
 
 public class DbService implements MessageClient {
     private static final Logger logger = LoggerFactory.getLogger(DbService.class);
@@ -37,16 +36,34 @@ public class DbService implements MessageClient {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        User userFromJson = UserHelper.getUserFromJsonMessage(msg.process());
+        User userFromJson = MessageHelper.getUserFromJsonMessage(msg.process());
         logger.info("userFromJson = {}", userFromJson);
-        List<User> users = userDao.loadAll();
-        logger.info("users = {}", users);
-        if (users.contains(userFromJson)) {
-            logger.info("user {} exists", userFromJson);
-        } else {
-            logger.info("user {} not found", userFromJson);
-            ms.sendMessage(ms.createMessageFor("FeService", ResultConverter.toJson("UserNotFound")));
+
+        Optional<User> loadedUser;
+        if (msg.process().contains("create")) {
+            logger.info("creating user");
+            userDao.create(userFromJson);
+            loadedUser = userDao.load(userFromJson.getName(), userFromJson.getPassword());
+            loadedUser.ifPresent(user -> {
+                sendMessageToFe("created:" + user);
+            });
+            return;
         }
+
+        loadedUser = userDao.load(userFromJson.getName(), userFromJson.getPassword());
+        loadedUser.ifPresentOrElse(user -> {
+            logger.info("loadedUser.get() = {}", user);
+            sendMessageToFe("IsCorrectUser");
+        }, () -> {
+            logger.info("user {} not found", userFromJson);
+            sendMessageToFe("UserNotFound");
+        });
         logger.info("DbService.end");
+    }
+
+    private void sendMessageToFe(String data) {
+        logger.info("DbService.sendMessageToFe");
+        logger.info("data = {}", data);
+        ms.sendMessage(ms.createMessageFor("FeService", data));
     }
 }

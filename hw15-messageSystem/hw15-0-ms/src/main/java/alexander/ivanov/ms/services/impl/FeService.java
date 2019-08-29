@@ -3,7 +3,7 @@ package alexander.ivanov.ms.services.impl;
 import alexander.ivanov.ms.Message;
 import alexander.ivanov.ms.MessageClient;
 import alexander.ivanov.ms.MessageSystem;
-import alexander.ivanov.ms.util.ResultConverter;
+import alexander.ivanov.ms.util.JsonHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -35,7 +35,7 @@ public class FeService implements MessageClient {
         }
         if (msg.process().contains("UserNotFound")) {
             //https://www.baeldung.com/spring-websockets-send-message-to-user
-            simpMessagingTemplate.convertAndSend("/message-broker", ResultConverter.toJson("User Not found. Please registers."));
+            simpMessagingTemplate.convertAndSend("/message-broker", JsonHelper.getObjectNodeAsString("result","User Not found. Please registers."));
         }
 
         logger.info("FeService.end");

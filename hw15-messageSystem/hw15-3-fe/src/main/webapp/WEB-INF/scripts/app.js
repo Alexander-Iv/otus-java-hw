@@ -26,7 +26,7 @@ const disconnect = () => {
 };
 
 const send = (target) => {
-    let user = JSON.stringify({'userName': $("#userName").val(), 'userPassword': $("#userPassword").val()});
+    let user = JSON.stringify({'User': {'userName': $("#userName").val(), 'userPassword': $("#userPassword").val()}});
     console.log("user = " + user);
     stompClient.send(messageSystemName + target, {}, user)
 };

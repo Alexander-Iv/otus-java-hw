@@ -1,9 +1,10 @@
 package alexander.ivanov.ms.controllers;
 
+import alexander.ivanov.dbservice.database.hibernate.model.User;
 import alexander.ivanov.ms.MessageSystem;
-import alexander.ivanov.ms.util.UserHelper;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import alexander.ivanov.ms.util.ErrorHandlerHelper;
+import alexander.ivanov.ms.util.JsonHelper;
+import alexander.ivanov.ms.util.MessageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,8 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Controller
 public class MessageController {
@@ -33,37 +33,28 @@ public class MessageController {
     @MessageMapping("/login/message")
     @SendTo("/message-broker")
     public String loginMessageHandler(String message) {
-        logger.info("got login message: {}", message);
-        String userName = null;
-        String userPassword = null;
-        try {
-            JsonNode jsonNode = new ObjectMapper().readValue(message, JsonNode.class);
-            userName = jsonNode.get("userName").asText();
-            userPassword = jsonNode.get("userPassword").asText();
-            logger.debug("userName = {}", userName);
-            logger.debug("userPassword = {}", userPassword);
-            //messageSystem.createMessageFor(dbService, message);
-            messageSystem.sendMessage(messageSystem.createMessageFor("DbService", message));
-            //feService.auth(userName, userPassword);
-        } catch (Exception e) {
-            List<?> errorStack = Arrays.stream(e.getStackTrace()).map(stackTraceElement -> stackTraceElement.toString() + "\n").collect(Collectors.toList());
-            logger.error("ERROR STACKTRACE:\n{}", errorStack);
-            return String.format("{\"result\":\"%s\"}", "Incorrect user or password. Please try again.");
-        }
-        return String.format("{\"result\":\"%s\"}", "");
+        return sendMessageAndReturnResult("DbService", message);
     }
 
     @MessageMapping("/register/message")
     @SendTo("/message-broker")
     public String registerMessageHandler(String message) {
-        logger.info("got register message: {}", message);
+        User newUser = MessageHelper.getUserFromJsonMessage(message);
+        Map<String, Object> userParams = new LinkedHashMap<>();
+        userParams.put("userName", newUser.getName());
+        userParams.put("userPassword", newUser.getName());
+        return sendMessageAndReturnResult("DbService", "create: " + JsonHelper.getObjectNodeAsString(userParams));
+    }
+
+    private String sendMessageAndReturnResult(String targetClient, String message) {
+        logger.info("MessageController.sendMessageAndReturnResult");
+        logger.info("targetClient = {}, message = {}", targetClient, message);
         try {
-            messageSystem.sendMessage(messageSystem.createMessageFor("DbService", "create: " + UserHelper.getUserFromJsonMessage(message)));
+            messageSystem.sendMessage(messageSystem.createMessageFor(targetClient, message));
         } catch (Exception e) {
-            List<?> errorStack = Arrays.stream(e.getStackTrace()).map(stackTraceElement -> stackTraceElement.toString() + "\n").collect(Collectors.toList());
-            logger.error("ERROR STACKTRACE:\n{}", errorStack);
-            return String.format("{\"result\":\"%s\"}", "Incorrect user or password. Please try again.");
+            ErrorHandlerHelper.printErrorStackTrace(e.getStackTrace());
+            return JsonHelper.getObjectNodeAsString("result", "Incorrect user or password. Please try again.");
         }
-        return String.format("{\"result\":\"%s\"}", "");
+        return JsonHelper.getObjectNodeAsString("result", "");
     }
 }
