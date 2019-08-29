@@ -27,16 +27,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!--<packagingIncludes>./hw15-3-fe/target/hw15-3-fe.war</packagingIncludes>-->
-                    <!--<outputDirectory>./target</outputDirectory>-->
-                    <!--<dependentWarIncludes></dependentWarIncludes>-->
                     <warName>${project.name}</warName>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <!--<webResources>
-                        <resource>
-                            <directory>src/main/webapp</directory>
-                        </resource>
-                    </webResources>-->
                 </configuration>
             </plugin>
             <plugin>
@@ -49,6 +41,8 @@
                     <url>http://localhost:8080/manager/text</url>
                     <server>tomcat</server>
                     <path>/message-system</path>
+                    <username>user-with-deploy-roles</username>
+                    <password>1111</password>
                 </configuration>
             </plugin>
         </plugins>
@@ -63,11 +57,11 @@
             <artifactId>hw15-2-db</artifactId>
             <version>0.01</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>alexander.ivanov</groupId>
             <artifactId>hw15-3-fe</artifactId>
             <version>0.01</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-messaging</artifactId>

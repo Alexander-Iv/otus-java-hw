@@ -27,10 +27,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!--<outputDirectory>./hw15-0-ms/target</outputDirectory>-->
                     <primaryArtifact>false</primaryArtifact>
-                    <!--<attachClasses>true</attachClasses>-->
-                    <!--<outputDirectory>./target</outputDirectory>-->
                     <warName>${project.name}</warName>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <webResources>
@@ -50,6 +47,8 @@
                     <url>http://localhost:8080/manager/text</url>
                     <server>tomcat</server>
                     <path>/</path>
+                    <username>user-with-deploy-roles</username>
+                    <password>1111</password>
                 </configuration>
             </plugin>
         </plugins>
