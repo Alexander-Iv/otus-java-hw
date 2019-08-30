@@ -52,7 +52,7 @@ public class User {
     }
 
     public String getPassword() {
-        return password.replaceAll(".", "*");
+        return password;
     }
 
     @Override

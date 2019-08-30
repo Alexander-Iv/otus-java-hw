@@ -5,11 +5,12 @@ import alexander.ivanov.dbservice.database.hibernate.model.User;
 import alexander.ivanov.ms.Message;
 import alexander.ivanov.ms.MessageClient;
 import alexander.ivanov.ms.MessageSystem;
+import alexander.ivanov.ms.util.JsonHelper;
 import alexander.ivanov.ms.util.MessageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Optional;
+import java.util.*;
 
 public class DbService implements MessageClient {
     private static final Logger logger = LoggerFactory.getLogger(DbService.class);
@@ -53,7 +54,16 @@ public class DbService implements MessageClient {
         loadedUser = userDao.load(userFromJson.getName(), userFromJson.getPassword());
         loadedUser.ifPresentOrElse(user -> {
             logger.info("loadedUser.get() = {}", user);
-            sendMessageToFe("IsCorrectUser");
+            List<User> users = userDao.loadAll();
+            Map<String, User> jsonUsers = new LinkedHashMap<>();
+            users.forEach(user1 -> {
+                jsonUsers.put("User", user1);
+            });
+            Map<String, Object> allParams = new LinkedHashMap<>();
+            allParams.put("auth", user.getName());
+            allParams.put("Users", jsonUsers);
+
+            sendMessageToFe(JsonHelper.getObjectNodeAsString(allParams));
         }, () -> {
             logger.info("user {} not found", userFromJson);
             sendMessageToFe("UserNotFound");

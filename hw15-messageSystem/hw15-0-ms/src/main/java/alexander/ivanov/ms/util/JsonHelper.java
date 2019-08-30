@@ -3,8 +3,6 @@ package alexander.ivanov.ms.util;
 import com.fasterxml.jackson.core.io.JsonStringEncoder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.ser.std.JsonValueSerializer;
-import com.fasterxml.jackson.databind.util.RawValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,21 +22,10 @@ public class JsonHelper {
     public static String getObjectNodeAsString(Map<String, Object> objects) {
         logger.info("JsonHelper.getObjectNodeAsString");
         ObjectNode objectNode = mapper.createObjectNode();
-        StringBuffer tmp = new StringBuffer();
         objects.forEach((s, o) -> {
-            logger.info("adding s = {}, o = {}", s, o);
+            logger.info("adding s = {}, o = {}, t = {}", s, o, o.getClass().getTypeName());
             ObjectNode newObjectNode = mapper.createObjectNode();
-            if (o instanceof String) {
-                newObjectNode.put(s, getEncodedString((String)o));
-            } else {
-                //newObjectNode.putRawValue(s, new RawValue(getEncodedString(o.toString())));
-                newObjectNode.putPOJO(s, o);
-                //tmp.append("\"").append(s).append("\"").append(":").append(o);
-            }
-            logger.info("newObjectNode.toString() = " + newObjectNode.toString());
-            logger.info("newObjectNode.textValue() = " + newObjectNode.textValue());
-            logger.info("newObjectNode.asText() = " + newObjectNode.asText());
-
+            newObjectNode.putPOJO(s, mapper.valueToTree(o));
             objectNode.setAll(newObjectNode);
         });
 
@@ -46,10 +33,6 @@ public class JsonHelper {
         logger.info("objectNode.textValue() = {}", objectNode.textValue());
         logger.info("objectNode.asText() = {}", objectNode.asText());
 
-        return getEncodedString(objectNode.toString()).replace("\\", "");
-    }
-
-    private static String getEncodedString(String quoteString) {
-        return new String(jsonStringEncoder.encodeAsUTF8(quoteString));
+        return objectNode.toString();
     }
 }

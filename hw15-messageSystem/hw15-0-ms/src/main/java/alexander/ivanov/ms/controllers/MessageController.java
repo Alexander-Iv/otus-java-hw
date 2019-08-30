@@ -12,7 +12,6 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -42,14 +41,8 @@ public class MessageController {
     public String registerMessageHandler(String message) {
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("command", "create");
-
         User newUser = MessageHelper.getUserFromJsonMessage(message);
-        Map<String, Object> userParams = new LinkedHashMap<>();
-        userParams.put("userName", newUser.getName());
-        userParams.put("userPassword", newUser.getName());
-
-        params.put("User", JsonHelper.getObjectNodeAsString(userParams));
-
+        params.put("User", newUser);
         return sendMessageAndReturnResult("DbService",JsonHelper.getObjectNodeAsString(params));
     }
 
