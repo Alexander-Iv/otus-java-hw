@@ -31,12 +31,12 @@ public class DbService implements MessageClient {
     public void accept(Message msg) {
         logger.info("DbService.accept");
         logger.info("msg = {}", msg);
-        try {
+        /*try {
             //modelling some work
             Thread.sleep(2_000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         User userFromJson = MessageHelper.getUserFromJsonMessage(msg.process());
         logger.info("userFromJson = {}", userFromJson);
 
@@ -55,13 +55,18 @@ public class DbService implements MessageClient {
         loadedUser.ifPresentOrElse(user -> {
             logger.info("loadedUser.get() = {}", user);
             List<User> users = userDao.loadAll();
-            Map<String, User> jsonUsers = new LinkedHashMap<>();
+            /*Map<String, User> jsonUsers = new LinkedHashMap<>();
             users.forEach(user1 -> {
                 jsonUsers.put("User", user1);
-            });
+            });*/
+            /*List<User> jsonUsers = new ArrayList<>();
+            users.forEach(user1 -> {
+                jsonUsers.add(user1);
+            });*/
+
             Map<String, Object> allParams = new LinkedHashMap<>();
-            allParams.put("auth", user.getName());
-            allParams.put("Users", jsonUsers);
+            allParams.put("auth", user.getName().toCharArray());
+            allParams.put("Users", users);
 
             sendMessageToFe(JsonHelper.getObjectNodeAsString(allParams));
         }, () -> {

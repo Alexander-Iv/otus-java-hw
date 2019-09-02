@@ -28,12 +28,12 @@ public class FeService implements MessageClient {
     public void accept(Message msg) {
         logger.info("FeService.accept");
         logger.info("msg = {}", msg);
-        try {
+        /*try {
             //modelling some work
             Thread.sleep(1_000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         if (msg.process().contains("UserNotFound")) {
             //https://www.baeldung.com/spring-websockets-send-message-to-user
             simpMessagingTemplate.convertAndSend("/message-broker", JsonHelper.getObjectNodeAsString("result","User Not found. Please registers."));

@@ -42,7 +42,7 @@ public class MessageHelper {
         logger.info("MessageHelper.getRootNode");
         JsonNode rootNode;
         try {
-            rootNode = new ObjectMapper().readValue(message, JsonNode.class);
+            rootNode = mapper.readValue(message, JsonNode.class);
             logger.info("rootNode = {}", rootNode);
         } catch (JsonProcessingException e) {
             ErrorHandlerHelper.printErrorStackTrace(e.getStackTrace());

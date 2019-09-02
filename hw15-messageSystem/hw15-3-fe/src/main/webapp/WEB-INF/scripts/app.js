@@ -30,15 +30,26 @@ const setAuth = (message) => {
     }
 };
 
+jQuery["postJSON"] = function( url, data, isAsync = true ) {
+    return jQuery.ajax({
+        url: url,
+        type: "POST",
+        contentType:"application/json;charset=UTF-8",
+        dataType: "json",
+        data: data,
+        success: () => {},
+        async: isAsync
+    });
+};
+
 const setUsers = (message) => {
     console.log("setUsers(" + message.Users + ")");
-    if (message.Users !== undefined) {
-        $.post("/auth/login/" + message.auth);
-
-        //$.post("/users", message.Users);
-        //sessionStorage.setItem("Users", message.Users);
-        //window.location.href = "/home";
-        $.post("/home", message.Users);
+    console.log("setUsers.Users = " + JSON.stringify(message.Users));
+    console.log("setUsers.auth = " + JSON.stringify(message.auth));
+    if (message.Users !== undefined && message.auth !== undefined) {
+        $.postJSON("/auth/login", JSON.stringify(message.auth), false);
+        $.postJSON("/home", JSON.stringify(message.Users), false);
+        window.location.href = "/home";
     }
 };
 

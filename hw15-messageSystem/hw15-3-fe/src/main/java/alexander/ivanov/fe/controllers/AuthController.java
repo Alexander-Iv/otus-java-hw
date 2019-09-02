@@ -1,20 +1,22 @@
 package alexander.ivanov.fe.controllers;
 
+import alexander.ivanov.fe.util.JsonHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 @Controller
@@ -28,7 +30,7 @@ public class AuthController {
         this.session = session;
     }
 
-    @PostMapping("/login/{login}")
+    /*@PostMapping("/login/{login}")
     public String auth(@PathVariable String login, HttpServletRequest request) {
         logger.debug("AuthController.getLogin");
         session = request.getSession();
@@ -37,23 +39,29 @@ public class AuthController {
         logger.info("request.getSession() = {}", session);
         //session.setAttribute("name", login);
         return "home";
-    }
+    }*/
 
     @GetMapping("/login")
     public String getLogin() {
         return "auth/login";
     }
 
-    @PostMapping("/login")
-    public void postLogin(Model model, String userName, String userPassword) {
-        try {
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public void postLogin(/*Model model, String userName, String userPassword*/@RequestBody String body, HttpServletRequest request) {
+        logger.info("AuthController.postLogin");
+        logger.info("body = {}", body);
+        session = request.getSession();
+        session.setAttribute("name", JsonHelper.readAuthNameFromJson(body));
+        logger.info("session.getAttribute(\"name\") = {}", session.getAttribute("name"));
+        logger.info("request.getSession() = {}", session);
+        /*try {
             //feService.init();
             //messageSystem.createMessageFor(dbService, userName + ", " + userPassword);
             //feService.auth(userName, userPassword);
             model.addAttribute("users", Collections.emptyList());
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         /*User newUser = new User(userName, userPassword);
         Collection<User> users = userService.findAll();

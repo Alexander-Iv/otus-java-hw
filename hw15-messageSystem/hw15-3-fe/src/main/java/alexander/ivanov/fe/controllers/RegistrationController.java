@@ -39,7 +39,7 @@ public class RegistrationController {
         if(session.getAttribute("name") == null) {
             return "auth/login";
         }
-        model.addAttribute("userName", session.getAttribute("name"));
+        logger.info("post session.getAttribute(\"name\") = {}", session.getAttribute("name"));
         return "home";
     }
 }
