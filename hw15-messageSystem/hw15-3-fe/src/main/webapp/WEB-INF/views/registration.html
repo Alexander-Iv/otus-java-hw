@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
@@ -10,7 +10,7 @@
 </head>
 <body onload="connect()">
     <h3>Registration</h3>
-    <form id="registration-form" method="post" action="/registration">
+    <form id="registration-form" method="post" th:action="@{/registration}">
         <table>
             <tr>
                 <th align="left">User Name</th>

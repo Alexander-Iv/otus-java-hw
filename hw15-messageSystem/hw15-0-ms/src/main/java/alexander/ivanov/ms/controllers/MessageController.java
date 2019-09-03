@@ -25,15 +25,21 @@ public class MessageController {
         this.messageSystem = messageSystem;
     }
 
-    @SendTo("/message-broker")
-    public String toBroker(String message) {
-        return message;
-    }
-
     @MessageMapping("/login/message")
     @SendTo("/message-broker")
     public String loginMessageHandler(String message) {
         return sendMessageAndReturnResult("DbService", message);
+    }
+
+    @MessageMapping("/registerWithSession/message")
+    @SendTo("/message-broker")
+    public String registerWithSessionMessageHandler(String message) {
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("command1", "create");
+        params.put("command2", "withSession");
+        User newUser = MessageHelper.getUserFromJsonMessage(message);
+        params.put("User", newUser);
+        return sendMessageAndReturnResult("DbService",JsonHelper.getObjectNodeAsString(params));
     }
 
     @MessageMapping("/register/message")
@@ -44,6 +50,12 @@ public class MessageController {
         User newUser = MessageHelper.getUserFromJsonMessage(message);
         params.put("User", newUser);
         return sendMessageAndReturnResult("DbService",JsonHelper.getObjectNodeAsString(params));
+    }
+
+    @MessageMapping("/logout/message")
+    @SendTo("/message-broker")
+    public String logoutMessageHandler(String message) {
+        return sendMessageAndReturnResult("FeService", message);
     }
 
     private String sendMessageAndReturnResult(String targetClient, String message) {

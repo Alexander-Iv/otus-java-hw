@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>Login</title>
@@ -10,7 +10,7 @@
 </head>
 <body onload="connect()">
     <h3>Login</h3>
-    <form id="login-form" method="post" action="/auth/login">
+    <form id="login-form" method="post" th:action="@{/auth/login}">
         <table>
             <tr>
                 <th align="left">User Name</th>
@@ -33,6 +33,6 @@
         </table>
     </form>
     <p id="resultMessage"></p>
-    If you are new user, please <a href="/registration">register</a>
+    If you are new user, please <a th:href="@{/registration}">register</a>
 </body>
 </html>

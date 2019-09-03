@@ -16,9 +16,9 @@
 <body onload="connect()">
     <p th:text="'Hello, ' + ${session.name} + '!'">Hello</p>
     <br>
-    <a href="/auth/logout">logout</a>
+    <a id="logout" th:href="@{/auth/logout}">logout</a>
     <br>
-    <a href="/registration">Register new user</a>
+    <a th:href="@{/registration}">Register new user</a>
     <br>
     <p id="resultMessage"></p>
     <table class="users-cls">
@@ -30,7 +30,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${users}">
+        <!--/*@thymesVar id="users" type="alexander.ivanov.fe.model.Users"*/-->
+        <tr th:each="user : ${users.users}">
             <td th:text="${user.id}">id</td>
             <td th:text="${user.name}">name</td>
             <td th:text="${user.password}">password</td>

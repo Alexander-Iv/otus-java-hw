@@ -23,13 +23,6 @@ const show = (message) => {
     //$("#resultMessage").load();
 };
 
-const setAuth = (message) => {
-    console.log("setAuth(" + message.auth + ")");
-    if (message.auth !== undefined) {
-        sessionStorage.setItem("name", message.auth.name);
-    }
-};
-
 jQuery["postJSON"] = function( url, data, isAsync = true ) {
     return jQuery.ajax({
         url: url,
@@ -46,10 +39,24 @@ const setUsers = (message) => {
     console.log("setUsers(" + message.Users + ")");
     console.log("setUsers.Users = " + JSON.stringify(message.Users));
     console.log("setUsers.auth = " + JSON.stringify(message.auth));
-    if (message.Users !== undefined && message.auth !== undefined) {
-        $.postJSON("/auth/login", JSON.stringify(message.auth), false);
+    if (message.Users !== undefined) {
+        setAuth(message);
         $.postJSON("/home", JSON.stringify(message.Users), false);
+        console.log("location.pathname = " + window.location.pathname)
         window.location.href = "/home";
+    }
+};
+
+const setAuth = (message) => {
+    console.log("setAuth(" + message.auth + ")");
+    if (message.auth !== undefined) {
+        let sessionName = sessionStorage.getItem("name");
+        console.log("sessionName = " + sessionName);
+        if (sessionName == null || sessionName != JSON.stringify(message.auth)) {
+            $.postJSON("/auth/login", JSON.stringify(message.auth), false);
+            sessionStorage.setItem("name", message.auth);
+            console.log("sessionStorage = " + sessionStorage.getItem("name"));
+        }
     }
 };
 
@@ -69,19 +76,33 @@ const disconnect = () => {
     console.log("Disconnected");
 };
 
-const send = (target) => {
+const send = (target, body) => {
+    console.log("body = " + body);
+    stompClient.send(messageSystemName + target, {}, body)
+};
+
+const sendUser = (target) => {
     let user = JSON.stringify({'User': {'userName': $("#userName").val(), 'userPassword': $("#userPassword").val()}});
-    console.log("user = " + user);
-    stompClient.send(messageSystemName + target, {}, user)
+    send(target, user);
 };
 
 $(function () {
     $("#login-form").on('submit', (event) => {
         event.preventDefault();
-        $("#login").click(send("/login/message"));
+        $("#login").click(sendUser("/login/message"));
     });
     $("#registration-form").on('submit', (event) => {
         event.preventDefault();
-        $("#register").click(send("/register/message"));
+        if (sessionStorage.getItem("name")) {
+            $("#register").click(sendUser("/registerWithSession/message"));
+        } else {
+            $("#register").click(sendUser("/register/message"));
+        }
+    });
+    $("#logout").on("click", (event) => {
+        event.preventDefault();
+        console.log("on click logout");
+        sessionStorage.setItem("name", null);
+        send("/logout/message", "logout");
     });
 });

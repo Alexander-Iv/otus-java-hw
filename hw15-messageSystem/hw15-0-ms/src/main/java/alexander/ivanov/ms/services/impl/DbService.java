@@ -40,13 +40,22 @@ public class DbService implements MessageClient {
         User userFromJson = MessageHelper.getUserFromJsonMessage(msg.process());
         logger.info("userFromJson = {}", userFromJson);
 
+        Map<String, Object> allParams = new LinkedHashMap<>();
         Optional<User> loadedUser;
         if (msg.process().contains("create")) {
             logger.info("creating user");
             userDao.create(userFromJson);
             loadedUser = userDao.load(userFromJson.getName(), userFromJson.getPassword());
             loadedUser.ifPresent(user -> {
-                sendMessageToFe("created:" + user);
+                if (msg.process().contains("withSession")) {
+                    allParams.put("param1", "withSession");
+                    allParams.put("param2", "created");
+                    allParams.put("User", user);
+                    allParams.put("Users", userDao.loadAll());
+                    sendMessageToFe(JsonHelper.getObjectNodeAsString(allParams));
+                } else {
+                    sendMessageToFe("created:" + user);
+                }
             });
             return;
         }
@@ -55,17 +64,7 @@ public class DbService implements MessageClient {
         loadedUser.ifPresentOrElse(user -> {
             logger.info("loadedUser.get() = {}", user);
             List<User> users = userDao.loadAll();
-            /*Map<String, User> jsonUsers = new LinkedHashMap<>();
-            users.forEach(user1 -> {
-                jsonUsers.put("User", user1);
-            });*/
-            /*List<User> jsonUsers = new ArrayList<>();
-            users.forEach(user1 -> {
-                jsonUsers.add(user1);
-            });*/
-
-            Map<String, Object> allParams = new LinkedHashMap<>();
-            allParams.put("auth", user.getName().toCharArray());
+            allParams.put("auth", user.getName());
             allParams.put("Users", users);
 
             sendMessageToFe(JsonHelper.getObjectNodeAsString(allParams));

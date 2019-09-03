@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @EnableWebMvc
 @EnableAsync
-@ComponentScan//(basePackages = {"alexander.ivanov.fe"})
+@ComponentScan
 public class WebConfig implements WebMvcConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);
 

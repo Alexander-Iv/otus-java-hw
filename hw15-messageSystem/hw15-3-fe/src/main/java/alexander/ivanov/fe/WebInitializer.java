@@ -47,7 +47,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
         CharacterEncodingFilter cef = new CharacterEncodingFilter(charsEncoding, true);
         return new Filter[] {
-                new HiddenHttpMethodFilter(), cef/*, new SessionFilter()*/
+                new HiddenHttpMethodFilter(), cef
         };
     }
 }

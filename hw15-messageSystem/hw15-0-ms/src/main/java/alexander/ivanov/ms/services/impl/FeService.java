@@ -37,19 +37,22 @@ public class FeService implements MessageClient {
         if (msg.process().contains("UserNotFound")) {
             //https://www.baeldung.com/spring-websockets-send-message-to-user
             simpMessagingTemplate.convertAndSend("/message-broker", JsonHelper.getObjectNodeAsString("result","User Not found. Please registers."));
+        } else if (msg.process().contains("created")) {
+            logger.info("msg.process() = {}", msg.process());
+            if (msg.process().contains("withSession")) {
+                String users = MessageHelper.getJsonFieldValueByName(msg.process(), "Users");
+                simpMessagingTemplate.convertAndSend("/message-broker", msg.process());
+            } else {
+                simpMessagingTemplate.convertAndSend("/message-broker", JsonHelper.getObjectNodeAsString("redirect", "/auth/login"));
+            }
         } else if (msg.process().contains("Users")) {
-            //simpMessagingTemplate.convertAndSend("/message-broker", msg.process());
-            //simpMessagingTemplate.convertAndSend("/message-broker", JsonHelper.getObjectNodeAsString("redirect", "/home"));
             String authValue = MessageHelper.getJsonFieldValueByName(msg.process(), "auth");
             logger.info("authValue = {}", authValue);
 
-            //simpMessagingTemplate.convertAndSend("/message-broker", JsonHelper.getObjectNodeAsString("redirect", "/auth/login/" + authValue ));
             simpMessagingTemplate.convertAndSend("/message-broker", msg.process());
-        } else if (msg.process().toLowerCase().contains("created")) {
-            logger.info("msg.process() = {}", msg.process());
-            simpMessagingTemplate.convertAndSend("/message-broker", JsonHelper.getObjectNodeAsString("redirect", "/auth/login"));
+        } else if (msg.process().contains("logout")) {
+            simpMessagingTemplate.convertAndSend("/message-broker", JsonHelper.getObjectNodeAsString("redirect", "/auth/logout"));
         }
-
         logger.info("FeService.end");
     }
 }
