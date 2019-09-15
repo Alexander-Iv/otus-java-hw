@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login</title>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/scripts/app.js"></script>
+</head>
+<body onload="connect()">
+    <h3>Login</h3>
+    <form id="login-form" method="post" th:action="@{/auth/login}">
+        <table>
+            <tr>
+                <th align="left">User Name</th>
+                <td>
+                    <input type="text" id="userName" name="userName">
+                </td>
+            </tr>
+            <tr>
+                <th align="left">User Password</th>
+                <td>
+                    <input type="password" id="userPassword" name="userPassword">
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input type="submit" id="login" name="Login" value="Login">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <p id="resultMessage"></p>
+    If you are new user, please <a th:href="@{/registration}">register</a>
+</body>
+</html>
